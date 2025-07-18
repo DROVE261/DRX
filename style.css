@@ -1,1 +1,30 @@
-/* style.css لموقع RTX - ألوان وخلفيات وتصميم */ /* إعدادات عامة */ body { background-color: #121212; /* خلفية داكنة */ color: #eeeeee; /* لون الخط */ font-family: Arial, sans-serif; margin: 0; padding: 0; } /* ترويسة */ header { background-color: #1f1f1f; padding: 20px; text-align: center; } /* عنوان */ header h1 { color: #ff6f61; margin: 0; } /* المحتوى الرئيسي */ main { padding: 20px; font-size: 18px; } /* تذييل */ footer { background-color: #1f1f1f; text-align: center; padding: 10px; color: #888888; position: fixed; bottom: 0; width: 100%; }
+
+body {
+    background-color: #121212;
+    color: #eeeeee;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+header {
+    background-color: #1f1f1f;
+    padding: 20px;
+    text-align: center;
+}
+header h1 {
+    color: #ff6f61;
+    margin: 0;
+}
+main {
+    padding: 20px;
+    font-size: 18px;
+}
+footer {
+    background-color: #1f1f1f;
+    text-align: center;
+    padding: 10px;
+    color: #888888;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
