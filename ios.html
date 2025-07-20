@@ -181,15 +181,13 @@
   </div>
 
   <script>
-    // دلتا
-    document.getElementById('deltaInstallBtn').addEventListener('click', function () {
+    document.getElementById('deltaInstallBtn').addEventListener('click', function() {
       if (confirm('هل ترغب في تثبيت DELTA؟')) {
-        window.location.href = 'itms-services://?action=download-manifest&url=https://rtx261.github.io/RTX/RTX.plist';
+        window.location.href = 'itms-services://?action=download-manifest&url=https://raw.githubusercontent.com/RTX261/RTX/main/install.plist';
       }
     });
 
-    // كرنل
-    document.getElementById('krnlInstallBtn').addEventListener('click', function () {
+    document.getElementById('krnlInstallBtn').addEventListener('click', function() {
       if (confirm('هل ترغب في تثبيت KRNL؟')) {
         window.location.href = 'https://krnl.link';
       }
