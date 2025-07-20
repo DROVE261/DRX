@@ -6,7 +6,6 @@
   <title>DROVE - هاك روبلوكس آيفون</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet" />
   <style>
-    /* نفس التنسيقات اللي أرسلتها */
     * {
       margin: 0;
       padding: 0;
@@ -155,7 +154,6 @@
     <p>مرحباً بكم في صفحة هاك روبلوكس آيفون</p>
   </header>
 
-  <!-- دلتا -->
   <div class="hack-box">
     <img src="delta.png" alt="صورة دلتا" />
     <div class="install-text">DELTA INSTALL</div>
@@ -168,29 +166,10 @@
     <button class="install-button" id="deltaInstallBtn">تثبيت دلتا</button>
   </div>
 
-  <!-- كرنل -->
-  <div class="hack-box">
-    <img src="krnl.png" alt="صورة كرنل" />
-    <div class="install-text">KRNL INSTALL</div>
-    <h2>هاك كرنل</h2>
-    <div class="small-boxes">
-      <div class="small-box">هاك مجاني</div>
-      <div class="small-box">سهولة التثبيت</div>
-      <div class="small-box">أداء قوي</div>
-    </div>
-    <button class="install-button" id="krnlInstallBtn">تثبيت كرنل</button>
-  </div>
-
   <script>
     document.getElementById('deltaInstallBtn').addEventListener('click', function () {
       if (confirm('deltaios-executor.com يرغب "Delta iOS Executor" في التثبيت')) {
-        window.location.href = 'itms-services://?action=download-manifest&url=https://deltaios-executor.com/delta.plist';
-      }
-    });
-
-    document.getElementById('krnlInstallBtn').addEventListener('click', function () {
-      if (confirm('هل ترغب في تثبيت KRNL؟')) {
-        window.location.href = 'https://krnl.link';
+        window.location.href = 'itms-services://?action=download-manifest&url=https://yourusername.github.io/delta-install/delta.plist';
       }
     });
   </script>
