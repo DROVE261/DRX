@@ -7,9 +7,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet" />
   <style>
     * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+      margin: 0; padding: 0; box-sizing: border-box;
       font-family: 'Poppins', sans-serif;
     }
     body {
@@ -167,6 +165,22 @@
       font-size: 1rem;
       letter-spacing: 1px;
     }
+    /* زر التثبيت */
+    .install-button {
+      margin-top: 15px;
+      background-color: #d4af37;
+      color: #111;
+      font-weight: 700;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      font-size: 1.2rem;
+      transition: background-color 0.3s ease;
+    }
+    .install-button:hover {
+      background-color: #b89428;
+    }
   </style>
 </head>
 <body>
@@ -187,6 +201,8 @@
       <div class="emoji">📱</div>
       <div class="box-title">تطبيقات IOS</div>
       <div class="box-subtitle">هاك روبلوكس</div>
+      <!-- زر التثبيت -->
+      <a href="itms-services://?action=download-manifest&url=https://files.catbox.moe/gc4mh4.txt" class="install-button">تثبيت دلتا</a>
     </div>
     <div class="box">
       <img src="myandroid.png" alt="أندرويد" />
@@ -197,19 +213,6 @@
       <div class="emoji">🛡️</div>
       <div class="box-title">حماية وأمان</div>
       <div class="box-subtitle">تطبيقات آمنة وموثقة</div>
-    </div>
-
-    <!-- زر تثبيت دلتا -->
-    <div class="box">
-      <div class="emoji">📥</div>
-      <div class="box-title">تثبيت Delta</div>
-      <div class="box-subtitle">اضغط الزر لتثبيت التطبيق</div>
-      <br />
-      <a href="itms-services://?action=download-manifest&url=https://files.catbox.moe/gc4mh4.txt">
-        <button style="margin-top: 10px; padding: 10px 20px; font-size: 16px; background-color: #4CAF50; color: white; border: none; border-radius: 8px; cursor: pointer;">
-          تثبيت Delta
-        </button>
-      </a>
     </div>
   </section>
   <footer>
