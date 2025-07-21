@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
+ "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
   <key>items</key>
@@ -11,25 +12,25 @@
           <key>kind</key>
           <string>software-package</string>
           <key>url</key>
-          <string>https://deltaios-executor.com/Signed12.ipa</string>
+          <string>https://pixeldrain.com/u/n3JGbGRa</string>
         </dict>
         <dict>
           <key>kind</key>
           <string>display-image</string>
           <key>url</key>
-          <string>https://deltaios-executor.com/AppIcon.png</string>
+          <string>https://i.postimg.cc/2ySTX4Hs/roblox-icon-png.png</string>
         </dict>
       </array>
       <key>metadata</key>
       <dict>
         <key>bundle-identifier</key>
-        <string>com.gloop.deltamobile</string>
+        <string>com.rileytestut.Delta</string>
         <key>bundle-version</key>
-        <string>1</string>
+        <string>2.0</string>
         <key>kind</key>
         <string>software</string>
         <key>title</key>
-        <string>Delta</string>
+        <string>Delta iOS Executor</string>
       </dict>
     </dict>
   </array>
