@@ -18,13 +18,13 @@
       <key>metadata</key>
       <dict>
         <key>bundle-identifier</key>
-        <string>com.delta.hack</string>
+        <string>com.your.bundleid</string>
         <key>bundle-version</key>
-        <string>2.6.8</string>
+        <string>1.0</string>
         <key>kind</key>
         <string>software</string>
         <key>title</key>
-        <string>Delta Hack</string>
+        <string>Delta</string>
       </dict>
     </dict>
   </array>
