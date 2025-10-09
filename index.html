@@ -1,108 +1,93 @@
 <!DOCTYPE html>
 <html lang="ar">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kuveyt Türk Clone</title>
-<link rel="stylesheet" href="style.css">
-<style>
-  body {margin:0; font-family: Arial, sans-serif;}
-  /* شاشة تسجيل الدخول */
-  #login-screen {
-    position:fixed; top:0; left:0; width:100%; height:100%;
-    background: rgba(0,0,0,0.5); display:flex;
-    justify-content:center; align-items:center; z-index:1000;
-    flex-direction:column;
-  }
-  #login-screen .login-box {
-    background:#fff; padding:30px; border-radius:12px;
-    text-align:center; width:90%; max-width:400px;
-  }
-  #login-screen input {width:80%; padding:12px; margin:10px 0; border-radius:6px; border:1px solid #ccc;}
-  #login-screen button {padding:12px 20px; margin-top:10px; border:none; border-radius:6px; background:#007f3e; color:#fff; font-weight:600; cursor:pointer;}
-  #login-screen button:hover {background:#005f2e;}
-  #login-screen .social-btns button {width:80%; margin-top:8px;}
-  #login-screen .social-btns button.google {background:#4285F4;}
-  #login-screen .social-btns button.apple {background:#000;}
-  #login-screen .social-btns button.twitter {background:#1DA1F2;}
-  #welcome {display:none; color:#007f3e; font-size:22px; margin-top:15px;}
-  /* الصفحة الرئيسية */
-  #main-content {display:none; background:#7edb5a; min-height:100vh;}
-  .hero-image {width:100%; max-height:300px; object-fit:cover;}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kuveyt Türk Clone</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<!-- شاشة تسجيل الدخول -->
-<div id="login-screen">
-  <div class="login-box">
-    <h2>تسجيل الدخول</h2>
-    <input type="text" id="phone" placeholder="رقم الهاتف">
-    <input type="password" id="password" placeholder="كلمة السر">
-    <button id="login-btn">تسجيل الدخول</button>
-    <div class="social-btns">
-      <button class="google" id="google-login">تسجيل عبر Google</button>
-      <button class="apple" id="apple-login">تسجيل عبر Apple</button>
-      <button class="twitter" id="twitter-login">تسجيل عبر Twitter</button>
-    </div>
-    <div id="welcome">مرحبا بك في بنك Kuveyt Türk!</div>
-  </div>
-</div>
-
-<!-- الصفحة الخضراء -->
-<div id="main-content">
-  <header>
+  <!-- شاشة تسجيل الدخول -->
+  <div id="login-screen">
     <div class="logo">
       <img src="https://upload.wikimedia.org/wikipedia/commons/7/7e/Kuveyt_T%C3%BCrk_logo.svg" alt="Logo">
     </div>
-    <h2>مرحباً بك في بنك Kuveyt Türk</h2>
-  </header>
-
-  <!-- صورة البنت والرجل -->
-  <div style="text-align:center; margin:20px;">
-    <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=800&q=80" alt="بنت ورجل" style="width:60%; max-width:600px; border-radius:12px;">
+    <div class="language-select">
+      <button onclick="changeLang('ar')">العربية</button>
+      <button onclick="changeLang('tr')">Türkçe</button>
+      <button onclick="changeLang('en')">English</button>
+    </div>
+    <h2 id="title">مرحباً بك في Kuveyt Türk</h2>
+    <div class="login-buttons">
+      <button id="google-login">تسجيل الدخول عبر Google</button>
+      <button id="twitter-login">تسجيل الدخول عبر Twitter</button>
+      <button id="apple-login">تسجيل الدخول عبر Apple</button>
+    </div>
+    <div class="signup">
+      <!-- زر إنشاء حساب يفتح الصفحة المستقلة signup.html -->
+      <a href="signup.html"><button id="signup-btn">إنشاء حساب جديد</button></a>
+    </div>
   </div>
 
-  <section>
-    <div class="grid" style="display:flex; flex-wrap:wrap; gap:20px; justify-content:center;">
-      <div class="card" style="background:#fff; padding:20px; border-radius:12px; width:200px; text-align:center;"><h3>تمويل شخصي</h3><p>حلول مالية تناسب احتياجاتك</p></div>
-      <div class="card" style="background:#fff; padding:20px; border-radius:12px; width:200px; text-align:center;"><h3>الحسابات</h3><p>جارية، ذهبية، المشاركة</p></div>
-      <div class="card" style="background:#fff; padding:20px; border-radius:12px; width:200px; text-align:center;"><h3>التحويلات</h3><p>تحويل العملات بسهولة</p></div>
-      <div class="card" style="background:#fff; padding:20px; border-radius:12px; width:200px; text-align:center;"><h3>الإعدادات</h3><p>إدارة الحساب والأمان</p></div>
+  <!-- المحتوى الرئيسي -->
+  <div id="main-content" class="hidden">
+
+    <!-- قائمة الثلاث نقاط -->
+    <div class="menu-dots">
+      <button>☰</button>
+      <ul class="menu-options">
+        <li><a href="#">الحساب</a></li>
+        <li><a href="#">الإعدادات</a></li>
+        <li><a href="#">التحويل</a></li>
+      </ul>
     </div>
-  </section>
-</div>
 
-<script>
-const CORRECT_PHONE="01227043648";
-const CORRECT_PASS="120120";
+    <header>
+      <div class="logo">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/7/7e/Kuveyt_T%C3%BCrk_logo.svg" alt="Logo">
+      </div>
+      <div class="top-right">
+        <select>
+          <option>العربية</option>
+          <option>Türkçe</option>
+          <option>English</option>
+        </select>
+        <input type="text" placeholder="بحث...">
+      </div>
+    </header>
 
-const loginBtn=document.getElementById('login-btn');
-const phoneIn=document.getElementById('phone');
-const passIn=document.getElementById('password');
-const welcome=document.getElementById('welcome');
-const loginScreen=document.getElementById('login-screen');
-const mainContent=document.getElementById('main-content');
+    <div class="hero-slider">
+      <div class="slide active">
+        <img src="https://images.unsplash.com/photo-1581090700227-1e37b190418e" alt="Banner 1">
+        <div class="slide-text"><h2>تمويل بيت أحلامك</h2><button>اعرف المزيد</button></div>
+      </div>
+      <div class="slide">
+        <img src="https://images.unsplash.com/photo-1507679799987-c73779587ccf" alt="Banner 2">
+        <div class="slide-text"><h2>تحويل سريع وآمن</h2><button>المزيد</button></div>
+      </div>
+    </div>
 
-loginBtn.addEventListener('click',()=>{
-  const phone=phoneIn.value.trim();
-  const pass=passIn.value;
-  if(phone===CORRECT_PHONE && pass===CORRECT_PASS){
-    welcome.style.display='block';
-    setTimeout(()=>{
-      loginScreen.style.display='none';
-      mainContent.style.display='block';
-    },2000);
-  }else{alert('رقم الهاتف أو كلمة السر غير صحيحة!');}
-});
+    <section>
+      <div class="grid">
+        <div class="card"><h3>تمويل شخصي</h3><p>حلول مالية تناسب احتياجاتك</p><button>تقديم الآن</button></div>
+        <div class="card"><h3>الحسابات</h3><p>جارية، ذهبية، المشاركة</p><button>المزيد</button></div>
+        <div class="card"><h3>التحويلات</h3><p>تحويل العملات بسهولة</p><button>ابدأ التحويل</button></div>
+        <div class="card"><h3>الإعدادات</h3><p>إدارة الحساب والأمان</p><button>فتح الإعدادات</button></div>
+      </div>
+    </section>
 
-// أزرار تسجيل الدخول الوهمية
-['google-login','apple-login','twitter-login'].forEach(id=>{
-  document.getElementById(id).addEventListener('click',()=>{
-    welcome.style.display='block';
-    setTimeout(()=>{loginScreen.style.display='none'; mainContent.style.display='block';},2000);
-  });
-});
-</script>
+    <footer>
+      <p>© 2025 Kuveyt Türk | جميع الحقوق محفوظة</p>
+      <div class="social">
+        <a href="#">Twitter</a> |
+        <a href="#">Instagram</a> |
+        <a href="#">YouTube</a>
+      </div>
+    </footer>
+
+  </div>
+
+  <script src="script.js"></script>
 </body>
-</html>
+</html> 
