@@ -1,11 +1,22 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Kuveyt Bank - Demo</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<title>Kuveyt Bank - Demo</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
+
+<!-- Login Screen -->
+<div id="loginScreen" class="login-screen">
+  <h2>Enter Password</h2>
+  <input type="password" id="passwordInput" placeholder="Password">
+  <button id="loginBtn">Enter</button>
+  <p id="loginMsg" class="hidden">Wrong password!</p>
+</div>
+
+<!-- Main Page -->
+<div id="mainPage" class="hidden">
 <header>
   <div class="logo">KB</div>
   <div class="user-section">
@@ -50,6 +61,7 @@
     </form>
     <div id="result" class="hidden"></div>
   </div>
+</div>
 </div>
 
 <script src="script.js"></script>
