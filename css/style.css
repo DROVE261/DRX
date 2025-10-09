@@ -1,13 +1,170 @@
-body{background:#004d3a;color:#fff;font-family:'Segoe UI',sans-serif;}
-.finance-section,.accounts-section,.cards-section,.digital-section,.investment-section{
-  margin:50px auto;padding:30px;width:90%;max-width:1100px;background:#006747;border-radius:15px;
+/* ===== BODY ===== */
+body {
+  background: #004d3a; /* خلفية أخضر جذاب */
+  color: #fff;
+  font-family: 'Segoe UI', sans-serif;
+  margin: 0;
+  padding: 0;
 }
-.finance-grid,.account-grid,.cards-grid,.digital-grid,.investment-grid{
-  display:flex;flex-wrap:wrap;gap:20px;justify-content:center;
+
+/* ===== HEADER ===== */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 50px;
+  background: #006747;
 }
-.finance-card,.account-card,.card-card,.digital-card,.investment-card{
-  flex:1 1 300px;background:#e6f2e6;color:#004d3a;padding:25px;border-radius:10px;text-align:center;cursor:pointer;transition:0.3s;
+header .logo img { height: 50px; }
+header .top-right select, header .top-right input {
+  margin-left: 10px;
+  padding: 5px;
+  border-radius: 5px;
+  border: none;
 }
-.finance-card:hover,.account-card:hover,.card-card:hover,.digital-card:hover,.investment-card:hover{
-  background:#cce6cc;
+
+/* ===== NAVIGATION ===== */
+.main-nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  background: #005f50;
+  display: flex;
+  justify-content: center;
+}
+.main-nav ul li {
+  position: relative;
+  padding: 15px 25px;
+}
+.main-nav ul li a { color: #fff; text-decoration: none; }
+.main-nav ul li:hover { background: #004d3a; cursor: pointer; }
+
+/* Submenu */
+.sub-menu {
+  display: none;
+  position: absolute;
+  top: 50px;
+  left: 0;
+  background: #006747;
+  padding: 10px 0;
+  min-width: 150px;
+  border-radius: 5px;
+}
+.sub-menu li { padding: 10px 20px; }
+.main-nav ul li:hover .sub-menu { display: block; }
+
+/* ===== HERO SLIDER ===== */
+.hero-slider {
+  position: relative;
+  max-width: 1200px;
+  margin: 30px auto;
+  overflow: hidden;
+  border-radius: 15px;
+}
+.slide {
+  display: none;
+  position: relative;
+}
+.slide.active { display: block; }
+.slide img { width: 100%; display: block; border-radius: 15px; }
+.slide-text {
+  position: absolute;
+  bottom: 30px;
+  left: 30px;
+  color: #fff;
+}
+.slide-text button {
+  padding: 10px 20px;
+  background: #004d3a;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  margin-top: 10px;
+  cursor: pointer;
+}
+.prev, .next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0,0,0,0.5);
+  color: #fff;
+  font-size: 30px;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+.prev { left: 10px; }
+.next { right: 10px; }
+
+/* ===== SECTIONS ===== */
+section {
+  margin: 50px auto;
+  padding: 30px;
+  width: 90%;
+  max-width: 1100px;
+  background: #006747;
+  border-radius: 15px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+}
+section h2 {
+  text-align: center;
+  margin-bottom: 25px;
+  font-size: 28px;
+}
+
+/* Grid layout for cards */
+.finance-grid, .account-grid, .cards-grid, .digital-grid, .investment-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+.finance-card, .account-card, .card-card, .digital-card, .investment-card {
+  flex: 1 1 300px;
+  background: #e6f2e6;
+  color: #004d3a;
+  padding: 25px;
+  border-radius: 10px;
+  text-align: center;
+  transition: 0.3s;
+  cursor: pointer;
+}
+.finance-card:hover, .account-card:hover, .card-card:hover, .digital-card:hover, .investment-card:hover {
+  background: #cce6cc;
+}
+
+/* Buttons inside cards */
+.finance-card button, .account-card button, .card-card button, .digital-card button, .investment-card button {
+  margin: 10px 5px;
+  padding: 10px 20px;
+  background: #004d3a;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* ===== FOOTER ===== */
+footer {
+  text-align: center;
+  padding: 30px;
+  background: #005f50;
+  margin-top: 50px;
+  border-top: 3px solid #004d3a;
+}
+footer p { margin: 0; }
+footer .social a {
+  margin: 0 10px;
+  color: #fff;
+  text-decoration: none;
+}
+footer .social a:hover { text-decoration: underline; }
+
+/* ===== MEDIA QUERIES ===== */
+@media screen and (max-width: 768px){
+  header { flex-direction: column; align-items: flex-start; }
+  .main-nav ul { flex-direction: column; }
+  .finance-grid, .account-grid, .cards-grid, .digital-grid, .investment-grid { flex-direction: column; }
+  .hero-slider { max-width: 100%; }
 }
