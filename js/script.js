@@ -1,9 +1,25 @@
-// فتح/غلق القائمة الثلاث نقاط
+// Login functionality
+const loginScreen = document.getElementById('loginScreen');
+const mainPage = document.getElementById('mainPage');
+const loginBtn = document.getElementById('loginBtn');
+const passwordInput = document.getElementById('passwordInput');
+const loginMsg = document.getElementById('loginMsg');
+
+loginBtn.addEventListener('click', ()=>{
+  if(passwordInput.value === '1201200780'){
+    loginScreen.classList.add('hidden');
+    mainPage.classList.remove('hidden');
+  } else {
+    loginMsg.classList.remove('hidden');
+  }
+});
+
+// Menu toggle
 const menuBtn = document.getElementById('menuBtn');
 const menu = document.getElementById('menu');
 menuBtn.addEventListener('click', ()=> menu.classList.toggle('hidden'));
 
-// فتح/غلق نافذة التحويل
+// Transfer modal
 const modal = document.getElementById('modal');
 const openBtn = document.getElementById('openTransfer');
 const closeBtn = document.getElementById('closeModal');
@@ -13,7 +29,7 @@ const result = document.getElementById('result');
 openBtn.addEventListener('click', ()=> modal.classList.remove('hidden'));
 closeBtn.addEventListener('click', ()=> modal.classList.add('hidden'));
 
-// تنفيذ التحويل (مظهر فقط)
+// Transfer form
 form.addEventListener('submit', e=>{
   e.preventDefault();
   const to = document.getElementById('to').value;
