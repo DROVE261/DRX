@@ -3,155 +3,140 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Kuveyt Bank Turk - Demo</title>
+<title>Kuveyt Bank Turk - Demo (Full)</title>
 <style>
   :root{
-    --green:#0b8b3e;
-    --green-dark:#06662c;
-    --accent:#13b65a;
-    --glass: rgba(255,255,255,0.95);
-    --text-dark:#123;
+    --green-1:#004f2d;   /* deep */
+    --green-2:#0b8b3e;   /* mid */
+    --green-3:#49c06b;   /* accent */
+    --glass: rgba(255,255,255,0.96);
+    --text:#123;
   }
-  html,body{height:100%;margin:0;font-family:"Tajawal", Arial, sans-serif;direction:rtl;background:#e9f6ee;color:var(--text-dark);}
-  /* ---------- LOGIN SCREEN ---------- */
-  #login-screen{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,var(--green), #0ea54a 70%);z-index:50;transition:opacity .6s ease;}
-  .login-box{width:360px;background:var(--glass);padding:28px;border-radius:14px;box-shadow:0 10px 40px rgba(0,0,0,.25);text-align:center;}
-  .login-box img{width:140px;margin-bottom:8px;filter:drop-shadow(0 6px 18px rgba(0,0,0,.2));}
-  .login-box h2{margin:6px 0 16px;color:var(--green-dark);}
-  .login-row{display:flex;gap:8px;justify-content:center;margin:10px 0;}
-  .login-btn{flex:1;padding:10px 12px;border-radius:8px;border:none;background:linear-gradient(135deg,var(--green),var(--accent));color:#fff;cursor:pointer;font-weight:700;box-shadow:0 6px 16px rgba(0,0,0,.18)}
-  .login-small{background:#fff;color:var(--green);padding:8px 12px;border-radius:8px;border:none;cursor:pointer;font-weight:600}
-  /* ---------- LAYOUT ---------- */
-  #main-content{display:none;min-height:100vh;}
-  header{display:flex;justify-content:space-between;align-items:center;padding:14px 22px;background:linear-gradient(90deg,var(--green-dark),var(--green));color:#fff}
-  header .logo img{height:44px;}
-  header .site-link{font-weight:700;margin-right:10px;color:#e6ffef}
-  /* hamburger */
+  html,body{height:100%;margin:0;font-family:"Tajawal",Arial,sans-serif;direction:rtl;background:#eaf7ee;color:var(--text)}
+  /* LOGIN */
+  #login-screen{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;
+    background:linear-gradient(180deg,var(--green-2),var(--green-3));z-index:999}
+  .login-box{width:360px;background:var(--glass);padding:28px;border-radius:14px;box-shadow:0 12px 40px rgba(0,0,0,.18);text-align:center}
+  .login-box img{width:140px;margin-bottom:8px}
+  .login-row{display:flex;gap:8px;justify-content:center;margin-top:12px}
+  .login-btn{flex:1;padding:10px;border-radius:8px;border:none;background:linear-gradient(135deg,var(--green-2),var(--green-3));color:#fff;font-weight:700;cursor:pointer}
+  .login-small{margin-top:10px;padding:8px 12px;border-radius:8px;border:none;background:#fff;color:var(--green-2);cursor:pointer}
+  /* header */
+  header{display:flex;justify-content:space-between;align-items:center;padding:14px 22px;background:linear-gradient(90deg,var(--green-1),var(--green-2));color:#fff;position:sticky;top:0;z-index:50}
+  header .logo img{height:44px}
+  .site-link{font-weight:700;opacity:.95}
+  /* menu */
   .menu-dots{position:fixed;top:18px;left:18px;z-index:2000}
-  .menu-btn{background:#fff;border-radius:8px;border:none;padding:8px 10px;cursor:pointer;font-size:20px;color:var(--green)}
-  .menu-options{display:none;position:fixed;top:56px;left:18px;background:#fff;color:var(--green);list-style:none;padding:10px;border-radius:12px;min-width:260px;box-shadow:0 12px 30px rgba(0,0,0,.18)}
+  .menu-btn{background:#fff;border-radius:10px;padding:8px 10px;border:none;color:var(--green-2);font-weight:700;cursor:pointer}
+  .menu-options{display:none;position:fixed;top:56px;left:18px;background:#fff;color:var(--green-2);list-style:none;padding:10px;border-radius:12px;min-width:260px;box-shadow:0 12px 30px rgba(0,0,0,.12)}
   .menu-options li{padding:10px;border-radius:8px;cursor:pointer;font-weight:600}
-  .menu-options li:hover{background:linear-gradient(90deg,#f0fff4,#ddfff0);transform:translateX(-6px)}
-  /* hero */
+  /* hero / grid */
   .hero-slider{margin:20px;padding:0 22px}
-  .hero-slider img{width:100%;height:220px;object-fit:cover;border-radius:14px;box-shadow:0 12px 30px rgba(0,0,0,.12)}
-  /* grid */
+  .hero-slider img{width:100%;height:220px;border-radius:12px;object-fit:cover;box-shadow:0 12px 30px rgba(0,0,0,.08)}
   .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px;padding:20px 22px}
-  .card{background:#fff;border-radius:12px;padding:18px;box-shadow:0 8px 24px rgba(0,0,0,.08);text-align:center}
-  .card h3{color:var(--green-dark);margin:6px 0}
-  .card p{color:#666}
-  .card button{margin-top:10px;padding:10px 14px;border:none;border-radius:8px;background:var(--green);color:#fff;cursor:pointer}
-  /* payments modal */
-  #payments-services{position:fixed;top:12%;left:50%;transform:translateX(-50%);min-width:360px;background:rgba(255,255,255,0.98);border-radius:14px;padding:22px;box-shadow:0 18px 50px rgba(0,0,0,.22);z-index:150;display:none}
-  #payments-services h2{margin:0 0 12px;font-size:20px;color:var(--green-dark)}
-  #payments-services label{display:block;margin-top:10px;color:#333;font-weight:600}
-  #payments-services input, #payments-services select{width:100%;padding:10px;border-radius:10px;border:1px solid #cfe9d7}
-  #payments-services .submit{margin-top:12px;padding:12px;border-radius:10px;border:none;background:linear-gradient(90deg,var(--green),var(--accent));color:#fff;font-weight:700;cursor:pointer}
-  #payments-services .close-btn{position:absolute;top:12px;left:12px;border:none;background:transparent;font-size:20px;color:var(--green);cursor:pointer}
-  /* add-card modal */
-  #add-card-modal{position:fixed;top:12%;left:50%;transform:translateX(-50%);min-width:360px;background:rgba(255,255,255,0.98);border-radius:14px;padding:18px;box-shadow:0 18px 50px rgba(0,0,0,.22);z-index:160;display:none}
-  #add-card-modal h3{margin:0 0 10px;color:var(--green-dark)}
-  #add-card-modal input{width:100%;padding:10px;border-radius:8px;border:1px solid #e6f6ea;margin-top:8px}
-  #add-card-modal button{margin-top:12px;padding:10px;border-radius:8px;border:none;background:linear-gradient(90deg,var(--green),var(--accent));color:#fff;font-weight:700;cursor:pointer}
+  .card{background:#fff;border-radius:12px;padding:18px;box-shadow:0 8px 20px rgba(0,0,0,.06);text-align:center}
+  .card h3{color:var(--green-1);margin:6px 0}
+  .card button{margin-top:10px;padding:10px 14px;border-radius:8px;border:none;background:var(--green-2);color:#fff;cursor:pointer}
   /* account panel */
-  #account-panel{position:fixed;top:8%;right:22px;width:360px;background:linear-gradient(180deg,white,#fbfffb);border-radius:14px;padding:18px;box-shadow:0 20px 50px rgba(0,0,0,.18);z-index:160;display:none;overflow:hidden}
-  #account-panel .profile{display:flex;gap:12px;align-items:center}
-  .avatar{width:72px;height:72px;border-radius:50%;overflow:hidden;flex:0 0 72px;border:4px solid rgba(11,139,62,0.12);box-shadow:0 8px 22px rgba(0,0,0,.12);background:linear-gradient(135deg,#fff,#eefaf0);display:flex;align-items:center;justify-content:center;font-weight:800;color:var(--green);font-size:22px;}
-  #account-panel h3{margin:0;font-size:18px;color:var(--green-dark)}
-  #account-panel p{margin:6px 0;color:#666}
+  #account-panel{position:fixed;top:8%;right:20px;width:380px;background:linear-gradient(180deg,#fff,#fbfffb);border-radius:14px;padding:18px;box-shadow:0 22px 60px rgba(0,0,0,.14);z-index:160;display:none;overflow:hidden}
+  .profile{display:flex;gap:12px;align-items:center}
+  .avatar{width:72px;height:72px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#fff,#eefaf0);color:var(--green-2);font-weight:800;font-size:20px;border:4px solid rgba(11,139,62,.08)}
   .balance{margin-top:12px;background:linear-gradient(90deg,#f8fff8,#ffffff);padding:12px;border-radius:10px;border:1px solid #e6f6ea;display:flex;justify-content:space-between;align-items:center}
-  .balance .amount{font-size:20px;font-weight:800;color:var(--green-dark)}
-  .balance .currency{font-size:13px;color:#666}
+  .balance .amount{font-size:20px;font-weight:900;color:var(--green-1)}
   .acct-actions{display:flex;gap:8px;margin-top:12px}
-  .acct-actions button{flex:1;padding:10px;border-radius:10px;border:none;cursor:pointer}
-  .btn-transfer{background:linear-gradient(90deg,var(--green),var(--accent));color:#fff;font-weight:700}
-  .btn-profile{background:#fff;border:1px solid #e6f6ea;color:var(--green)}
+  .btn-transfer{background:linear-gradient(90deg,var(--green-2),var(--green-3));color:#fff;border:none;padding:10px;border-radius:10px;cursor:pointer;font-weight:700}
+  .btn-profile{background:#fff;border:1px solid #eef6ef;color:var(--green-2);padding:10px;border-radius:10px;cursor:pointer}
   .transfer-area{margin-top:14px;position:relative;min-height:120px}
-  .ticker{position:absolute;top:-24px;left:50%;transform:translateX(-50%);background:linear-gradient(90deg,#fff,#f7fff7);padding:6px 10px;border-radius:999px;color:var(--green);box-shadow:0 8px 20px rgba(0,0,0,.08);display:none}
-  .flying{position:absolute;width:36px;height:36px;border-radius:50%;background:radial-gradient(circle at 30% 30%,#fff,#ffd24d 40%,#ffb700 100%);box-shadow:0 8px 18px rgba(0,0,0,.2);display:none;z-index:999;}
-  .success-badge{position:absolute;right:14px;top:-22px;background:linear-gradient(90deg,var(--green),var(--accent));color:#fff;padding:8px;border-radius:999px;display:none;box-shadow:0 10px 30px rgba(11,139,62,.18);font-weight:800}
-  /* VISA card (green style like requested) */
-  .card-display{margin-top:18px;display:flex;justify-content:center;gap:8px;flex-wrap:wrap}
+  .ticker{position:absolute;top:-24px;left:50%;transform:translateX(-50%);background:#fff;padding:6px 10px;border-radius:999px;color:var(--green-2);box-shadow:0 8px 20px rgba(0,0,0,.06);display:none}
+  .flying{position:absolute;width:36px;height:36px;border-radius:50%;background:radial-gradient(circle at 30% 30%,#fff,#ffd24d 40%,#ffb700 100%);box-shadow:0 8px 18px rgba(0,0,0,.2);display:none;z-index:999}
+  .success-badge{position:absolute;right:14px;top:-22px;background:linear-gradient(90deg,var(--green-2),var(--green-3));color:#fff;padding:8px;border-radius:999px;display:none}
+  /* --- Kuveyt-like green Visa card (attempt to match video style) --- */
+  .card-display{margin-top:18px;display:flex;justify-content:center}
   .visa-card{
-    width:320px;height:190px;background:linear-gradient(135deg,#0b8b3e,#0ea54a);border-radius:14px;padding:18px;color:#fff;position:relative;box-shadow:0 12px 30px rgba(0,0,0,.18);transition:transform .3s ease,box-shadow .3s ease;font-family:"Courier New", monospace;
+    width:340px;height:200px;border-radius:18px;padding:18px;color:#fff;position:relative;
+    background:
+      linear-gradient(180deg, rgba(255,255,255,0.03), rgba(0,0,0,0.02)),
+      radial-gradient(circle at 10% 20%, rgba(255,255,255,0.04), transparent 20%),
+      linear-gradient(135deg,#0fa75a 0%, #0b8b3e 55%, #063f24 100%);
+    box-shadow:0 18px 50px rgba(3,60,30,0.25);overflow:hidden;font-family:"Courier New",monospace;
   }
-  .visa-card .chip{width:56px;height:40px;background:rgba(255,255,255,.15);border-radius:8px}
-  .visa-card .card-number{font-size:20px;letter-spacing:3px;margin-top:14px}
-  .visa-card .card-holder{font-size:14px;text-transform:uppercase;margin-top:12px}
-  .visa-card .card-exp{font-size:13px;margin-top:6px}
-  .visa-card .bank-name{position:absolute;top:18px;right:18px;font-weight:800}
-  .visa-badge{position:absolute;bottom:12px;right:14px;font-weight:900;font-size:14px}
-  .visa-card:hover{transform:translateY(-6px) scale(1.02);box-shadow:0 18px 40px rgba(0,0,0,.25);}
-  /* last transactions */
+  /* subtle diagonal striping overlay */
+  .visa-card::after{
+    content:"";position:absolute;inset:0;
+    background-image:linear-gradient(120deg, rgba(255,255,255,0.02) 0, rgba(255,255,255,0.02) 1px, transparent 1px, transparent 30px);
+    mix-blend-mode:soft-light;opacity:.6;
+    pointer-events:none;
+  }
+  .visa-top{display:flex;justify-content:space-between;align-items:center}
+  .bank-logo{display:flex;gap:8px;align-items:center}
+  .bank-logo .circle{width:54px;height:54;border-radius:50%;background:rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:18px}
+  .bank-name{font-weight:800;letter-spacing:.3px}
+  .chip{width:62px;height:42px;border-radius:8px;background:linear-gradient(180deg,rgba(255,255,255,.22),rgba(255,255,255,.08))}
+  .card-number{margin-top:18px;font-size:20px;letter-spacing:3px;font-weight:700}
+  .card-meta{display:flex;justify-content:space-between;margin-top:14px;font-size:12px;opacity:.95}
+  .card-flag{position:absolute;bottom:14px;right:16px;background:#fff;color:var(--green-1);padding:6px 10px;border-radius:8px;font-weight:800}
+  .card-type{position:absolute;bottom:14px;left:16px;font-size:12px;opacity:.95}
+  /* accounts list (mimic kuveyt) */
+  .accounts-list{margin-top:14px;background:#fff;border-radius:10px;padding:12px;box-shadow:0 10px 30px rgba(0,0,0,.04)}
+  .accounts-list h4{margin:0 0 8px 0;color:var(--green-1)}
+  .acct-item{display:flex;justify-content:space-between;align-items:center;padding:10px;border-radius:8px;border:1px solid #f0f6f0;margin-top:8px}
+  .acct-item .meta{display:flex;gap:10px;align-items:center}
+  .acct-item .dot{width:44px;height:32px;border-radius:8px;background:linear-gradient(90deg,var(--green-2),var(--green-3));display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800}
+  /* transactions */
   .last-transactions{margin-top:12px}
-  .last-transactions ul{list-style:none;padding:0;margin:0;max-height:230px;overflow:auto}
-  .last-transactions ul li{background:#f0fff4;padding:10px;border-radius:8px;margin-top:6px;color:#06662c;font-weight:600;box-shadow:0 4px 12px rgba(0,0,0,.08);}
-  /* gold list */
-  .gold-list{background:linear-gradient(135deg,#ffd700,#d4af37);padding:12px;border-radius:12px;color:#fff;font-weight:700;margin-top:12px}
-  .gold-list ul{margin:8px 0 0 0;padding:0;list-style:none}
-  .gold-list li{margin:6px 0;color:#222;background:rgba(255,255,255,0.12);padding:8px;border-radius:8px}
-  /* cookie bar + overlay */
-  #cookie-bar{position:fixed;left:0;right:0;bottom:-120px;background:linear-gradient(90deg,#ffffff,#f7fff7);color:#063;box-shadow:0 -8px 30px rgba(0,0,0,0.15);padding:16px 18px;display:flex;gap:12px;align-items:center;justify-content:space-between;z-index:9999;border-top-left-radius:12px;border-top-right-radius:12px;transition:bottom .45s cubic-bezier(.2,.9,.3,1)}
-  #cookie-bar.show{bottom:18px;}
-  .cookie-btn{padding:10px 14px;border-radius:8px;cursor:pointer;border:none;font-weight:700;}
-  .cookie-accept{background:linear-gradient(90deg,var(--green),var(--accent));color:#fff}
-  .cookie-manage{background:#fff;color:var(--green);border:1px solid #e6f6ea}
-  #bank-logo-overlay{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(11,139,62,0.95);z-index:3000;animation:overlayFade 2.6s forwards;display:none}
-  #bank-logo-overlay img{width:200px;animation:logoScale 2.6s forwards;filter:drop-shadow(0 10px 40px rgba(0,0,0,.3));}
-  @keyframes overlayFade{0%{opacity:1}85%{opacity:1}100%{opacity:0;pointer-events:none}}
-  @keyframes logoScale{0%{transform:scale(.6)}100%{transform:scale(1)}}
-  /* responsive */
-  @media(max-width:900px){
-    #account-panel{right:12px;left:12px;width:auto}
-    #payments-services,#add-card-modal{width:92%}
-    .visa-card{width:92%;}
-  }
+  .last-transactions ul{list-style:none;padding:0;margin:0}
+  .last-transactions ul li{background:#f0fff4;padding:10px;border-radius:8px;margin-top:6px;color:#065;font-weight:700}
+  /* payments modal */
+  #payments-services{position:fixed;top:12%;left:50%;transform:translateX(-50%);min-width:360px;background:rgba(255,255,255,0.98);border-radius:14px;padding:22px;box-shadow:0 18px 50px rgba(0,0,0,.18);z-index:200;display:none}
+  #payments-services input, #payments-services select{width:100%;padding:10px;border-radius:10px;border:1px solid #cfe9d7;margin-top:8px}
+  #payments-services .submit{margin-top:12px;padding:12px;border-radius:10px;border:none;background:linear-gradient(90deg,var(--green-2),var(--green-3));color:#fff;font-weight:700;cursor:pointer}
+  /* cookie bar */
+  #cookie-bar{position:fixed;left:0;right:0;bottom:-120px;background:linear-gradient(90deg,#fff,#f7fff7);padding:14px;display:flex;gap:12px;align-items:center;justify-content:space-between;border-top-left-radius:12px;border-top-right-radius:12px;box-shadow:0 -8px 30px rgba(0,0,0,.12);transition:bottom .45s}
+  #cookie-bar.show{bottom:18px}
+  @media(max-width:900px){#account-panel{right:12px;left:12px;width:auto}.visa-card{width:92%}}
 </style>
 </head>
 <body>
 
-  <!-- BANK LOGO OVERLAY -->
-  <div id="bank-logo-overlay">
+  <!-- overlay logo -->
+  <div id="bank-logo-overlay" style="display:none;position:fixed;inset:0;align-items:center;justify-content:center;background:rgba(11,139,62,0.92);z-index:9999">
     <img alt="logo" src="data:image/svg+xml;utf8,
-      <svg xmlns='http://www.w3.org/2000/svg' width='600' height='200' viewBox='0 0 600 200'>
-        <rect width='600' height='200' fill='%230b8b3e'/>
-        <g transform='translate(50,30)'>
-          <circle cx='80' cy='60' r='50' fill='%23fff'/>
-          <text x='160' y='95' font-family='Tajawal, Arial, sans-serif' font-size='36' fill='%23fff'>Kuveyt Bank Turk</text>
-        </g>
-      </svg>">
+    <svg xmlns='http://www.w3.org/2000/svg' width='640' height='220' viewBox='0 0 640 220'>
+      <rect width='640' height='220' fill='%230b8b3e'/>
+      <g transform='translate(30,40)'>
+        <circle cx='64' cy='64' r='56' fill='%23fff'/>
+        <text x='150' y='110' font-family='Tajawal, Arial, sans-serif' font-size='34' fill='%23fff'>Kuveyt Bank Turk</text>
+      </g>
+    </svg>" style="width:300px;"/>
   </div>
 
-  <!-- COOKIE BAR -->
+  <!-- cookie bar -->
   <div id="cookie-bar" aria-hidden="true">
-    <div style="flex:1">نستخدم ملفات تعريف الارتباط لتحسين تجربتك — يمكنك قبول الكل أو تعديل التفضيلات.</div>
+    <div>نستخدم ملفات تعريف الارتباط لتحسين تجربتك — يمكنك قبول الكل أو تعديل التفضيلات.</div>
     <div style="display:flex;gap:8px">
-      <button class="cookie-btn cookie-manage" id="open-cookie-manage">تعديل</button>
-      <button class="cookie-btn cookie-accept" id="accept-cookies">قبول الكل</button>
+      <button id="open-cookie-manage" class="login-small">تعديل</button>
+      <button id="accept-cookies" class="login-btn" style="padding:8px 12px">قبول الكل</button>
     </div>
   </div>
 
-  <!-- LOGIN SCREEN -->
+  <!-- LOGIN -->
   <div id="login-screen">
     <div class="login-box">
       <img alt="logo" src="data:image/svg+xml;utf8,
-        <svg xmlns='http://www.w3.org/2000/svg' width='360' height='120' viewBox='0 0 360 120'>
-          <rect width='360' height='120' fill='none'/>
-          <g transform='translate(8,8)'>
-            <circle cx='56' cy='48' r='36' fill='%23ffffff'/>
-            <text x='110' y='68' font-family='Tajawal, Arial, sans-serif' font-size='28' fill='%23ffffff' stroke='%230b8b3e' stroke-width='0'>Kuveyt</text>
-          </g>
-        </svg>"/>
+      <svg xmlns='http://www.w3.org/2000/svg' width='360' height='120' viewBox='0 0 360 120'>
+        <g transform='translate(8,8)'>
+          <circle cx='56' cy='48' r='36' fill='%23ffffff'/>
+          <text x='110' y='68' font-family='Tajawal, Arial, sans-serif' font-size='28' fill='%23ffffff'>Kuveyt</text>
+        </g>
+      </svg>"/>
       <h2>مرحباً بك في Kuveyt Bank Turk</h2>
-      <div style="margin-top:8px;color:#333">جرب تسجيل وهمي — اضغط أي زر</div>
-      <div style="margin-top:16px" class="login-row">
+      <div style="color:#333">جرب تسجيل وهمي — اضغط أي زر</div>
+      <div class="login-row">
         <button class="login-btn">تسجيل دخول عبر Google</button>
         <button class="login-btn">تسجيل دخول عبر Apple</button>
       </div>
-      <div style="margin-top:8px">
-        <button class="login-small" id="show-login-form">أو تسجيل يدوي</button>
-      </div>
-      <div id="manual-login" style="margin-top:12px;display:none">
+      <button id="show-login-form" class="login-small">أو تسجيل يدوي</button>
+      <div id="manual-login" style="display:none;margin-top:12px">
         <input id="phone" placeholder="رقم الهاتف" style="width:80%;padding:10px;border-radius:8px;border:1px solid #ddd"><br><br>
         <input id="password" placeholder="كلمة السر" type="password" style="width:80%;padding:10px;border-radius:8px;border:1px solid #ddd"><br><br>
         <button id="manual-login-btn" class="login-btn">تسجيل الدخول</button>
@@ -159,81 +144,87 @@
     </div>
   </div>
 
-  <!-- MAIN -->
-  <div id="main-content">
-    <div class="menu-dots">
-      <button class="menu-btn" id="menuBtn">☰</button>
-      <ul class="menu-options" id="menuList">
-        <li id="menu-funding">التمويل</li>
-        <li id="menu-accounts">الحسابات</li>
-        <li id="menu-cards">البطاقات</li>
-        <li id="menu-payments">الدفع والخدمات</li>
-        <li id="menu-insurance">التأمين والتقاعد</li>
-        <li id="menu-invest">المنتجات الاستثمارية</li>
-        <li id="menu-gold">المعاملات المصرفية الذهبية</li>
-        <li id="menu-private">الخدمات المصرفية الخاصة</li>
-        <li id="menu-others">المنتجات والخدمات الأخرى</li>
-        <li id="menu-foreign">الخدمات المخصصة للأجانب</li>
-      </ul>
+  <!-- HEADER -->
+  <header>
+    <div style="display:flex;align-items:center;gap:12px">
+      <img alt="logo" src="data:image/svg+xml;utf8,
+      <svg xmlns='http://www.w3.org/2000/svg' width='140' height='48' viewBox='0 0 360 120'>
+        <g transform='translate(0,0)'>
+          <circle cx='40' cy='40' r='26' fill='%23ffffff'/>
+          <text x='82' y='58' font-family='Tajawal, Arial, sans-serif' font-size='28' fill='%23ffffff'>Kuveyt</text>
+        </g>
+      </svg>"/>
+      <div class="site-link">www.kuveytbankturk.com</div>
     </div>
-
-    <header>
-      <div class="logo">
-        <img alt="logo" src="data:image/svg+xml;utf8,
-          <svg xmlns='http://www.w3.org/2000/svg' width='180' height='60' viewBox='0 0 360 120'>
-            <g transform='translate(0,0)'>
-              <circle cx='40' cy='40' r='26' fill='%23ffffff' />
-              <text x='82' y='58' font-family='Tajawal, Arial, sans-serif' font-size='28' fill='%23ffffff'>Kuveyt</text>
-            </g>
-          </svg>">
-      </div>
-      <div class="site-right">
-        <span class="site-link">www.kuveytbankturk.com</span>
-      </div>
-    </header>
-
-    <div class="hero-slider">
-      <img alt="hero" src="data:image/svg+xml;utf8,
-        <svg xmlns='http://www.w3.org/2000/svg' width='1200' height='400' viewBox='0 0 1200 400'>
-          <defs><linearGradient id='g' x1='0' x2='1'><stop offset='0' stop-color='%230b8b3e'/><stop offset='1' stop-color='%230ea54a'/></linearGradient></defs>
-          <rect width='1200' height='400' fill='url(%23g)' rx='12' />
-          <g fill='%23ffffff' font-family='Tajawal, Arial, sans-serif' font-size='36' opacity='0.95'>
-            <text x='60' y='120'>خدمات مصرفية أسرع، آمنة، وذكية</text>
-            <text x='60' y='170' font-size='20'>تحويلات، حسابات، بطاقات، استثمار — كله بلمسة واحدة</text>
-          </g>
-        </svg>" />
+    <div>
+      <select aria-label="language">
+        <option>العربية</option>
+        <option>English</option>
+      </select>
     </div>
+  </header>
 
-    <section>
-      <div class="grid">
-        <div class="card">
-          <h3>تمويل شخصي</h3>
-          <p>حلول ذكية لتمويل احتياجاتك.</p>
-          <button>تقديم الآن</button>
-        </div>
-        <div class="card">
-          <h3>الحسابات</h3>
-          <p>جارية - ذهبية - مشاركة</p>
-          <button id="open-account-panel">عرض الحساب</button>
-        </div>
-        <div class="card">
-          <h3>التحويلات</h3>
-          <p>تحويلات داخلية وخارجية.</p>
-          <button id="open-payments">ابدأ التحويل</button>
-        </div>
-        <div class="card">
-          <h3>البطاقات</h3>
-          <p>إدارة بطاقاتك</p>
-          <button id="open-cards">عرض/إضافة بطاقة</button>
-        </div>
-      </div>
-    </section>
-    <footer style="padding:18px;text-align:center"><p>© 2025 Kuveyt Bank Turk — نموذج تجريبي</p></footer>
+  <!-- MENU BTN -->
+  <div class="menu-dots">
+    <button class="menu-btn" id="menuBtn">☰</button>
+    <ul class="menu-options" id="menuList" style="display:none">
+      <li id="menu-funding">التمويل</li>
+      <li id="menu-accounts">الحسابات</li>
+      <li id="menu-cards">البطاقات</li>
+      <li id="menu-payments">الدفع والخدمات</li>
+      <li id="menu-insurance">التأمين والتقاعد</li>
+      <li id="menu-invest">المنتجات الاستثمارية</li>
+    </ul>
   </div>
 
-  <!-- PAYMENTS Modal -->
+  <!-- MAIN -->
+  <main id="main-content" style="display:none">
+    <div class="hero-slider">
+      <img alt="hero" src="data:image/svg+xml;utf8,
+      <svg xmlns='http://www.w3.org/2000/svg' width='1200' height='320' viewBox='0 0 1200 320'>
+        <defs>
+          <linearGradient id='g' x1='0' x2='1'>
+            <stop offset='0' stop-color='%230b8b3e'/>
+            <stop offset='1' stop-color='%230ea54a'/>
+          </linearGradient>
+        </defs>
+        <rect width='1200' height='320' fill='url(%23g)' rx='12'/>
+        <text x='60' y='120' font-family='Tajawal, Arial, sans-serif' font-size='34' fill='%23fff'>خدمات مصرفية أسرع، آمنة، وذكية</text>
+      </svg>"/>
+    </div>
+
+    <section class="grid">
+      <div class="card">
+        <h3>تمويل شخصي</h3>
+        <p>حلول ذكية لتمويل احتياجاتك.</p>
+        <button>تقديم الآن</button>
+      </div>
+
+      <div class="card">
+        <h3>الحسابات</h3>
+        <p>جارية - ذهبية - مشاركة</p>
+        <button id="open-account-panel">عرض الحساب</button>
+      </div>
+
+      <div class="card">
+        <h3>التحويلات</h3>
+        <p>تحويلات داخلية وخارجية.</p>
+        <button id="open-payments">ابدأ التحويل</button>
+      </div>
+
+      <div class="card">
+        <h3>الإعدادات</h3>
+        <p>إدارة الأمان والملف الشخصي.</p>
+        <button>فتح الإعدادات</button>
+      </div>
+    </section>
+
+    <footer style="padding:18px;text-align:center">© 2025 Kuveyt Bank Turk</footer>
+  </main>
+
+  <!-- PAYMENTS MODAL -->
   <div id="payments-services" aria-hidden="true">
-    <button class="close-btn" title="إغلاق" onclick="togglePayments(false)">✕</button>
+    <button class="login-small" onclick="togglePayments(false)">✕</button>
     <h2>الدفع والخدمات</h2>
     <form id="transfer-form">
       <label>💰 المبلغ:</label>
@@ -249,9 +240,7 @@
       <select id="tf-currency">
         <option value="USD">دولار (USD)</option>
         <option value="EUR">يورو (EUR)</option>
-        <option value="TRY">ليرة تركية (TRY)</option>
-        <option value="SAR">ريال سعودي (SAR)</option>
-        <option value="KWD">دينار كويتي (KWD)</option>
+        <option value="TRY">ليرة (TRY)</option>
       </select>
 
       <label>🌍 البلد / البنك:</label>
@@ -259,22 +248,10 @@
         <option>تركيا</option>
         <option>السعودية</option>
         <option>الكويت</option>
-        <option>الإمارات</option>
-        <option>باقي الدول</option>
       </select>
 
       <button class="submit" type="submit">تنفيذ التحويل</button>
     </form>
-  </div>
-
-  <!-- ADD CARD Modal -->
-  <div id="add-card-modal" aria-hidden="true">
-    <button class="close-btn" title="إغلاق" onclick="toggleAddCard(false)" style="position:absolute;left:12px;top:8px;background:transparent;border:none;color:var(--green);font-size:20px;cursor:pointer">✕</button>
-    <h3>إضافة بطاقة جديدة</h3>
-    <input id="new-card-holder" placeholder="اسم حامل البطاقة">
-    <input id="new-card-number" placeholder="رقم البطاقة (مثال: 4447 6312 0000 0000)">
-    <input id="new-card-exp" placeholder="تاريخ الانتهاء (MM/YY)">
-    <button id="add-card-btn">أضف البطاقة</button>
   </div>
 
   <!-- ACCOUNT PANEL -->
@@ -287,7 +264,7 @@
       </div>
     </div>
 
-    <div class="balance" id="balance-circle">
+    <div class="balance">
       <div>
         <div style="font-size:12px;color:#666">رصيد الحساب</div>
         <div class="amount" id="balance-amount">$129,000.00</div>
@@ -306,138 +283,113 @@
       <div class="success-badge" id="success-badge">✔</div>
     </div>
 
-    <!-- Card area (initial includes one styled Kuveyt-looking Visa) -->
-    <div class="card-display" id="cards-area">
-      <!-- initial fake Kuveyt-style Visa -->
-      <div class="visa-card" data-card-id="1">
-        <div class="bank-name">Kuveyt Bank</div>
-        <div class="chip"></div>
-        <div class="card-number" id="main-card-number">4447 6312 5678 9012</div>
-        <div class="card-holder" id="main-card-holder">MOSTAFA M.</div>
-        <div class="card-exp" id="main-card-exp">12/28</div>
-        <div class="visa-badge">
-          <!-- small Visa-like SVG text -->
-          <svg width="56" height="20" viewBox="0 0 56 20" xmlns="http://www.w3.org/2000/svg">
-            <rect width="56" height="20" rx="4" fill="#fff" opacity="0.08"/>
-            <text x="6" y="14" font-family="Arial" font-size="12" fill="#fff" font-weight="700">VISA</text>
-          </svg>
+    <!-- VISA CARD (green Kuveyt-like) -->
+    <div class="card-display">
+      <div class="visa-card" id="visa-card">
+        <div class="visa-top">
+          <div class="bank-logo">
+            <div class="circle" style="width:56px;height:56px;border-radius:50%;background:rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;font-weight:800">KB</div>
+            <div style="line-height:1">
+              <div class="bank-name">Kuveyt Bank Turk</div>
+              <div style="font-size:12px;opacity:.9">الحساب الذهبي</div>
+            </div>
+          </div>
+          <div class="chip" aria-hidden="true"></div>
+        </div>
+
+        <div class="card-number" id="card-number">5123 4567 8910 5678</div>
+
+        <div class="card-meta">
+          <div>
+            <div style="font-size:11px;opacity:.9">CARD HOLDER</div>
+            <div class="card-holder" id="card-holder">MOSTAFA M.</div>
+          </div>
+          <div>
+            <div style="font-size:11px;opacity:.9">EXP</div>
+            <div class="card-exp" id="card-exp">12/28</div>
+          </div>
+        </div>
+
+        <div class="card-flag">Visa</div>
+      </div>
+    </div>
+
+    <div class="accounts-list">
+      <h4>قائمة الحسابات</h4>
+      <div class="acct-item">
+        <div class="meta">
+          <div class="dot">💳</div>
+          <div>
+            <div style="font-size:14px"><strong>جارية - USD</strong></div>
+            <div style="font-size:12px;color:#666">رقم: 123456789</div>
+          </div>
+        </div>
+        <div style="text-align:right">
+          <div style="font-weight:900;color:var(--green-1)">$129,000.00</div>
+          <div style="font-size:12px;color:#666">الرصيد</div>
+        </div>
+      </div>
+
+      <div class="acct-item">
+        <div class="meta">
+          <div class="dot">🏦</div>
+          <div>
+            <div style="font-size:14px"><strong>ادخار - TRY</strong></div>
+            <div style="font-size:12px;color:#666">رقم: 987654321</div>
+          </div>
+        </div>
+        <div style="text-align:right">
+          <div style="font-weight:900;color:var(--green-1)">₺24,500</div>
+          <div style="font-size:12px;color:#666">الرصيد</div>
         </div>
       </div>
     </div>
 
-    <!-- GOLD LIST -->
-    <div class="gold-list">
-      <h4>قائمة الفواتير والتحويلات والدخل</h4>
-      <ul>
-        <li>فاتورة كهرباء: $120</li>
-        <li>دخل: $3,200</li>
-        <li>تحويل داخلي: $500</li>
-      </ul>
-    </div>
-
-    <!-- LAST TRANSACTIONS -->
     <div class="last-transactions">
-      <h4 style="margin-top:12px;color:var(--green);">آخر العمليات</h4>
+      <h4 style="color:var(--green-1);margin-top:12px">آخر العمليات</h4>
       <ul id="tx-list">
-        <!-- demo transactions populated by JS -->
+        <!-- populated by JS -->
       </ul>
-    </div>
-
-    <div style="margin-top:12px;display:flex;gap:8px">
-      <button style="flex:1;padding:10px;border-radius:10px;border:none;background:#fff;color:var(--green);" id="btn-add-card">أضف بطاقة</button>
-      <button style="flex:1;padding:10px;border-radius:10px;border:none;background:linear-gradient(90deg,var(--green),var(--accent));color:#fff;" id="btn-show-cards">عرض البطاقات</button>
     </div>
   </div>
 
 <script>
-/* ---------------------- INITIALS ---------------------- */
+/* BASIC BEHAVIOR */
 const loginBtns = document.querySelectorAll('.login-btn');
 const loginScreen = document.getElementById('login-screen');
 const mainContent = document.getElementById('main-content');
 const manualToggle = document.getElementById('show-login-form');
 const manualForm = document.getElementById('manual-login');
 const manualBtn = document.getElementById('manual-login-btn');
-
 const bankOverlay = document.getElementById('bank-logo-overlay');
 const cookieBar = document.getElementById('cookie-bar');
 const acceptCookiesBtn = document.getElementById('accept-cookies');
 const openCookieManage = document.getElementById('open-cookie-manage');
 
-manualToggle.addEventListener('click', ()=> manualForm.style.display = manualForm.style.display === 'none' ? 'block' : 'none');
+manualToggle && manualToggle.addEventListener('click', ()=> manualForm.style.display = manualForm.style.display === 'none' ? 'block' : 'none');
 
-loginBtns.forEach(b=>{
-  b.addEventListener('click', ()=> demoLogin());
-});
-manualBtn.addEventListener('click', ()=>{
-  const phone = document.getElementById('phone').value.trim();
-  const pass = document.getElementById('password').value.trim();
-  if(phone === '' || pass === ''){ alert('أدخل رقم الهاتف وكلمة السر'); return; }
-  demoLogin();
-});
+loginBtns.forEach(b=> b.addEventListener('click', demoLogin));
+manualBtn && manualBtn.addEventListener('click', demoLogin);
 
-function demoLogin(){
-  bankOverlay.style.display = 'flex';
-  loginScreen.style.opacity = '0';
-  setTimeout(()=>{ loginScreen.style.display = 'none'; mainContent.style.display = 'block'; bankOverlay.style.animation = 'overlayFade 2.6s forwards'; bankOverlay.style.pointerEvents='none'; }, 600);
-  setTimeout(()=> { if(!localStorage.getItem('kuveyt_cookies')) cookieBar.classList.add('show'); }, 700);
+function demoLogin(e){
+  bankOverlay && (bankOverlay.style.display='flex');
+  loginScreen.style.opacity='0';
+  setTimeout(()=>{
+    loginScreen.style.display='none';
+    mainContent.style.display='block';
+    bankOverlay.style.animation='overlayFade 2.6s forwards';
+    bankOverlay && (bankOverlay.style.pointerEvents='none');
+  },600);
+  setTimeout(()=> { if(!localStorage.getItem('kuveyt_cookies')) cookieBar.classList.add('show'); },700);
 }
 
-/* ---------------------- MENU ---------------------- */
+/* MENU */
 const menuBtn = document.getElementById('menuBtn');
 const menuList = document.getElementById('menuList');
-menuBtn.addEventListener('click', ()=> { menuList.style.display = menuList.style.display === 'block' ? 'none' : 'block'; });
-document.addEventListener('click', (e)=> { if(!menuBtn.contains(e.target) && !menuList.contains(e.target)) menuList.style.display = 'none'; });
+menuBtn && menuBtn.addEventListener('click', ()=> menuList.style.display = menuList.style.display === 'block' ? 'none' : 'block');
+document.addEventListener('click', (e)=> { if(menuList && !menuBtn.contains(e.target) && !menuList.contains(e.target)) menuList.style.display = 'none'; });
 
-/* ---------------------- ACCOUNT PANEL & PAYMENTS ---------------------- */
-const accountPanel = document.getElementById('account-panel');
-const openAccountBtn = document.getElementById('open-account-panel');
-const btnTransfer = document.getElementById('btn-transfer');
-const successBadge = document.getElementById('success-badge');
-const ticker = document.getElementById('transfer-ticker');
-const flyingCoin = document.getElementById('flying-coin');
-const visaCard = document.querySelector('.visa-card');
-const balanceEl = document.getElementById('balance-amount');
-const balanceCurrencyEl = document.getElementById('balance-currency');
-const txList = document.getElementById('tx-list');
-
-let balance = 129000.00; // requested balance
-let currency = 'USD';
-let cards = [
-  {id:1, holder:'MOSTAFA M.', number:'4447 6312 5678 9012', exp:'12/28'}
-];
-
-function showAccount(show){ accountPanel.style.display = show ? 'block' : 'none'; accountPanel.setAttribute('aria-hidden', show ? 'false' : 'true'); }
-openAccountBtn && openAccountBtn.addEventListener('click', ()=> showAccount(true));
-document.getElementById('menu-accounts').addEventListener('click', ()=> showAccount(true));
-document.getElementById('menu-cards').addEventListener('click', ()=> { showAccount(true); toggleAddCard(true); });
-
-function updateBalanceDisplay(){ balanceEl.textContent = formatCurrency(balance, currency); }
-function formatCurrency(val, cur){ return (cur === 'USD' ? '$' : (cur==='EUR'?'€':'')) + Number(val).toLocaleString('en-US',{minimumFractionDigits:2}); }
-updateBalanceDisplay();
-
-/* ---------------------- Transactions demo ---------------------- */
-(function generateDemoTransactions(){
-  const companies = ['BMW','Tesla','تداول','Apple','Samsung','متجر الأغا','مؤسسة التجارة'];
-  for(let i=0;i<8;i++){
-    const company = companies[Math.floor(Math.random()*companies.length)];
-    const amount = (Math.random()*1200+20).toFixed(2);
-    const cur = Math.random()>0.6 ? '€' : '$';
-    const date = randomDate2025();
-    const li = document.createElement('li');
-    li.textContent = `تم تحويل ${amount}${cur} إلى ${company} بتاريخ ${date}`;
-    txList.appendChild(li);
-  }
-  const li1 = document.createElement('li'); li1.textContent = `تم تحويل 540€ إلى البنك الإماراتي - شراء من متجر الأغا بتاريخ 2025/08/10`; txList.insertBefore(li1, txList.firstChild);
-  const li2 = document.createElement('li'); li2.textContent = `تم تحويل 230$ إلى مصر - رسوم شركة تسويق بتاريخ 2025/07/15`; txList.insertBefore(li2, txList.firstChild);
-})();
-
-function randomDate2025(){
-  const m = String(Math.floor(Math.random()*12)+1).padStart(2,'0');
-  const d = String(Math.floor(Math.random()*28)+1).padStart(2,'0');
-  return `2025/${m}/${d}`;
-}
-
-/* ---------------------- Payments modal ---------------------- */
+/* PAYMENTS MODAL */
 const paymentsModal = document.getElementById('payments-services');
 const paymentsItem = document.getElementById('menu-payments');
 const openPaymentsBtn = document.getElementById('open-payments');
@@ -445,7 +397,38 @@ function togglePayments(show){ paymentsModal.style.display = show ? 'block' : 'n
 paymentsItem && paymentsItem.addEventListener('click', ()=> togglePayments(paymentsModal.style.display !== 'block'));
 openPaymentsBtn && openPaymentsBtn.addEventListener('click', ()=> togglePayments(true));
 
-document.getElementById('transfer-form').addEventListener('submit', (e)=>{
+/* ACCOUNT PANEL */
+const accountPanel = document.getElementById('account-panel');
+const openAccountBtn = document.getElementById('open-account-panel');
+const btnTransfer = document.getElementById('btn-transfer');
+const successBadge = document.getElementById('success-badge');
+const ticker = document.getElementById('transfer-ticker');
+const flyingCoin = document.getElementById('flying-coin');
+const visaCard = document.getElementById('visa-card');
+const balanceEl = document.getElementById('balance-amount');
+const txList = document.getElementById('tx-list');
+
+let balance = 129000.00;
+let currency = 'USD';
+
+function showAccount(show){ accountPanel.style.display = show ? 'block' : 'none'; accountPanel.setAttribute('aria-hidden', show ? 'false' : 'true'); }
+openAccountBtn && openAccountBtn.addEventListener('click', ()=> showAccount(true));
+document.getElementById('menu-accounts') && document.getElementById('menu-accounts').addEventListener('click', ()=> showAccount(true));
+
+btnTransfer && btnTransfer.addEventListener('click', ()=> {
+  const amtStr = prompt('كم المبلغ التحويل؟ (بالـ ' + currency + ')');
+  const amount = parseFloat(amtStr);
+  if(!amount || amount <= 0){ alert('مبلغ غير صالح'); return; }
+  if(amount > balance){ alert('الرصيد غير كافٍ'); return; }
+  animateTransfer(amount, ()=>{
+    balance = +(balance - amount).toFixed(2);
+    updateBalanceDisplay();
+    addTransaction('تحويل داخلي', amount);
+  });
+});
+
+/* TRANSFER FORM */
+document.getElementById('transfer-form') && document.getElementById('transfer-form').addEventListener('submit',(e)=>{
   e.preventDefault();
   const amount = parseFloat(document.getElementById('tf-amount').value) || 0;
   if(amount <= 0){ alert('أدخل مبلغ صحيح'); return; }
@@ -459,109 +442,93 @@ document.getElementById('transfer-form').addEventListener('submit', (e)=>{
   });
 });
 
-/* ---------------------- Transfer animation ---------------------- */
+/* ANIMATION */
 function animateTransfer(amount, callback){
-  ticker.style.display = 'block';
-  ticker.textContent = 'جارٍ تنفيذ التحويل...';
-  // simple card bounce
-  const mainCard = document.querySelector('.visa-card');
-  if(mainCard){ mainCard.style.transform = 'translateY(-8px) scale(1.02)'; }
-  // flying coin animation (simple)
-  flyingCoin.style.left = '50%'; flyingCoin.style.top = '50%'; flyingCoin.style.display = 'block';
-  setTimeout(()=>{ flyingCoin.style.display='none'; ticker.textContent = `تم تحويل ${formatAmount(amount)} ${currency}`; successBadge.style.display='block';
-    // animate gradual balance change
-    const steps = 30;
-    const startBal = balance;
-    let step = 0;
-    const decInterval = setInterval(()=>{
-      step++;
-      const newBal = +(startBal - amount * (step / steps)).toFixed(2);
-      balanceEl.textContent = formatCurrency(newBal, currency);
-      if(step >= steps) clearInterval(decInterval);
-    }, 18);
-    setTimeout(()=>{
-      successBadge.style.display = 'none';
-      ticker.style.display = 'none';
-      if(mainCard) mainCard.style.transform = '';
-      if(typeof callback === 'function') callback();
-    }, 1100);
-  }, 700);
+  ticker.style.display='block';
+  ticker.textContent='جارٍ تنفيذ التحويل...';
+  visaCard.style.transition='transform .6s ease';
+  visaCard.style.transform='translateY(-8px) scale(1.02)';
+  const rect = accountPanel.getBoundingClientRect();
+  const startX = rect.left + rect.width/2;
+  const startY = rect.top + rect.height/2;
+  flyingCoin.style.left = startX + 'px';
+  flyingCoin.style.top = startY + 'px';
+  flyingCoin.style.display = 'block';
+  const heroRect = document.querySelector('.hero-slider img').getBoundingClientRect();
+  const targetX = heroRect.left + heroRect.width/2 - 18;
+  const targetY = heroRect.top + 40;
+  const frames = 42;
+  let i=0;
+  const origLeft = startX, origTop = startY;
+  const anim = setInterval(()=>{
+    i++;
+    const t = i/frames;
+    const ease = 1 - Math.pow(1 - t, 3);
+    const curX = origLeft + (targetX - origLeft) * ease;
+    const curY = origTop + (targetY - origTop) * ease - Math.sin(ease*Math.PI)*120;
+    flyingCoin.style.left = curX + 'px';
+    flyingCoin.style.top = curY + 'px';
+    flyingCoin.style.transform = `scale(${1 - 0.35*ease})`;
+    if(i>=frames){
+      clearInterval(anim);
+      flyingCoin.style.display='none';
+      ticker.textContent = `تم تحويل ${formatAmount(amount)} ${currency}`;
+      successBadge.style.display='block';
+      const steps = 30;
+      const startBal = balance;
+      let step=0;
+      const decInterval = setInterval(()=>{
+        step++;
+        const newBal = +(startBal - amount*(step/steps)).toFixed(2);
+        balanceEl.textContent = formatCurrency(newBal, currency);
+        if(step>=steps) clearInterval(decInterval);
+      },18);
+      setTimeout(()=>{
+        successBadge.style.display='none';
+        ticker.style.display='none';
+        visaCard.style.transform='';
+        if(typeof callback === 'function') callback();
+      },1200);
+    }
+  },16);
 }
 
-function formatAmount(val){ return (currency === 'USD' ? '$' : (currency==='EUR'?'€':'')) + val.toFixed(2); }
-function addTransaction(title, amount){
+/* HELPERS */
+function updateBalanceDisplay(){ balanceEl.textContent = formatCurrency(balance,currency); }
+function formatCurrency(val,cur){ return (cur==='USD'?'$':'') + Number(val).toLocaleString('en-US',{minimumFractionDigits:2}); }
+function formatAmount(val){ return (currency==='USD'?'$':'') + val.toFixed(2); }
+function addTransaction(title,amount){
   const li = document.createElement('li');
   const date = randomDate2025();
   li.textContent = `تم تحويل ${formatAmount(amount)} — ${title} — ${date}`;
-  txList.insertBefore(li, txList.firstChild);
+  txList.insertBefore(li,txList.firstChild);
 }
 
-/* ---------------------- Cards: add/display ---------------------- */
-const cardsArea = document.getElementById('cards-area');
-const btnAddCard = document.getElementById('btn-add-card');
-const btnShowCards = document.getElementById('btn-show-cards');
-const addCardModal = document.getElementById('add-card-modal');
-const addCardBtn = document.getElementById('add-card-btn');
-
-function renderCards(){
-  cardsArea.innerHTML = '';
-  cards.forEach(c=>{
-    const div = document.createElement('div');
-    div.className = 'visa-card';
-    div.dataset.cardId = c.id;
-    div.innerHTML = `
-      <div class="bank-name">Kuveyt Bank</div>
-      <div class="chip"></div>
-      <div class="card-number">${c.number}</div>
-      <div class="card-holder">${c.holder}</div>
-      <div class="card-exp">${c.exp}</div>
-      <div class="visa-badge">
-        <svg width="56" height="20" viewBox="0 0 56 20" xmlns="http://www.w3.org/2000/svg">
-          <rect width="56" height="20" rx="4" fill="#fff" opacity="0.08"/>
-          <text x="6" y="14" font-family="Arial" font-size="12" fill="#fff" font-weight="700">VISA</text>
-        </svg>
-      </div>
-    `;
-    cardsArea.appendChild(div);
-  });
-}
-renderCards();
-
-btnAddCard && btnAddCard.addEventListener('click', ()=> toggleAddCard(true));
-btnShowCards && btnShowCards.addEventListener('click', ()=> { showAccount(true); renderCards(); });
-
-function toggleAddCard(show){
-  addCardModal.style.display = show ? 'block' : 'none';
-  addCardModal.setAttribute('aria-hidden', show ? 'false' : 'true');
-}
-function addNewCard(){
-  const holder = document.getElementById('new-card-holder').value.trim() || 'Card Holder';
-  const number = document.getElementById('new-card-number').value.trim() || '0000 0000 0000 0000';
-  const exp = document.getElementById('new-card-exp').value.trim() || '12/30';
-  const id = Date.now();
-  cards.unshift({id, holder, number, exp});
-  renderCards();
-  toggleAddCard(false);
-}
-addCardBtn.addEventListener('click', addNewCard);
-
-/* ---------------------- Add some interactivity for account open/close ---------------------- */
-document.addEventListener('click', (e)=>{
-  if(accountPanel.style.display === 'block' && !accountPanel.contains(e.target) && !document.getElementById('open-account-panel').contains(e.target)){
-    // keep open intentionally for demo
+/* DEMO TX */
+(function genDemo(){
+  const companies=['BMW','Tesla','Apple','Samsung','متجر الأغا','مؤسسة التجارة'];
+  for(let i=0;i<8;i++){
+    const c=companies[Math.floor(Math.random()*companies.length)];
+    const a=(Math.random()*800+20).toFixed(2);
+    const cur = Math.random()>0.6 ? '€' : '$';
+    const li=document.createElement('li');
+    li.textContent=`تم تحويل ${a}${cur} إلى ${c} بتاريخ ${randomDate2025()}`;
+    txList.appendChild(li);
   }
-});
+  const l1=document.createElement('li'); l1.textContent='تم تحويل 540€ إلى البنك الإماراتي - شراء حساب ببجي بتاريخ 2025/08/10'; txList.insertBefore(l1,txList.firstChild);
+  const l2=document.createElement('li'); l2.textContent='تم تحويل 230$ إلى مصر - رسوم شركة تسويق بتاريخ 2025/07/15'; txList.insertBefore(l2,txList.firstChild);
+})();
 
-/* ---------------------- Cookie bar ---------------------- */
-acceptCookiesBtn.addEventListener('click', ()=>{
-  localStorage.setItem('kuveyt_cookies','accepted');
-  cookieBar.classList.remove('show');
-});
-openCookieManage.addEventListener('click', ()=> { alert('فتح إعدادات ملفات تعريف الارتباط (تجريبي)'); });
+function randomDate2025(){ const m=String(Math.floor(Math.random()*12)+1).padStart(2,'0'); const d=String(Math.floor(Math.random()*28)+1).padStart(2,'0'); return `2025/${m}/${d}`; }
 
-/* expose togglePayments for close button */
+/* COOKIE BAR */
+acceptCookiesBtn && acceptCookiesBtn.addEventListener('click', ()=>{ localStorage.setItem('kuveyt_cookies','accepted'); cookieBar.classList.remove('show');});
+openCookieManage && openCookieManage.addEventListener('click', ()=> alert('فتح إعدادات ملفات تعريف الارتباط (تجريبي)'));
+
+/* UTIL */
+updateBalanceDisplay();
+function togglePayments(show){ paymentsModal.style.display = show ? 'block' : 'none'; paymentsModal.setAttribute('aria-hidden', show ? 'false' : 'true'); }
 window.togglePayments = togglePayments;
-window.toggleAddCard = toggleAddCard;
 </script>
 </body>
 </html>
