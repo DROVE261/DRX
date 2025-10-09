@@ -1,3 +1,11 @@
+// شاشة الدخول
+const loginScreen=document.getElementById('login-screen');
+const mainContent=document.getElementById('main-content');
+document.getElementById('enter-btn').addEventListener('click',()=>{
+  loginScreen.style.display='none';
+  mainContent.classList.remove('hidden');
+});
+
 // Hero Slider
 let currentSlide=0;
 const slides=document.querySelectorAll('.hero-slider .slide');
