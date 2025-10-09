@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ar">
 <head>
 <meta charset="utf-8" />
@@ -54,7 +54,7 @@
   #payments-services input, #payments-services select{width:100%;padding:10px;border-radius:10px;border:1px solid #cfe9d7}
   #payments-services .submit{margin-top:12px;padding:12px;border-radius:10px;border:none;background:linear-gradient(90deg,var(--green),var(--accent));color:#fff;font-weight:700;cursor:pointer}
   /* ---------- ACCOUNT PANEL (فخم) ---------- */
-  #account-panel{position:fixed;top:10%;right:22px;width:360px;background:linear-gradient(180deg,white,#fbfffb);border-radius:14px;padding:18px;box-shadow:0 20px 50px rgba(0,0,0,.18);z-index:160;display:none}
+  #account-panel{position:fixed;top:10%;right:22px;width:360px;background:linear-gradient(180deg,white,#fbfffb);border-radius:14px;padding:18px;box-shadow:0 20px 50px rgba(0,0,0,.18);z-index:160;display:none;overflow:hidden}
   #account-panel .profile{display:flex;gap:12px;align-items:center}
   .avatar{
     width:72px;height:72px;border-radius:50%;overflow:hidden;flex:0 0 72px;border:4px solid rgba(11,139,62,0.12);
@@ -71,7 +71,7 @@
   .btn-transfer{background:linear-gradient(90deg,var(--green),var(--accent));color:#fff;font-weight:700}
   .btn-profile{background:#fff;border:1px solid #e6f6ea;color:var(--green)}
   /* transfer animation area inside panel */
-  .transfer-area{margin-top:14px;position:relative;min-height:72px}
+  .transfer-area{margin-top:14px;position:relative;min-height:120px}
   .ticker{position:absolute;top:-24px;left:50%;transform:translateX(-50%);background:linear-gradient(90deg,#fff,#f7fff7);padding:6px 10px;border-radius:999px;color:var(--green);box-shadow:0 8px 20px rgba(0,0,0,.08);display:none}
   /* flying coin */
   .flying{
@@ -79,14 +79,59 @@
   }
   /* success check */
   .success-badge{position:absolute;right:14px;top:-22px;background:linear-gradient(90deg,var(--green),var(--accent));color:#fff;padding:8px;border-radius:999px;display:none;box-shadow:0 10px 30px rgba(11,139,62,.18);font-weight:800}
+  /* GOLD VISA CARD */
+  .card-display{margin-top:18px;display:flex;justify-content:center}
+  .visa-card{
+    width:280px;height:160px;background:linear-gradient(135deg,#d4af37,#ffd700);
+    border-radius:14px;padding:16px;color:#fff;position:relative;
+    box-shadow:0 12px 30px rgba(0,0,0,.18);transition:transform .3s ease,box-shadow .3s ease;
+    font-family: "Courier New", monospace;
+  }
+  .visa-card .chip{width:48px;height:36px;background:rgba(255,255,255,.25);border-radius:6px}
+  .visa-card .card-number{font-size:18px;letter-spacing:2px;margin-top:10px}
+  .visa-card .card-holder{font-size:13px;text-transform:uppercase;margin-top:10px}
+  .visa-card .card-exp{font-size:12px;margin-top:4px}
+  .visa-card:hover{transform:translateY(-6px) scale(1.03);box-shadow:0 18px 40px rgba(0,0,0,.25);}
+  /* Last transactions */
+  .last-transactions{margin-top:12px}
+  .last-transactions ul{list-style:none;padding:0;margin:0}
+  .last-transactions ul li{
+    background:#f0fff4;padding:10px;border-radius:8px;margin-top:6px;color:#06662c;font-weight:600;
+    box-shadow:0 4px 12px rgba(0,0,0,.08);
+  }
+  /* cookie bar */
+  #cookie-bar { position: fixed; left: 0; right: 0; bottom: -120px; background: linear-gradient(90deg,#ffffff,#f7fff7); color: #063; box-shadow: 0 -8px 30px rgba(0,0,0,0.15); padding: 16px 18px; display:flex; gap:12px; align-items:center; justify-content:space-between; z-index:9999; border-top-left-radius:12px; border-top-right-radius:12px; transition:bottom .45s cubic-bezier(.2,.9,.3,1); }
+  #cookie-bar.show{ bottom: 18px; }
+  .cookie-btn{ padding:10px 14px; border-radius:8px; cursor:pointer; border:none; font-weight:700; }
+  .cookie-accept{ background: linear-gradient(90deg,var(--green),var(--accent)); color:#fff }
+  .cookie-manage{ background:#fff; color:var(--green); border:1px solid #e6f6ea }
+  /* bank logo overlay */
+  #bank-logo-overlay{ position: fixed; inset:0; display:flex; align-items:center; justify-content:center; background: rgba(11,139,62,0.95); z-index:3000; animation: overlayFade 3s forwards; }
+  #bank-logo-overlay img{ width:200px; animation: logoScale 3s forwards; filter: drop-shadow(0 10px 40px rgba(0,0,0,.3)); }
+  @keyframes overlayFade{ 0%{opacity:1} 90%{opacity:1} 100%{opacity:0; pointer-events:none} }
+  @keyframes logoScale{ 0%{transform:scale(.6)} 100%{transform:scale(1)} }
   /* small responsive */
-  @media(max-width:700px){
+  @media(max-width:900px){
     #account-panel{right:12px;left:12px;width:auto}
     #payments-services{width:92%}
   }
 </style>
 </head>
 <body>
+
+  <!-- BANK LOGO OVERLAY (appears briefly on login) -->
+  <div id="bank-logo-overlay" style="display:none">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/7/7e/Kuveyt_T%C3%BCrk_logo.svg" alt="logo">
+  </div>
+
+  <!-- COOKIE BAR -->
+  <div id="cookie-bar" aria-hidden="true">
+    <div style="flex:1">نستخدم ملفات تعريف الارتباط لتحسين تجربتك — يمكنك قبول الكل أو تعديل التفضيلات.</div>
+    <div style="display:flex;gap:8px">
+      <button class="cookie-btn cookie-manage" id="open-cookie-manage">تعديل</button>
+      <button class="cookie-btn cookie-accept" id="accept-cookies">قبول الكل</button>
+    </div>
+  </div>
 
   <!-- LOGIN -->
   <div id="login-screen">
@@ -162,11 +207,11 @@
         </div>
       </div>
     </section>
-    <footer><p>© 2025 Kuveyt Bank Turk</p></footer>
+    <footer style="padding:18px;text-align:center"><p>© 2025 Kuveyt Bank Turk</p></footer>
   </div>
 
   <!-- PAYMENTS Modal (fancy) -->
-  <div id="payments-services">
+  <div id="payments-services" aria-hidden="true">
     <h2>الدفع والخدمات</h2>
     <form id="transfer-form">
       <label>💰 المبلغ:</label>
@@ -215,7 +260,7 @@
         <div style="font-size:12px;color:#666">رصيد الحساب</div>
         <div class="amount" id="balance-amount">$3000.00</div>
       </div>
-      <div class="currency">USD</div>
+      <div class="currency" id="balance-currency">USD</div>
     </div>
 
     <div class="acct-actions">
@@ -228,10 +273,33 @@
       <div class="flying" id="flying-coin"></div>
       <div class="success-badge" id="success-badge">✔</div>
     </div>
+
+    <!-- GOLD VISA CARD -->
+    <div class="card-display">
+      <div class="visa-card" id="visa-card">
+        <div class="chip"></div>
+        <div class="card-holder">MOSTAFA M.</div>
+        <div class="card-number" id="card-number">4447 6312 8901 2345</div>
+        <div class="card-exp">Exp: 12/28</div>
+        <div style="position:absolute;bottom:12px;left:12px;font-size:12px;">Kuveyt Bank Turk</div>
+        <div style="position:absolute;bottom:12px;right:12px;font-size:12px;">Visa Gold</div>
+      </div>
+    </div>
+
+    <!-- LAST TRANSACTIONS -->
+    <div class="last-transactions">
+      <h4 style="margin-top:12px;color:var(--green);">آخر العمليات</h4>
+      <ul id="tx-list">
+        <li>تحويل داخلي - $500</li>
+        <li>سحب ATM - $200</li>
+        <li>دفع فاتورة - $120</li>
+      </ul>
+    </div>
   </div>
 
+
 <script>
-/* ---------------------- LOGIN BEHAVIOR ---------------------- */
+/* ---------------------- BASIC UI BEHAVIOR ---------------------- */
 const loginBtns = document.querySelectorAll('.login-btn');
 const loginScreen = document.getElementById('login-screen');
 const mainContent = document.getElementById('main-content');
@@ -239,159 +307,178 @@ const manualToggle = document.getElementById('show-login-form');
 const manualForm = document.getElementById('manual-login');
 const manualBtn = document.getElementById('manual-login-btn');
 
+const bankOverlay = document.getElementById('bank-logo-overlay');
+const cookieBar = document.getElementById('cookie-bar');
+const acceptCookiesBtn = document.getElementById('accept-cookies');
+const openCookieManage = document.getElementById('open-cookie-manage');
+
 manualToggle.addEventListener('click', ()=> manualForm.style.display = manualForm.style.display === 'none' ? 'block' : 'none');
 
-// any social login button acts as demo login
+// demo social login buttons -> login
 loginBtns.forEach(b=>{
-  b.addEventListener('click', ()=>{
-    // play simple animation then show content
-    loginScreen.style.opacity = '0';
-    setTimeout(()=>{ loginScreen.style.display = 'none'; mainContent.style.display = 'block'; }, 600);
-  });
+  b.addEventListener('click', ()=> demoLogin());
 });
-
-// manual login check (local dummy)
 manualBtn.addEventListener('click', ()=>{
   const phone = document.getElementById('phone').value.trim();
   const pass = document.getElementById('password').value.trim();
-  if(phone === '' || pass === ''){
-    alert('أدخل رقم الهاتف وكلمة السر');
-    return;
-  }
-  // demo credentials optional: accept anything for demo
-  loginScreen.style.opacity = '0';
-  setTimeout(()=>{ loginScreen.style.display = 'none'; mainContent.style.display = 'block'; }, 600);
+  if(phone === '' || pass === ''){ alert('أدخل رقم الهاتف وكلمة السر'); return; }
+  demoLogin();
 });
 
-/* ---------------------- MENU BEHAVIOR ---------------------- */
+function demoLogin(){
+  // show overlay briefly + show main
+  bankOverlay.style.display = 'flex';
+  loginScreen.style.opacity = '0';
+  setTimeout(()=>{ loginScreen.style.display = 'none'; mainContent.style.display = 'block'; bankOverlay.style.animation = 'overlayFade 3s forwards'; bankOverlay.style.pointerEvents='none'; }, 600);
+  // show cookie bar if not accepted
+  setTimeout(()=> { if(!localStorage.getItem('kuveyt_cookies')) cookieBar.classList.add('show'); }, 700);
+}
+
+/* ---------------------- MENU ---------------------- */
 const menuBtn = document.getElementById('menuBtn');
 const menuList = document.getElementById('menuList');
-menuBtn.addEventListener('click', (e)=>{
-  menuList.style.display = menuList.style.display === 'block' ? 'none' : 'block';
-});
-
-/* Close menu on outside click */
-document.addEventListener('click', (e)=>{
-  if(!menuBtn.contains(e.target) && !menuList.contains(e.target)){
-    menuList.style.display = 'none';
-  }
-});
+menuBtn.addEventListener('click', ()=> { menuList.style.display = menuList.style.display === 'block' ? 'none' : 'block'; });
+document.addEventListener('click', (e)=> { if(!menuBtn.contains(e.target) && !menuList.contains(e.target)) menuList.style.display = 'none'; });
 
 /* ---------------------- PAYMENTS MODAL ---------------------- */
 const paymentsModal = document.getElementById('payments-services');
 const paymentsItem = document.getElementById('menu-payments');
 const openPaymentsBtn = document.getElementById('open-payments');
-
-function togglePayments(show){
-  paymentsModal.style.display = show ? 'block' : 'none';
-}
+function togglePayments(show){ paymentsModal.style.display = show ? 'block' : 'none'; paymentsModal.setAttribute('aria-hidden', show ? 'false' : 'true'); }
 paymentsItem.addEventListener('click', ()=> togglePayments(paymentsModal.style.display !== 'block'));
 openPaymentsBtn.addEventListener('click', ()=> togglePayments(true));
 
-document.getElementById('transfer-form').addEventListener('submit', (e)=>{
-  e.preventDefault();
-  // trigger animation from account panel if open, otherwise do a global fly
-  const amount = parseFloat(document.getElementById('tf-amount').value) || 0;
-  if(amount <= 0){ alert('أدخل مبلغ صحيح'); return; }
-  // call generic animate transfer function
-  animateTransfer(amount, ()=>{
-    alert('✅ تم تنفيذ التحويل بنجاح!');
-    togglePayments(false);
-  });
-});
-
-/* ---------------------- ACCOUNT PANEL & TRANSFER ANIMATION ---------------------- */
+/* ---------------------- ACCOUNT PANEL ---------------------- */
 const accountPanel = document.getElementById('account-panel');
 const openAccountBtn = document.getElementById('open-account-panel');
 const btnTransfer = document.getElementById('btn-transfer');
 const successBadge = document.getElementById('success-badge');
 const ticker = document.getElementById('transfer-ticker');
 const flyingCoin = document.getElementById('flying-coin');
-let balance = 3000.00; // initial balance
+const visaCard = document.getElementById('visa-card');
+const balanceEl = document.getElementById('balance-amount');
+const balanceCurrencyEl = document.getElementById('balance-currency');
+const txList = document.getElementById('tx-list');
 
-function showAccount(show){
-  accountPanel.style.display = show ? 'block' : 'none';
-  accountPanel.setAttribute('aria-hidden', show ? 'false' : 'true');
-}
+let balance = 3000.00; // initial balance
+let currency = 'USD';
+
+function showAccount(show){ accountPanel.style.display = show ? 'block' : 'none'; accountPanel.setAttribute('aria-hidden', show ? 'false' : 'true'); }
 openAccountBtn.addEventListener('click', ()=> showAccount(true));
 document.getElementById('menu-accounts').addEventListener('click', ()=> showAccount(true));
 
-btnTransfer.addEventListener('click', ()=>{
-  // open small inline transfer prompt (simplified): ask amount via prompt (demo)
-  const amtStr = prompt('كم المبلغ التحويل؟ (بالدولار)');
+btnTransfer.addEventListener('click', ()=> {
+  const amtStr = prompt('كم المبلغ التحويل؟ (بالـ ' + currency + ')');
   const amount = parseFloat(amtStr);
   if(!amount || amount <= 0){ alert('مبلغ غير صالح'); return; }
-  if(amount > balance){ alert('الرصيد غير كافي'); return; }
-  // animate transfer and update balance after success
+  if(amount > balance){ alert('الرصيد غير كافٍ'); return; }
   animateTransfer(amount, ()=>{
+    // update balance after animation
     balance = +(balance - amount).toFixed(2);
-    document.getElementById('balance-amount').textContent = '$' + balance.toLocaleString('en-US', {minimumFractionDigits:2});
+    updateBalanceDisplay();
+    addTransaction('تحويل داخلي', amount);
   });
 });
 
-/* animateTransfer: visual flying coin + ticker + success badge
-   callback executed after animation finished */
+/* ---------------------- TRANSFER FORM (modal) ---------------------- */
+document.getElementById('transfer-form').addEventListener('submit', (e)=>{
+  e.preventDefault();
+  const amount = parseFloat(document.getElementById('tf-amount').value) || 0;
+  if(amount <= 0){ alert('أدخل مبلغ صحيح'); return; }
+  if(amount > balance){ alert('الرصيد غير كافٍ'); return; }
+  const acct = document.getElementById('tf-account').value || '—';
+  animateTransfer(amount, ()=>{
+    balance = +(balance - amount).toFixed(2);
+    updateBalanceDisplay();
+    addTransaction('تحويل إلى ' + acct, amount);
+    togglePayments(false);
+  });
+});
+
+/* ---------------------- ANIMATION: flying coin + card bounce + gradual balance update ---------------------- */
 function animateTransfer(amount, callback){
-  // show ticker
+  // show ticker and badge logic
   ticker.style.display = 'block';
   ticker.textContent = 'جارٍ تنفيذ التحويل...';
-
-  // show flying coin from account panel center to top-left (simulate)
+  // bounce visa card
+  visaCard.classList.add('animate');
+  visaCard.style.transition = 'transform .6s ease';
+  visaCard.style.transform = 'translateY(-8px) scale(1.02)';
+  // prepare flying coin start pos (from account panel)
   const rect = accountPanel.getBoundingClientRect();
   const startX = rect.left + rect.width/2;
   const startY = rect.top + rect.height/2;
-
   flyingCoin.style.left = startX + 'px';
   flyingCoin.style.top = startY + 'px';
   flyingCoin.style.display = 'block';
-
-  // target (hero image area center)
-  const hero = document.querySelector('.hero-slider img').getBoundingClientRect();
-  const targetX = hero.left + hero.width/2 - 18; // center minus half coin
-  const targetY = hero.top + 40; // near top of hero
-
-  // animate position (using JS for better control)
-  const frames = 40;
+  // target near hero center
+  const heroRect = document.querySelector('.hero-slider img').getBoundingClientRect();
+  const targetX = heroRect.left + heroRect.width/2 - 18;
+  const targetY = heroRect.top + 40;
+  // animate
+  const frames = 42;
   let i = 0;
-  const startTime = Date.now();
-  const origLeft = startX;
-  const origTop = startY;
-
+  const origLeft = startX, origTop = startY;
   const anim = setInterval(()=>{
     i++;
-    const t = i / frames; // 0..1
-    // ease out cubic
+    const t = i/frames;
     const ease = 1 - Math.pow(1 - t, 3);
     const curX = origLeft + (targetX - origLeft) * ease;
-    const curY = origTop + (targetY - origTop) * ease - Math.sin(ease * Math.PI) * 120; // arc
+    const curY = origTop + (targetY - origTop) * ease - Math.sin(ease * Math.PI) * 120;
     flyingCoin.style.left = curX + 'px';
     flyingCoin.style.top = curY + 'px';
-    // scale a bit
     flyingCoin.style.transform = `scale(${1 - 0.35*ease})`;
     if(i >= frames){
       clearInterval(anim);
-      // hide flying coin
       flyingCoin.style.display = 'none';
-      // show success badge and update ticker
-      ticker.textContent = `تم تحويل $${amount.toFixed(2)}`;
+      // success visuals
+      ticker.textContent = `تم تحويل ${formatAmount(amount)} ${currency}`;
       successBadge.style.display = 'block';
-      // flash success badge then hide after short delay
+      // gradual balance decrement on display (nice effect)
+      const steps = 30;
+      const startBal = balance;
+      let step = 0;
+      const decInterval = setInterval(()=>{
+        step++;
+        const newBal = +(startBal - amount * (step / steps)).toFixed(2);
+        balanceEl.textContent = formatCurrency(newBal, currency);
+        if(step >= steps) clearInterval(decInterval);
+      }, 18);
       setTimeout(()=>{
         successBadge.style.display = 'none';
         ticker.style.display = 'none';
+        visaCard.style.transform = '';
+        visaCard.classList.remove('animate');
         if(typeof callback === 'function') callback();
       }, 1100);
     }
   }, 16);
 }
 
-/* close account panel by clicking outside */
+/* ---------------------- HELPERS ---------------------- */
+function updateBalanceDisplay(){ balanceEl.textContent = formatCurrency(balance, currency); }
+function formatCurrency(val, cur){ return (cur === 'USD' ? '$' : '') + val.toLocaleString('en-US',{minimumFractionDigits:2}); }
+function formatAmount(val){ return (currency === 'USD' ? '$' : '') + val.toFixed(2); }
+function addTransaction(title, amount){
+  const li = document.createElement('li');
+  li.textContent = `${title} - ${formatAmount(amount)}`;
+  txList.insertBefore(li, txList.firstChild);
+}
+
+/* ---------------------- COOKIE BAR (simple) ---------------------- */
+acceptCookiesBtn.addEventListener('click', ()=>{
+  localStorage.setItem('kuveyt_cookies','accepted');
+  cookieBar.classList.remove('show');
+});
+openCookieManage.addEventListener('click', ()=> { alert('فتح إعدادات ملفات تعريف الارتباط (تجريبي)'); });
+
+/* ---------------------- INIT ---------------------- */
+updateBalanceDisplay();
+
+// close account panel if click outside (keeps demo behavior simple)
 document.addEventListener('click', (e)=>{
-  if(accountPanel.style.display === 'block'){
-    if(!accountPanel.contains(e.target) && !document.getElementById('menuList').contains(e.target) && !document.getElementById('open-account-panel')){
-      // keep open only when clicking on specific triggers; otherwise close
-      // don't auto-close for demo to ease testing
-    }
+  if(accountPanel.style.display === 'block' && !accountPanel.contains(e.target) && !document.getElementById('open-account-panel').contains(e.target)){
+    // don't auto-close to ease testing — keep open
   }
 });
 </script>
