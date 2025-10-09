@@ -3,90 +3,55 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Kuveyt Türk Clone</title>
+  <title>إنشاء حساب - Kuveyt Türk</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <!-- شاشة تسجيل الدخول -->
-  <div id="login-screen">
-    <div class="logo">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/7/7e/Kuveyt_T%C3%BCrk_logo.svg" alt="Logo">
-    </div>
-    <div class="language-select">
-      <button onclick="changeLang('ar')">العربية</button>
-      <button onclick="changeLang('tr')">Türkçe</button>
-      <button onclick="changeLang('en')">English</button>
-    </div>
-    <h2 id="title">مرحباً بك في Kuveyt Türk</h2>
-    <div class="login-buttons">
-      <button id="google-login">تسجيل الدخول عبر Google</button>
-      <button id="twitter-login">تسجيل الدخول عبر Twitter</button>
-      <button id="apple-login">تسجيل الدخول عبر Apple</button>
-    </div>
-    <div class="signup">
-      <a href="signup.html"><button id="signup-btn">إنشاء حساب جديد</button></a>
-    </div>
+  <div class="signup-page">
+    <h1>إنشاء حساب جديد</h1>
+    <form id="signup-form">
+      <input type="text" placeholder="الاسم الكامل" required><br><br>
+      <input type="email" name="email" placeholder="البريد الإلكتروني" required><br><br>
+      <input type="password" name="password" placeholder="كلمة المرور" required><br><br>
+      <button type="submit">إنشاء الحساب</button>
+    </form>
+    <p>لديك حساب؟ <a href="index.html">تسجيل الدخول</a></p>
   </div>
 
-  <!-- المحتوى الرئيسي -->
-  <div id="main-content" class="hidden">
+  <!-- Firebase -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
+    import { getAuth, createUserWithEmailAndPassword, sendEmailVerification } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-analytics.js";
 
-    <!-- قائمة الثلاث نقاط -->
-    <div class="menu-dots">
-      <button>☰</button>
-      <ul class="menu-options">
-        <li><a href="#">الحساب</a></li>
-        <li><a href="#">الإعدادات</a></li>
-        <li><a href="#">التحويل</a></li>
-      </ul>
-    </div>
+    const firebaseConfig = {
+      apiKey: "AIzaSyA-DVVbKVg5jN3Gtzow3-AEt0UBfQtmAU8",
+      authDomain: "kuveyt-turk-bank.firebaseapp.com",
+      projectId: "kuveyt-turk-bank",
+      storageBucket: "kuveyt-turk-bank.firebasestorage.app",
+      messagingSenderId: "851164370783",
+      appId: "1:851164370783:web:2df1518c5aabb9daf948ea",
+      measurementId: "G-XEGWXEV2F8"
+    };
 
-    <header>
-      <div class="logo">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/7/7e/Kuveyt_T%C3%BCrk_logo.svg" alt="Logo">
-      </div>
-      <div class="top-right">
-        <select>
-          <option>العربية</option>
-          <option>Türkçe</option>
-          <option>English</option>
-        </select>
-        <input type="text" placeholder="بحث...">
-      </div>
-    </header>
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+    const auth = getAuth(app);
 
-    <div class="hero-slider">
-      <div class="slide active">
-        <img src="https://images.unsplash.com/photo-1581090700227-1e37b190418e" alt="Banner 1">
-        <div class="slide-text"><h2>تمويل بيت أحلامك</h2><button>اعرف المزيد</button></div>
-      </div>
-      <div class="slide">
-        <img src="https://images.unsplash.com/photo-1507679799987-c73779587ccf" alt="Banner 2">
-        <div class="slide-text"><h2>تحويل سريع وآمن</h2><button>المزيد</button></div>
-      </div>
-    </div>
-
-    <section>
-      <div class="grid">
-        <div class="card"><h3>تمويل شخصي</h3><p>حلول مالية تناسب احتياجاتك</p><button>تقديم الآن</button></div>
-        <div class="card"><h3>الحسابات</h3><p>جارية، ذهبية، المشاركة</p><button>المزيد</button></div>
-        <div class="card"><h3>التحويلات</h3><p>تحويل العملات بسهولة</p><button>ابدأ التحويل</button></div>
-        <div class="card"><h3>الإعدادات</h3><p>إدارة الحساب والأمان</p><button>فتح الإعدادات</button></div>
-      </div>
-    </section>
-
-    <footer>
-      <p>© 2025 Kuveyt Türk | جميع الحقوق محفوظة</p>
-      <div class="social">
-        <a href="#">Twitter</a> |
-        <a href="#">Instagram</a> |
-        <a href="#">YouTube</a>
-      </div>
-    </footer>
-
-  </div>
-
-  <script src="script.js"></script>
+    // فورم تسجيل الحساب
+    document.getElementById('signup-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = e.target.email.value;
+      const password = e.target.password.value;
+      try {
+        const userCred = await createUserWithEmailAndPassword(auth, email, password);
+        await sendEmailVerification(userCred.user);
+        alert('تم إرسال إيميل لتأكيد الحساب!');
+      } catch (err) {
+        alert(err.message);
+      }
+    });
+  </script>
 </body>
 </html>
