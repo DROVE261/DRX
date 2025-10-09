@@ -1,93 +1,89 @@
 <!DOCTYPE html>
 <html lang="ar">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Kuveyt Türk Bank</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kuveyt Türk Clone</title>
+<link rel="stylesheet" href="style.css">
+<style>
+/* شاشة تسجيل الدخول */
+#login-screen {
+  position: fixed; top:0; left:0; width:100%; height:100%;
+  background: rgba(0,128,0,0.95); display:flex; justify-content:center; align-items:center; flex-direction:column;
+  color:#fff; z-index:1000;
+}
+#login-screen input { padding:10px; margin:5px; border-radius:5px; border:none; width:200px; }
+#login-screen button { padding:10px 20px; margin:5px; border:none; border-radius:5px; cursor:pointer; }
+.hidden { display:none; }
+
+/* المحتوى الرئيسي */
+#main-content { display:none; }
+</style>
 </head>
 <body>
 
-  <!-- شاشة تسجيل الدخول -->
-  <div id="login-screen">
-    <div class="logo">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/7/7e/Kuveyt_T%C3%BCrk_logo.svg" alt="Logo">
-    </div>
-    <div class="language-select">
-      <button onclick="changeLang('ar')">العربية</button>
-      <button onclick="changeLang('tr')">Türkçe</button>
-      <button onclick="changeLang('en')">English</button>
-    </div>
-    <h2 id="title">مرحباً بك في Kuveyt Türk</h2>
-    <div class="login-buttons">
-      <button id="google-login">تسجيل الدخول عبر Google</button>
-      <button id="twitter-login">تسجيل الدخول عبر Twitter</button>
-      <button id="apple-login">تسجيل الدخول عبر Apple</button>
-    </div>
-    <div class="signup">
-      <!-- زر إنشاء حساب يفتح الصفحة المستقلة signup.html -->
-      <a href="signup.html"><button id="signup-btn">إنشاء حساب جديد</button></a>
-    </div>
+<!-- شاشة تسجيل الدخول -->
+<div id="login-screen">
+  <div class="logo">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/7/7e/Kuveyt_T%C3%BCrk_logo.svg" alt="Logo" width="150">
   </div>
-
-  <!-- المحتوى الرئيسي -->
-  <div id="main-content" class="hidden">
-
-    <!-- قائمة الثلاث نقاط -->
-    <div class="menu-dots">
-      <button>☰</button>
-      <ul class="menu-options">
-        <li><a href="#">الحساب</a></li>
-        <li><a href="#">الإعدادات</a></li>
-        <li><a href="#">التحويل</a></li>
-      </ul>
-    </div>
-
-    <header>
-      <div class="logo">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/7/7e/Kuveyt_T%C3%BCrk_logo.svg" alt="Logo">
-      </div>
-      <div class="top-right">
-        <select>
-          <option>العربية</option>
-          <option>Türkçe</option>
-          <option>English</option>
-        </select>
-        <input type="text" placeholder="بحث...">
-      </div>
-    </header>
-
-    <div class="hero-slider">
-      <div class="slide active">
-        <img src="https://images.unsplash.com/photo-1581090700227-1e37b190418e" alt="Banner 1">
-        <div class="slide-text"><h2>تمويل بيت أحلامك</h2><button>اعرف المزيد</button></div>
-      </div>
-      <div class="slide">
-        <img src="https://images.unsplash.com/photo-1507679799987-c73779587ccf" alt="Banner 2">
-        <div class="slide-text"><h2>تحويل سريع وآمن</h2><button>المزيد</button></div>
-      </div>
-    </div>
-
-    <section>
-      <div class="grid">
-        <div class="card"><h3>تمويل شخصي</h3><p>حلول مالية تناسب احتياجاتك</p><button>تقديم الآن</button></div>
-        <div class="card"><h3>الحسابات</h3><p>جارية، ذهبية، المشاركة</p><button>المزيد</button></div>
-        <div class="card"><h3>التحويلات</h3><p>تحويل العملات بسهولة</p><button>ابدأ التحويل</button></div>
-        <div class="card"><h3>الإعدادات</h3><p>إدارة الحساب والأمان</p><button>فتح الإعدادات</button></div>
-      </div>
-    </section>
-
-    <footer>
-      <p>© 2025 Kuveyt Türk | جميع الحقوق محفوظة</p>
-      <div class="social">
-        <a href="#">Twitter</a> |
-        <a href="#">Instagram</a> |
-        <a href="#">YouTube</a>
-      </div>
-    </footer>
-
+  <h2>مرحباً بك في Kuveyt Türk</h2>
+  <input type="text" id="phone" placeholder="رقم الهاتف">
+  <input type="password" id="password" placeholder="كلمة السر">
+  <button id="login-btn">تسجيل الدخول</button>
+  <div class="social-btns">
+    <button id="google-login">تسجيل عبر Google</button>
+    <button id="apple-login">تسجيل عبر Apple</button>
+    <button id="twitter-login">تسجيل عبر Twitter</button>
   </div>
+  <div class="signup">
+    <a href="signup.html"><button id="signup-btn">إنشاء حساب جديد</button></a>
+  </div>
+  <div id="welcome" style="display:none; margin-top:20px;">مرحبا بك في بنك Kuveyt Türk!</div>
+</div>
 
-  <script src="script.js"></script>
+<!-- المحتوى الرئيسي (صفحتك القديمة) -->
+<div id="main-content">
+  <!-- ضع هنا كل محتوى index.html القديم بالضبط: الخلفية الخضراء، الصور، البطاقات، النصوص -->
+  <header>
+    <h1>صفحتك القديمة هنا</h1>
+    <!-- باقي تصميمك القديم -->
+  </header>
+  <!-- باقي محتوى صفحتك كما هو -->
+</div>
+
+<script>
+const CORRECT_PHONE="01227043648";
+const CORRECT_PASS="120120";
+
+const loginBtn=document.getElementById('login-btn');
+const phoneIn=document.getElementById('phone');
+const passIn=document.getElementById('password');
+const welcome=document.getElementById('welcome');
+const loginScreen=document.getElementById('login-screen');
+const mainContent=document.getElementById('main-content');
+
+function showMainContent(){
+  loginScreen.style.display='none';
+  mainContent.style.display='block';
+}
+
+loginBtn.addEventListener('click',()=>{
+  if(phoneIn.value.trim()===CORRECT_PHONE && passIn.value===CORRECT_PASS){
+    welcome.style.display='block';
+    setTimeout(showMainContent,1500);
+  }else{
+    alert('رقم الهاتف أو كلمة السر غير صحيحة!');
+  }
+});
+
+// تسجيل الدخول الوهمي عبر Google/Apple/Twitter
+['google-login','apple-login','twitter-login'].forEach(id=>{
+  document.getElementById(id).addEventListener('click',()=>{
+    welcome.style.display='block';
+    setTimeout(showMainContent,1500);
+  });
+});
+</script>
 </body>
-</html> 
+</html>
