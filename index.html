@@ -42,14 +42,49 @@
   <div id="welcome" style="display:none; margin-top:20px;">مرحبا بك في بنك Kuveyt Türk!</div>
 </div>
 
-<!-- المحتوى الرئيسي (صفحتك القديمة) -->
+<!-- المحتوى الرئيسي (صفحتك القديمة كاملة) -->
 <div id="main-content">
   <!-- ضع هنا كل محتوى index.html القديم بالضبط: الخلفية الخضراء، الصور، البطاقات، النصوص -->
   <header>
-    <h1>صفحتك القديمة هنا</h1>
-    <!-- باقي تصميمك القديم -->
+    <div class="logo"><img src="https://upload.wikimedia.org/wikipedia/commons/7/7e/Kuveyt_T%C3%BCrk_logo.svg" alt="Logo"></div>
+    <div class="top-right">
+      <select>
+        <option>العربية</option>
+        <option>Türkçe</option>
+        <option>English</option>
+      </select>
+      <input type="text" placeholder="بحث...">
+    </div>
   </header>
-  <!-- باقي محتوى صفحتك كما هو -->
+
+  <div class="hero-slider">
+    <div class="slide active">
+      <img src="https://images.unsplash.com/photo-1581090700227-1e37b190418e" alt="Banner 1">
+      <div class="slide-text"><h2>تمويل بيت أحلامك</h2><button>اعرف المزيد</button></div>
+    </div>
+    <div class="slide">
+      <img src="https://images.unsplash.com/photo-1507679799987-c73779587ccf" alt="Banner 2">
+      <div class="slide-text"><h2>تحويل سريع وآمن</h2><button>المزيد</button></div>
+    </div>
+  </div>
+
+  <section>
+    <div class="grid">
+      <div class="card"><h3>تمويل شخصي</h3><p>حلول مالية تناسب احتياجاتك</p><button>تقديم الآن</button></div>
+      <div class="card"><h3>الحسابات</h3><p>جارية، ذهبية، المشاركة</p><button>المزيد</button></div>
+      <div class="card"><h3>التحويلات</h3><p>تحويل العملات بسهولة</p><button>ابدأ التحويل</button></div>
+      <div class="card"><h3>الإعدادات</h3><p>إدارة الحساب والأمان</p><button>فتح الإعدادات</button></div>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2025 Kuveyt Türk | جميع الحقوق محفوظة</p>
+    <div class="social">
+      <a href="#">Twitter</a> |
+      <a href="#">Instagram</a> |
+      <a href="#">YouTube</a>
+    </div>
+  </footer>
 </div>
 
 <script>
