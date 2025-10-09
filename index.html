@@ -20,7 +20,7 @@
     margin:0;
     font-family:"Tajawal", Arial, sans-serif;
     direction:rtl;
-    background:var(--kuveyt-light);
+    background:var(--kuveyt-gray); /* Lighter background for the app container */
     color:var(--kuveyt-text);
     -webkit-font-smoothing:antialiased;
     box-sizing: border-box;
@@ -48,7 +48,7 @@
     overflow: hidden;
   }
 
-  /* Fixed App Header/Top Bar (Clean White Look) */
+  /* Fixed App Header/Top Bar (Styled after images) */
   .app-header{
     display:flex;
     justify-content:space-between;
@@ -61,14 +61,29 @@
     z-index: 100;
     font-size: 16px;
     font-weight: 700;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    /* Removed box-shadow for cleaner look */
   }
   .header-icon{
-    background:none; border:none; color:var(--kuveyt-deep); font-size:22px; cursor:pointer; padding: 4px; line-height: 1;
+    background:none; border:none; color:#555; font-size:22px; cursor:pointer; padding: 4px; line-height: 1;
   }
   .icon-svg{
       width: 24px; height: 24px; vertical-align: middle;
       fill: currentColor;
+  }
+  .profile-section {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    font-size: 14px;
+    font-weight: 700;
+    color: #444;
+  }
+  .profile-pic {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: var(--kuveyt-mid);
+    border: 2px solid #ddd;
   }
 
   /* --- LOGIN SCREEN --- */
@@ -103,81 +118,133 @@
     padding: 0 18px 15px;
   }
   
-  /* Account Balance Section (New Top Section) */
-  .account-balance-box{
-    background: var(--kuveyt-gray);
-    padding: 18px;
-    border-bottom: 8px solid #eee;
+  /* Account Balance Section (Primary Account Box) */
+  .primary-account-box{
+    background: #fff;
+    padding: 10px 18px 10px;
   }
-  .account-balance-box h3{
-    font-size: 16px;
-    font-weight: 700;
-    color: var(--kuveyt-deep);
-    margin: 0 0 10px 0;
+  .tab-bar {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 20px;
   }
-  .balance-item{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 8px 0;
-    border-bottom: 1px solid #ddd;
+  .tab-item {
+      font-size: 16px;
+      font-weight: 700;
+      color: #999;
+      padding-bottom: 4px;
+      border-bottom: 2px solid transparent;
+      cursor: pointer;
   }
-  .balance-amount{
-    font-size: 24px;
-    font-weight: 800;
-    color: var(--kuveyt-text);
-  }
-  .balance-currency{
-    font-size: 14px;
-    color: #666;
-  }
-  .balance-label{
-    font-size: 14px;
-    color: #555;
-    font-weight: 700;
+  .tab-item.active {
+      color: var(--kuveyt-deep);
+      border-color: var(--kuveyt-deep);
   }
 
-  /* Quick Actions Grid */
-  .quick-actions-grid{
+  .account-summary {
+      background: var(--kuveyt-gray);
+      padding: 18px;
+      border-radius: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  }
+  .account-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+  }
+  .account-header .icon-text {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 700;
+      font-size: 14px;
+  }
+  .account-header .actions {
+      display: flex;
+      gap: 10px;
+  }
+  .account-header .actions button {
+      background: none;
+      color: #666;
+  }
+  .account-balance {
+      font-size: 28px;
+      font-weight: 900;
+      color: var(--kuveyt-deep);
+      text-align: right;
+      direction: ltr;
+  }
+  .secondary-balance-text {
+      font-size: 14px;
+      color: #888;
+      text-align: right;
+      margin-top: -10px;
+      margin-bottom: 10px;
+  }
+  .view-all-link {
+      color: var(--kuveyt-deep);
+      font-weight: 700;
+      font-size: 14px;
+      text-align: center;
+      margin-top: 10px;
+      display: block;
+  }
+
+
+  /* Quick Actions/Fast Transactions (2-column layout) */
+  .fast-transactions-section {
+    padding: 10px 18px;
+  }
+  .fast-transactions-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+      font-size: 16px;
+      font-weight: 700;
+  }
+  .fast-transactions-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
-    padding: 20px 18px;
-    background: #fff;
-    border-bottom: 1px solid #eee;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
   }
-  .action-item{
-    text-align: center;
-    cursor: pointer;
-    padding: 10px 5px;
-    border-radius: 8px;
+  .fast-transaction-item {
     background: var(--kuveyt-gray);
-    transition: background 0.2s;
+    padding: 15px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 700;
+    color: #444;
+    cursor: pointer;
   }
-  .action-item:hover{
-    background: #eee;
-  }
-  .action-icon-box{
-    width: 40px;
-    height: 40px;
+  .item-icon {
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
-    background: var(--kuveyt-deep);
-    color: #fff;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0 auto 5px;
+    color: #fff;
   }
-  .action-item span{
-    font-size: 12px;
-    font-weight: 700;
-    color: #444;
+  .item-icon .icon-svg {
+      width: 18px; height: 18px; fill: currentColor;
   }
-  
-  /* --- MILES & SMILES CARD STYLE (NEW) --- */
+
+  /* Card Section (Miles & Smiles Card - Hidden in a section) */
   .card-section-wrapper{
-    padding: 20px 18px 30px;
+    padding: 15px 18px 25px;
     background: #fff;
+  }
+  .card-box-header {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--kuveyt-deep);
+      margin-bottom: 15px;
   }
   .miles-smiles-card {
     width: 100%;
@@ -188,7 +255,6 @@
     margin: 0 auto;
     position: relative;
     color: #fff;
-    /* Luxury Black/Dark Gray Gradient */
     background: linear-gradient(135deg, #1C1C1C 0%, #3A3A3A 100%);
     box-shadow: 0 12px 30px rgba(0,0,0,0.4);
     display: flex;
@@ -201,7 +267,6 @@
 
   /* Turkish Airlines and Kuveyt Turk logos */
   .card-header{ display: flex; justify-content: space-between; align-items: flex-start; }
-  .logo-left { font-size: 16px; font-weight: 700; }
   .logo-right { font-size: 14px; font-weight: 800; text-align: right; line-height: 1.2; }
   .logo-right div { font-size: 10px; }
   .miles-smiles-title{ font-size: 20px; font-weight: 900; letter-spacing: 0.5px; }
@@ -211,14 +276,21 @@
     width: 40px; 
     height: 30px; 
     border-radius: 4px; 
-    background: silver; /* Silver chip */
+    background: silver; 
     box-shadow: 0 1px 4px rgba(0,0,0,0.2); 
     border: 1px solid #aaa;
     margin-top: 5px;
   }
 
   /* Card Number and Text Styles */
-  .miles-smiles-card .card-number{ font-size: 20px; letter-spacing: 2px; font-weight: 700; text-align: center; margin-top: 10px; }
+  .miles-smiles-card .card-number{ 
+      font-size: 20px; 
+      letter-spacing: 1px; 
+      font-weight: 700; 
+      text-align: right; 
+      direction: ltr; 
+      margin-top: 10px; 
+  } 
   .miles-smiles-card .card-holder-name { font-size: 14px; font-weight: 700; margin-top: 5px; }
   .miles-smiles-card .card-exp-date { font-size: 14px; font-weight: 700; }
   .miles-smiles-card .card-meta{ 
@@ -227,22 +299,19 @@
       align-items: flex-end; 
       font-size: 12px; 
       opacity:.95; 
-      direction: ltr; 
+      direction: rtl; 
   }
-  .miles-smiles-card .mastercard-logo { 
-      width: 40px; 
-      height: 25px; 
-      border-radius: 50%; 
-      background: #fff; 
-      margin-left: 5px;
-      display: inline-block;
+  .card-meta-left {
+      direction: ltr; 
+      text-align: left;
+      display: flex; 
+      align-items: center;
   }
   
   /* Transaction Section (Adjusted padding) */
   .transactions-section{
     background: #fff;
     padding: 15px 18px 70px;
-    margin-top: 10px;
     border-top: 8px solid var(--kuveyt-gray);
   }
   .transactions-section h3{
@@ -257,6 +326,13 @@
     align-items: center;
     padding: 12px 0;
     border-bottom: 1px solid #eee;
+  }
+  .tx-details-group {
+      text-align: right;
+  }
+  .tx-title {
+      font-weight: 700;
+      color: #444;
   }
   .tx-amount{
     font-weight: 700;
@@ -289,7 +365,7 @@
     font-weight: 700;
     cursor: pointer;
     padding: 4px;
-    width: 25%;
+    width: 20%; /* 5 items, so 20% each */
   }
   .nav-item-active{
     color: var(--kuveyt-mid);
@@ -344,49 +420,88 @@
     <div id="home-view" class="panel-view panel-active">
         
       <div class="app-header">
-        <button class="header-icon" onclick="navigate('Menu')" style="font-size: 28px;">&#9776;</button>
-        <span style="font-size: 18px;">الحسابات</span>
-        <button class="header-icon" onclick="navigate('Search')">
-            <svg class="icon-svg" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zM9.5 14C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z" fill="currentColor"/></svg>
-        </button>
+        <div class="profile-section">
+            <div class="profile-pic"></div>
+            <span>عبدالرحمن</span>
+        </div>
+        <div>
+            <button class="header-icon" onclick="navigate('Search')">
+                <svg class="icon-svg" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zM9.5 14C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z" fill="currentColor"/></svg>
+            </button>
+            <button class="header-icon" onclick="navigate('Notifications')">
+                <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6V9c0-3.1-2.03-5.87-5-6.76V2h-2v.24C8.03 3.13 6 5.9 6 9v7l-2 2v1h16v-1l-2-2z" fill="currentColor"/></svg>
+            </button>
+        </div>
       </div>
 
-      <div class="account-balance-box">
-        <h3>الأرصدة الكلية</h3>
-        <div class="balance-item" style="border-top: 1px solid #ddd;">
-          <span class="balance-label">الرصيد الكلي المتاح (دولار)</span>
-          <span class="balance-amount" style="color: #007A3E;">$129,000.00</span>
+      <div class="primary-account-box">
+        <div class="tab-bar">
+            <span class="tab-item active" onclick="switchTab('My Account')">حساباتي</span>
+            <span class="tab-item" onclick="switchTab('My Card')">بطاقتي</span>
         </div>
-        <div class="balance-item" style="border-bottom: none;">
-          <span class="balance-label">الرصيد الكلي المتاح (ليرة تركية)</span>
-          <span class="balance-amount" style="color: #00994B;">₺5,367,754.50</span>
+        
+        <div class="account-summary">
+            <div class="account-header">
+                <div class="icon-text">
+                    <svg class="icon-svg" viewBox="0 0 24 24" style="fill: var(--kuveyt-mid);"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zM4 6h16v2H4V6zm0 12v-6h16v6H4z"/></svg>
+                    <span>حساب التوفير - ليرة تركية</span>
+                </div>
+                <div class="actions">
+                    <button>
+                        <svg class="icon-svg" viewBox="0 0 24 24"><path d="M10 16h4c0-2-2-2-2-4s2-2 2-4h-4V6h4c2 0 4 2 4 4s-2 4-4 4h4v2h-4v2h4v2h-4c-2 0-4-2-4-4zM6 6h2v12H6V6z" fill="currentColor"/></svg>
+                    </button>
+                    <button>
+                        <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 4c-4.41 0-8 3.59-8 8s3.59 8 8 8 8-3.59 8-8-3.59-8-8-8zm0 14c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6z" fill="currentColor"/></svg>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="account-balance">₺5,367,754.50</div>
+            <div class="secondary-balance-text">ما يعادل: **$163,000.00**</div> 
         </div>
-        <button class="login-btn" style="background: #f0f0f0; color: var(--kuveyt-deep); margin-top: 15px; padding: 10px;" onclick="navigate('View_All_Accounts')">عرض كل الحسابات</button>
+        
+        <a href="#" class="view-all-link">عرض كل حساباتي</a>
+      </div>
+
+      <div class="fast-transactions-section">
+        <div class="fast-transactions-header">
+            <span>العمليات السريعة</span>
+            <a href="#" style="font-size: 14px; font-weight: 400; color: var(--kuveyt-mid);">عرض الكل</a>
+        </div>
+        <div class="fast-transactions-grid">
+            
+            <div class="fast-transaction-item" onclick="navigate('Investment_Funds')">
+                <div class="item-icon" style="background: #5D4037;">
+                    <svg class="icon-svg" viewBox="0 0 24 24"><path d="M16 6l2.29 2.29-4.88 4.88-3.29-3.29-7.29 7.29L3 19l5.5-5.5 3.29 3.29 4.88-4.88L20 10V6z"/></svg>
+                </div>
+                <span>الاستثمار</span>
+            </div>
+            
+            <div class="fast-transaction-item" onclick="navigate('School_Payments')">
+                <div class="item-icon" style="background: #1976D2;">
+                     <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+                </div>
+                <span>دفع فواتير/رسوم</span>
+            </div>
+            
+            <div class="fast-transaction-item" onclick="navigate('Saving_Accounts')">
+                <div class="item-icon" style="background: #FFC000;">
+                    <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h-2V9h4v8z"/></svg>
+                </div>
+                <span>الادخار والتوفير</span>
+            </div>
+            
+            <div class="fast-transaction-item" onclick="navigate('Money_Transfer')">
+                <div class="item-icon" style="background: var(--kuveyt-mid);">
+                     <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 8V4l-8 8 8 8v-4h8V8z" fill="currentColor"/></svg>
+                </div>
+                <span>تحويل الأموال</span>
+            </div>
+        </div>
       </div>
       
-      <div class="quick-actions-grid">
-        <div class="action-item" onclick="navigate('Saving_Accounts')">
-          <div class="action-icon-box" style="background: #FFC000;">
-            <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h-2V9h4v8z"/></svg>
-          </div>
-          <span>حسابات الادخار</span>
-        </div>
-        <div class="action-item" onclick="navigate('Investment_Funds')">
-          <div class="action-icon-box" style="background: #5D4037;">
-             <svg class="icon-svg" viewBox="0 0 24 24"><path d="M16 6l2.29 2.29-4.88 4.88-3.29-3.29-7.29 7.29L3 19l5.5-5.5 3.29 3.29 4.88-4.88L20 10V6z"/></svg>
-          </div>
-          <span>استثمار وأسهم</span>
-        </div>
-        <div class="action-item" onclick="navigate('School_Payments')">
-          <div class="action-icon-box" style="background: #1976D2;">
-             <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
-          </div>
-          <span>دفع رسوم المدارس</span>
-        </div>
-      </div>
-
-      <div class="card-section-wrapper">
-        <h3 style="color: var(--kuveyt-deep); margin-bottom: 15px; border-right: 3px solid var(--kuveyt-mid); padding-right: 8px;">بطاقتي</h3>
+      <div class="card-section-wrapper" style="display:none;" id="card-view-details">
+        <h3 class="card-box-header">بطاقة Miles & Smiles</h3>
         
         <div class="miles-smiles-card" aria-hidden="false">
           <div class="card-header">
@@ -399,46 +514,54 @@
           
           <div class="miles-smiles-title" style="text-align: left; margin-top: -10px;">Miles & Smiles</div>
 
-          <div class="card-number" id="card-number">5201 8012 3456 7890</div>
+          <div class="card-number" id="card-number" style="direction: ltr;">
+             5201 80 &bull;&bull;&bull;&bull; &bull;&bull;&bull;&bull; 7890
+          </div>
           
-          <div class="card-meta" style="justify-content: flex-start; gap: 20px;">
-              <div class="card-holder-name" id="card-holder" style="direction: ltr;">SEDA YILMAZ</div>
-              <div class="card-exp-date" id="card-exp">08/26</div>
-              <div style="flex-grow: 1; text-align: right; display: flex; justify-content: flex-end;">
-                  <svg width="40" height="25" viewBox="0 0 100 60" xmlns="http://www.w3.org/2000/svg">
-                      <circle cx="30" cy="30" r="20" fill="#FF5F00"/>
-                      <circle cx="50" cy="30" r="20" fill="#EB001B"/>
-                      <circle cx="40" cy="30" r="20" fill="#F79E1B" opacity="0.6"/>
-                  </svg>
+          <div class="card-meta">
+              <div class="card-holder-name" id="card-holder" style="direction: rtl;">
+                عبد الرحمن ومصطفى بربور
+              </div>
+              <div class="card-meta-left">
+                  <div class="card-exp-date" id="card-exp">08/26</div>
+                  <div style="margin-right: 15px; display: flex; justify-content: flex-end;">
+                      <svg width="40" height="25" viewBox="0 0 100 60" xmlns="http://www.w3.org/2000/svg">
+                          <circle cx="30" cy="30" r="20" fill="#FF5F00"/>
+                          <circle cx="50" cy="30" r="20" fill="#EB001B"/>
+                          <circle cx="40" cy="30" r="20" fill="#F79E1B" opacity="0.6"/>
+                      </svg>
+                  </div>
               </div>
           </div>
         </div>
-        
-         <button class="login-btn" style="background: #f0f0f0; color: var(--kuveyt-deep); margin-top: 20px; padding: 10px;" onclick="navigate('Card_Details')">تفاصيل وإدارة البطاقة</button>
       </div>
       
       <div class="transactions-section">
         <h3>آخر العمليات</h3>
-         <div style="text-align: center; color: #888; padding: 10px 0; border-bottom: 1px solid #eee;">
-             (لا توجد عمليات بطاقة حديثة)
-        </div>
         
         <div class="transaction-item">
-            <div>
-                <div>تحويل محلي (راتب)</div>
+            <div class="tx-details-group">
+                <div class="tx-title">استثمار في صندوق (الذهب)</div>
+                <div class="tx-details">شراء | 10.10.2025</div>
+            </div>
+            <span class="tx-amount" style="color: #cc0000;">-₺50,000.00</span>
+        </div>
+        <div class="transaction-item">
+            <div class="tx-details-group">
+                <div class="tx-title">تحويل داخلي (راتب)</div>
                 <div class="tx-details">من: حساب الشركة | $5,000.00</div>
             </div>
             <span class="tx-amount" style="color: var(--kuveyt-mid);">+₺165,000.00</span>
         </div>
-        <div class="transaction-item" style="border-bottom: none;">
-            <div>
-                <div>سحب آلي (ATM)</div>
-                <div class="tx-details">في: إسطنبول | 09.10.2025</div>
+        <div class="transaction-item" style="border-bottom: 1px solid #eee;">
+            <div class="tx-details-group">
+                <div class="tx-title">دفع رسوم الجامعة</div>
+                <div class="tx-details">رسوم فصل الخريف | 09.10.2025</div>
             </div>
-            <span class="tx-amount" style="color: #cc0000;">-₺500.00</span>
+            <span class="tx-amount" style="color: #cc0000;">-₺22,500.00</span>
         </div>
         
-        <button class="login-btn" style="background: #f0f0f0; color: var(--kuveyt-deep); margin-top: 15px; padding: 10px;" onclick="navigate('All_Transactions')">عرض كافة العمليات</button>
+        <a href="#" class="view-all-link" style="margin-top: 15px;">عرض كل العمليات</a>
       </div>
     </div>
     
@@ -452,23 +575,29 @@
       </span>
       <span>الرئيسية</span>
     </div>
-    <div class="nav-item" onclick="navigate('Transfers')">
+    <div class="nav-item" onclick="navigate('FX')">
+      <span class="nav-icon-wrapper">
+          <svg class="icon-svg" viewBox="0 0 24 24"><path d="M11.9 2C6.4 2 2 6.4 2 11.9s4.4 9.9 9.9 9.9 9.9-4.4 9.9-9.9S17.4 2 11.9 2zm0 18.2c-4.6 0-8.3-3.7-8.3-8.3s3.7-8.3 8.3-8.3 8.3 3.7 8.3 8.3-3.7 8.3-8.3 8.3zM13 7h-2v4H7v2h4v4h2v-4h4v-2h-4V7z" fill="currentColor"/></svg>
+      </span>
+      <span>صرف/استثمار</span>
+    </div>
+    <div class="nav-item" onclick="navigate('MyStatus')">
+      <span class="nav-icon-wrapper">
+          <svg class="icon-svg" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z" fill="currentColor"/></svg>
+      </span>
+      <span>وضعي المالي</span>
+    </div>
+    <div class="nav-item" onclick="navigate('MoneyTransfer')">
       <span class="nav-icon-wrapper">
           <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 8V4l-8 8 8 8v-4h8V8z" fill="currentColor"/></svg>
       </span>
-      <span>التحويلات</span>
+      <span>تحويل الأموال</span>
     </div>
-    <div class="nav-item" onclick="navigate('Cards')">
+    <div class="nav-item" onclick="navigate('Menu')">
       <span class="nav-icon-wrapper">
-          <svg class="icon-svg" viewBox="0 0 24 24"><path d="M20 4H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4v-6h16v6zm0-10H4V6h16v2z" fill="currentColor"/></svg>
+          <svg class="icon-svg" viewBox="0 0 24 24"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z" fill="currentColor"/></svg>
       </span>
-      <span>البطاقات</span>
-    </div>
-    <div class="nav-item" onclick="navigate('More')">
-      <span class="nav-icon-wrapper">
-          <svg class="icon-svg" viewBox="0 0 24 24"><path d="M19.43 12.98c.04-.32.07-.64.07-.98s-.03-.66-.07-.98l2.11-1.65c.19-.15.24-.42.12-.64l-2-3.46c-.12-.22-.39-.3-.61-.22l-2.49 1c-.52-.4-1.09-.76-1.71-1.05L14.7 2.22c-.09-.22-.3-.38-.52-.38h-4c-.22 0-.43.16-.52.38L9.19 4.15c-.63.29-1.2.65-1.71 1.05l-2.49-1c-.22-.08-.49 0-.61.22l-2 3.46c-.13.22-.07.49.12.64l2.11 1.65c-.04.32-.07.64-.07.98s.03.66.07.98l-2.11 1.65c-.19.15-.24.42-.12.64l2 3.46c.12.22.39.3.61.22l2.49-1c.52.4 1.09.76 1.71 1.05l.31 1.83c.09.22.3.38.52.38h4c.22 0 .43-.16.52-.38l.31-1.83c.63-.29 1.2-.65 1.71-1.05l2.49 1c.22.08.49 0 .61-.22l2-3.46c.13-.22.07-.49-.12-.64l-2.11-1.65zM12 15.5c-1.93 0-3.5-1.57-3.5-3.5s1.57-3.5 3.5-3.5 3.5 1.57 3.5 3.5-1.57 3.5-3.5 3.5z" fill="currentColor"/></svg>
-      </span>
-      <span>المزيد</span>
+      <span>القائمة</span>
     </div>
   </div>
 
@@ -483,13 +612,35 @@ const views = {
 
 const navItems = document.querySelectorAll('.app-navbar .nav-item');
 
+function switchTab(tabName) {
+    const tabs = document.querySelectorAll('.tab-item');
+    tabs.forEach(tab => tab.classList.remove('active'));
+
+    const accountSummary = document.querySelector('.account-summary');
+    const cardDetails = document.getElementById('card-view-details');
+    
+    // Simple logic to switch display based on tab
+    if (tabName === 'My Account') {
+        document.querySelector('.tab-item:nth-child(1)').classList.add('active');
+        accountSummary.style.display = 'flex';
+        cardDetails.style.display = 'none';
+        document.querySelector('.secondary-balance-text').innerHTML = 'ما يعادل: **$163,000.00**';
+    } else if (tabName === 'My Card') {
+        document.querySelector('.tab-item:nth-child(2)').classList.add('active');
+        accountSummary.style.display = 'none';
+        cardDetails.style.display = 'block';
+    }
+}
+
+
 function navigate(page) {
     if (views[page]) {
         Object.values(views).forEach(view => view.classList.remove('panel-active'));
         views[page].classList.add('panel-active');
 
-        // Update active navigation icon - Simple check for Home (index 0)
+        // Update active navigation icon
         navItems.forEach((item, index) => {
+            // Simply set Home as active
             item.classList.toggle('nav-item-active', index === 0); 
         });
 
