@@ -2,66 +2,66 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Kuveyt Bank - Demo</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<!-- Login Screen -->
-<div id="loginScreen" class="login-screen">
-  <h2>Enter Password</h2>
-  <input type="password" id="passwordInput" placeholder="Password">
-  <button id="loginBtn">Enter</button>
-  <p id="loginMsg" class="hidden">Wrong password!</p>
+<!-- Password Screen -->
+<div id="passwordScreen" class="screen">
+  <div class="center-box">
+    <h1>Enter Password</h1>
+    <input type="password" id="passwordInput" placeholder="Password">
+    <button id="loginBtn">Enter</button>
+    <p id="loginMsg" class="hidden">Incorrect password!</p>
+  </div>
 </div>
 
-<!-- Main Page -->
-<div id="mainPage" class="hidden">
-<header>
-  <div class="logo">KB</div>
-  <div class="user-section">
-    <span class="username">Mostafa</span>
+<!-- Home Screen -->
+<div id="homeScreen" class="screen hidden">
+  <header>
     <span id="menuBtn" class="menu-btn">⋮</span>
     <ul id="menu" class="menu hidden">
-      <li>Account</li>
-      <li>Settings</li>
-      <li>Logout</li>
+      <li id="profileBtn">Profile</li>
+      <li id="settingsBtn">Settings</li>
+      <li id="transferBtn">Transfer</li>
     </ul>
-  </div>
-</header>
-
-<main>
-  <section class="balance-card">
-    <h2>Current Balance</h2>
-    <div class="balance">3000 $</div>
-    <div class="card-number">Visa: 4445 73XXXXXX</div>
-    <button id="openTransfer">Transfer</button>
-  </section>
-</main>
-
-<div id="modal" class="modal hidden">
-  <div class="modal-content">
-    <span id="closeModal" class="close">&times;</span>
-    <h3>Transfer Form</h3>
-    <form id="transferForm">
-      <label>To Account / Name:</label>
-      <input type="text" id="to" required>
-      <label>Amount:</label>
-      <input type="number" id="amountInput" required>
-      <label>Currency:</label>
-      <select id="currency">
-        <option value="USD">$ USD</option>
-        <option value="EUR">€ EUR</option>
-        <option value="TRY">₺ TRY</option>
-        <option value="SAR">SAR</option>
-        <option value="AED">AED</option>
-        <option value="EGP">EGP</option>
-      </select>
-      <button type="submit">Transfer (Demo)</button>
-    </form>
-    <div id="result" class="hidden"></div>
+  </header>
+  <div class="home-content">
+    <img src="kuveyt-logo.png" alt="Kuveyt Bank Logo" class="logo">
   </div>
 </div>
+
+<!-- Transfer Screen -->
+<div id="transferScreen" class="screen hidden">
+  <header>
+    <img src="kuveyt-logo.png" alt="Kuveyt Bank Logo" class="logo">
+  </header>
+  <main class="transfer-content">
+    <section class="balance-card">
+      <h2>Current Balance</h2>
+      <div class="balance">3000 $</div>
+      <div class="card-number">Visa: 4445 73XXXXXX</div>
+      <form id="transferForm">
+        <label>To Account / Name:</label>
+        <input type="text" id="to" required>
+        <label>Amount:</label>
+        <input type="number" id="amountInput" required>
+        <label>Currency:</label>
+        <select id="currency">
+          <option value="USD">$ USD</option>
+          <option value="EUR">€ EUR</option>
+          <option value="TRY">₺ TRY</option>
+          <option value="SAR">SAR</option>
+          <option value="AED">AED</option>
+          <option value="EGP">EGP</option>
+        </select>
+        <button type="submit">Transfer (Demo)</button>
+      </form>
+      <div id="result" class="hidden"></div>
+    </section>
+  </main>
 </div>
 
 <script src="script.js"></script>
