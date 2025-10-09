@@ -8,8 +8,11 @@
 </head>
 <body>
 
+<!-- ===== HEADER ===== -->
 <header>
-  <div class="logo"><img src="images/kuveyt-logo.png" alt="Logo"></div>
+  <div class="logo">
+    <img src="images/kuveyt-logo.png" alt="Kuveyt Türk Logo">
+  </div>
   <div class="top-right">
     <select id="languageSelect">
       <option value="ar">العربية</option>
@@ -20,6 +23,7 @@
   </div>
 </header>
 
+<!-- ===== NAVIGATION ===== -->
 <nav class="main-nav">
   <ul>
     <li><a href="index.html">الرئيسية</a></li>
@@ -30,26 +34,89 @@
         <li><a href="cards.html">بطاقات</a></li>
       </ul>
     </li>
-    <li>أعمال</li>
-    <li>الخدمات المصرفية الرقمية</li>
+    <li>أعمال
+      <ul class="sub-menu">
+        <li><a href="corporate.html">الشركات</a></li>
+        <li><a href="business-loans.html">تمويل أعمال</a></li>
+      </ul>
+    </li>
+    <li>الخدمات المصرفية الرقمية
+      <ul class="sub-menu">
+        <li><a href="digital.html">الخدمات الرقمية</a></li>
+      </ul>
+    </li>
+    <li>من نحن</li>
+    <li>علاقات المستثمرين</li>
   </ul>
 </nav>
 
+<!-- ===== HERO SLIDER ===== -->
 <div class="hero-slider">
   <div class="slide active">
     <img src="images/banner1.jpg" alt="Banner 1">
-    <div class="slide-text"><h2>خدمة مميزة 1</h2><button>فتح حساب</button></div>
+    <div class="slide-text">
+      <h2>خدمة مميزة 1</h2>
+      <button>فتح حساب</button>
+    </div>
   </div>
   <div class="slide">
     <img src="images/banner2.jpg" alt="Banner 2">
-    <div class="slide-text"><h2>خدمة مميزة 2</h2><button>المزيد</button></div>
+    <div class="slide-text">
+      <h2>خدمة مميزة 2</h2>
+      <button>المزيد</button>
+    </div>
   </div>
   <button class="prev">‹</button>
   <button class="next">›</button>
 </div>
 
+<!-- ===== SECTIONS ===== -->
+<section id="finance-section">
+  <h2>التمويل</h2>
+  <div class="grid">
+    <div class="card">
+      <h3>تمويل إسكان</h3>
+      <p>أفضل العروض لتمويل الإسكان.</p>
+      <button>المزيد</button>
+    </div>
+    <div class="card">
+      <h3>تمويل سيارة</h3>
+      <p>احصل على تمويل سيارتك بسهولة.</p>
+      <button>المزيد</button>
+    </div>
+    <div class="card">
+      <h3>تمويل شخصي</h3>
+      <p>حلول تمويل مرنة للأفراد.</p>
+      <button>المزيد</button>
+    </div>
+  </div>
+</section>
+
+<section id="digital-section">
+  <h2>الخدمات المصرفية الرقمية</h2>
+  <div class="grid">
+    <div class="card">
+      <h3>بوابة الإنترنت</h3>
+      <p>الدخول للحسابات عبر الإنترنت.</p>
+      <button>تسجيل الدخول</button>
+    </div>
+    <div class="card">
+      <h3>محول العملات</h3>
+      <p>تحويل بين جميع العملات.</p>
+      <button>ابدأ</button>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
 <footer>
   <p>حقوق النشر © 2025 Kuveyt Türk</p>
+  <div class="social">
+    <a href="#">فيسبوك</a>
+    <a href="#">إنستاجرام</a>
+    <a href="#">تويتر</a>
+    <a href="#">يوتيوب</a>
+  </div>
 </footer>
 
 <script src="script.js"></script>
