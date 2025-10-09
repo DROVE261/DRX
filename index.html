@@ -6,38 +6,49 @@
   <title>Kuveyt Türk Clone</title>
   <link rel="stylesheet" href="style.css">
   <style>
+    body, html { margin:0; padding:0; font-family:'Segoe UI', sans-serif; background:#f0f2f5; }
+    
     /* شاشة تسجيل الدخول */
     #login-screen {
       position: fixed; top:0; left:0; width:100%; height:100%;
-      background: rgba(0,128,0,0.95); display:flex; justify-content:center; align-items:center; flex-direction:column;
+      background: linear-gradient(135deg, #006400, #008000);
+      display:flex; justify-content:center; align-items:center; flex-direction:column;
       color:#fff; z-index:1000; transition: all 0.5s ease;
     }
-    #login-screen input { padding:10px; margin:5px; border-radius:5px; border:none; width:200px; }
-    #login-screen button { padding:10px 20px; margin:5px; border:none; border-radius:5px; cursor:pointer; }
-    .hidden { display:none; }
+    #login-screen input { padding:12px; margin:8px; border-radius:8px; border:none; width:250px; font-size:16px; }
+    #login-screen button { padding:12px 25px; margin:10px; border:none; border-radius:8px; cursor:pointer; background:#fff; color:#006400; font-weight:bold; font-size:16px; transition: transform 0.3s, background 0.3s; }
+    #login-screen button:hover { transform: scale(1.05); background:#f0f0f0; }
 
-    /* المحتوى الرئيسي */
-    #main-content { display:none; }
-
-    /* تعديل الصور في hero-slider */
-    .hero-slider img {
-      width: 100%;
-      max-height: 400px;
-      object-fit: cover;
-      border-radius:10px;
-      transition: transform 0.5s ease;
-    }
-
-    /* تأثير ظهور الشعار */
+    /* الشعار المتحرك */
     #logo-animation {
       position: fixed; top:50%; left:50%; transform: translate(-50%,-50%) scale(0);
-      z-index: 2000; transition: transform 0.7s ease, opacity 0.7s ease;
+      z-index: 2000; transition: transform 0.7s ease, opacity 0.7s ease; opacity:0;
+      filter: drop-shadow(0 0 20px #fff);
     }
     #logo-animation.show { transform: translate(-50%,-50%) scale(1); opacity:1; }
 
-    /* حركة دخول العناصر */
-    .card { opacity:0; transform: translateY(20px); transition: all 0.5s ease; }
+    /* المحتوى الرئيسي */
+    #main-content { display:none; padding:20px; }
+
+    header { display:flex; justify-content:space-between; align-items:center; background:#004d00; padding:15px 30px; border-radius:10px; color:#fff; margin-bottom:20px; }
+    header .logo img { width:120px; }
+
+    .hero-slider { display:flex; overflow:hidden; gap:20px; margin-bottom:30px; }
+    .hero-slider .slide { flex:1; position:relative; }
+    .hero-slider img { width:100%; height:300px; object-fit:cover; border-radius:15px; box-shadow:0 5px 15px rgba(0,0,0,0.3); transition: transform 0.5s ease; }
+    .hero-slider img:hover { transform: scale(1.05); }
+    .slide-text { position:absolute; bottom:20px; left:20px; background:rgba(0,0,0,0.5); padding:10px 15px; border-radius:10px; color:#fff; }
+
+    .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:20px; }
+    .card { background:#fff; padding:20px; border-radius:15px; box-shadow:0 5px 20px rgba(0,0,0,0.2); text-align:center; transition: transform 0.3s, box-shadow 0.3s; opacity:0; transform: translateY(20px); }
     .card.show { opacity:1; transform: translateY(0); }
+    .card h3 { margin-bottom:10px; color:#006400; }
+    .card p { margin-bottom:15px; color:#333; }
+    .card button { padding:10px 20px; border:none; border-radius:8px; background:#006400; color:#fff; font-weight:bold; cursor:pointer; transition: transform 0.3s, background 0.3s; }
+    .card button:hover { transform: scale(1.05); background:#004d00; }
+
+    footer { text-align:center; margin-top:40px; padding:20px 0; color:#555; }
+    footer a { color:#006400; text-decoration:none; margin:0 5px; font-weight:bold; }
   </style>
 </head>
 <body>
@@ -52,7 +63,7 @@
     <button id="loginBtn">تسجيل دخول</button>
   </div>
 
-  <!-- عنصر الشعار للأنيميشن -->
+  <!-- الشعار المتحرك -->
   <div id="logo-animation">
     <img src="https://upload.wikimedia.org/wikipedia/commons/7/7e/Kuveyt_T%C3%BCrk_logo.svg" alt="Logo" width="200">
   </div>
@@ -87,6 +98,11 @@
 
     <footer>
       <p>© 2025 Kuveyt Türk | جميع الحقوق محفوظة</p>
+      <div class="social">
+        <a href="#">Twitter</a> |
+        <a href="#">Instagram</a> |
+        <a href="#">YouTube</a>
+      </div>
     </footer>
   </div>
 
@@ -103,16 +119,11 @@
       const phone=document.getElementById('phone').value;
       const pass=document.getElementById('password').value;
       if(phone===CORRECT_PHONE && pass===CORRECT_PASS){
-        // عرض شعار
         logoAnim.classList.add('show');
-
-        // بعد ثانيتين اخفي الشعار واظهر المحتوى
         setTimeout(()=>{
           logoAnim.style.display='none';
           loginScreen.style.display='none';
           mainContent.style.display='block';
-
-          // حركة العناصر
           cards.forEach((c,i)=> setTimeout(()=> c.classList.add('show'), i*200));
         },2000);
       } else {
