@@ -1,4 +1,4 @@
-// Password screen
+// شاشة كلمة السر
 const passwordScreen = document.getElementById('passwordScreen');
 const homeScreen = document.getElementById('homeScreen');
 const transferScreen = document.getElementById('transferScreen');
@@ -15,12 +15,12 @@ loginBtn.addEventListener('click', ()=>{
   }
 });
 
-// Menu toggle
+// القائمة الثلاث نقاط
 const menuBtn = document.getElementById('menuBtn');
 const menu = document.getElementById('menu');
 menuBtn.addEventListener('click', ()=> menu.classList.toggle('hidden'));
 
-// Navigate to Transfer
+// الانتقال إلى التحويل
 const transferBtn = document.getElementById('transferBtn');
 transferBtn.addEventListener('click', ()=>{
   homeScreen.classList.add('hidden');
@@ -28,7 +28,7 @@ transferBtn.addEventListener('click', ()=>{
   menu.classList.add('hidden');
 });
 
-// Transfer form
+// نموذج التحويل
 const form = document.getElementById('transferForm');
 const result = document.getElementById('result');
 form.addEventListener('submit', e=>{
@@ -36,7 +36,7 @@ form.addEventListener('submit', e=>{
   const to = document.getElementById('to').value;
   const amount = document.getElementById('amountInput').value;
   const currency = document.getElementById('currency').value;
-  result.textContent = `Transfer Successful: ${amount} ${currency} to ${to} (Demo)`;
+  result.textContent = `تم التحويل بنجاح: ${amount} ${currency} إلى ${to} (تجريبي)`;
   result.classList.remove('hidden');
   form.reset();
 });
