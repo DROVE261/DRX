@@ -20,7 +20,7 @@
     margin:0;
     font-family:"Tajawal", Arial, sans-serif;
     direction:rtl;
-    background:var(--kuveyt-gray); /* Lighter background for the app container */
+    background:var(--kuveyt-gray);
     color:var(--kuveyt-text);
     -webkit-font-smoothing:antialiased;
     box-sizing: border-box;
@@ -48,7 +48,7 @@
     overflow: hidden;
   }
 
-  /* Fixed App Header/Top Bar (Styled after images) */
+  /* Fixed App Header/Top Bar */
   .app-header{
     display:flex;
     justify-content:space-between;
@@ -84,6 +84,22 @@
     background: var(--kuveyt-mid);
     border: 2px solid #ddd;
   }
+  
+  /* --- NEW: Info Bar --- */
+  .info-bar {
+      background: var(--kuveyt-light);
+      color: var(--kuveyt-deep);
+      padding: 10px 18px;
+      font-size: 13px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+  }
+  .info-bar .icon-svg {
+      width: 16px; height: 16px; fill: var(--kuveyt-deep);
+  }
+
 
   /* --- LOGIN SCREEN --- */
   #login-screen{
@@ -112,9 +128,6 @@
   }
   .panel-active{
     display: block !important;
-  }
-  .app-section{
-    padding: 0 18px 15px;
   }
   
   /* Account Balance Section (Primary Account Box) */
@@ -149,25 +162,12 @@
       gap: 15px;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
   }
-  .account-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-  }
   .account-header .icon-text {
       display: flex;
       align-items: center;
       gap: 8px;
       font-weight: 700;
       font-size: 14px;
-  }
-  .account-header .actions {
-      display: flex;
-      gap: 10px;
-  }
-  .account-header .actions button {
-      background: none;
-      color: #666;
   }
   .account-balance {
       font-size: 28px;
@@ -191,7 +191,6 @@
       margin-top: 10px;
       display: block;
   }
-
 
   /* Quick Actions/Fast Transactions (2-column layout) */
   .fast-transactions-section {
@@ -230,11 +229,8 @@
     justify-content: center;
     color: #fff;
   }
-  .item-icon .icon-svg {
-      width: 18px; height: 18px; fill: currentColor;
-  }
-  
-  /* --- EXCLUSIVE FOR YOU SECTION --- (New Addition) */
+
+  /* --- EXCLUSIVE FOR YOU SECTION --- */
   .exclusive-section {
       padding: 15px 18px;
       border-top: 8px solid var(--kuveyt-gray);
@@ -253,20 +249,6 @@
       border-radius: 12px;
       padding: 15px;
       box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-  }
-  .card-promo-content {
-      display: flex;
-      gap: 15px;
-      align-items: center;
-  }
-  .promo-text {
-      flex-grow: 1;
-      font-size: 14px;
-      color: #444;
-  }
-  .promo-text span {
-      font-weight: 700;
-      color: var(--kuveyt-deep);
   }
   .promo-actions {
       display: flex;
@@ -290,7 +272,7 @@
       font-weight: 700;
   }
 
-  /* Card Section (Miles & Smiles Card - Hidden in a section) */
+  /* Card Section */
   .card-section-wrapper{
     padding: 15px 18px 25px;
     background: #fff;
@@ -318,16 +300,8 @@
     font-family: 'Consolas', 'Menlo', 'Monaco', monospace; 
     border: 1px solid #444;
   }
-  /* Card details CSS... (kept the same as last time) */
-  .miles-smiles-title{ font-size: 20px; font-weight: 900; letter-spacing: 0.5px; }
-  .miles-smiles-card .chip { width: 40px; height: 30px; border-radius: 4px; background: silver; box-shadow: 0 1px 4px rgba(0,0,0,0.2); border: 1px solid #aaa; margin-top: 5px; }
-  .miles-smiles-card .card-number{ font-size: 20px; letter-spacing: 1px; font-weight: 700; text-align: right; direction: ltr; margin-top: 10px; } 
-  .miles-smiles-card .card-holder-name { font-size: 14px; font-weight: 700; margin-top: 5px; }
-  .miles-smiles-card .card-exp-date { font-size: 14px; font-weight: 700; }
-  .miles-smiles-card .card-meta{ display:flex; justify-content: space-between; align-items: flex-end; font-size: 12px; opacity:.95; direction: rtl; }
-  .card-meta-left { direction: ltr; text-align: left; display: flex; align-items: center; }
 
-  /* Transaction Section (Adjusted padding) */
+  /* --- Transaction Section (Enhanced) --- */
   .transactions-section{
     background: #fff;
     padding: 15px 18px 70px;
@@ -343,8 +317,11 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 12px 0;
+    padding: 15px 0; /* Increased padding */
     border-bottom: 1px solid #eee;
+  }
+  .transaction-item:last-of-type {
+      border-bottom: none;
   }
   .tx-details-group {
       text-align: right;
@@ -356,14 +333,15 @@
   .tx-amount{
     font-weight: 700;
     color: var(--kuveyt-deep);
-    font-size: 15px;
+    font-size: 16px; /* Slightly larger amount */
   }
   .tx-details{
     font-size: 13px;
     color: #666;
+    margin-top: 2px;
   }
   
-  /* --- PRIVATE BANKING CONTACT --- (New Addition) */
+  /* --- PRIVATE BANKING CONTACT --- */
   .private-banking-section {
     padding: 15px 18px;
     border-top: 8px solid var(--kuveyt-gray);
@@ -405,27 +383,6 @@
     padding: 8px 0;
     box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
     z-index: 100;
-  }
-  .nav-item{
-    text-align: center;
-    font-size: 11px;
-    color: #777;
-    font-weight: 700;
-    cursor: pointer;
-    padding: 4px;
-    width: 20%; /* 5 items, so 20% each */
-  }
-  .nav-item-active{
-    color: var(--kuveyt-mid);
-  }
-  .nav-icon-wrapper{
-    display: block;
-    margin-bottom: 2px;
-    height: 20px;
-  }
-  .nav-icon-wrapper .icon-svg{
-      width: 20px; height: 20px;
-      fill: currentColor;
   }
 
 </style>
@@ -480,6 +437,11 @@
                 <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6V9c0-3.1-2.03-5.87-5-6.76V2h-2v.24C8.03 3.13 6 5.9 6 9v7l-2 2v1h16v-1l-2-2z" fill="currentColor"/></svg>
             </button>
         </div>
+      </div>
+      
+      <div class="info-bar">
+          <svg class="icon-svg" viewBox="0 0 24 24"><path d="M11 15h2v2h-2zm0-8h2v6h-2zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z" fill="currentColor"/></svg>
+          تم تحديث سعر صرف الليرة مقابل الدولار إلى **32.93**
       </div>
 
       <div class="primary-account-box">
@@ -609,7 +571,7 @@
         <div class="transaction-item">
             <div class="tx-details-group">
                 <div class="tx-title">استثمار في صندوق (الذهب)</div>
-                <div class="tx-details">شراء | 10.10.2025</div>
+                <div class="tx-details">شراء | 12.07.2025</div>
             </div>
             <span class="tx-amount" style="color: #cc0000;">-₺50,000.00</span>
         </div>
@@ -620,7 +582,7 @@
             </div>
             <span class="tx-amount" style="color: var(--kuveyt-mid);">+₺165,000.00</span>
         </div>
-        <div class="transaction-item" style="border-bottom: 1px solid #eee;">
+        <div class="transaction-item">
             <div class="tx-details-group">
                 <div class="tx-title">دفع رسوم الجامعة</div>
                 <div class="tx-details">رسوم فصل الخريف | 09.10.2025</div>
