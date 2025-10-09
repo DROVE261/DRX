@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Kuveyt Bank TR — واجهة تجريبية</title>
+<title>Kuveyt Türk — واجهة أنيقة</title>
 <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;800;900&display=swap" rel="stylesheet">
 <style>
   :root{
@@ -12,8 +12,7 @@
     --kuveyt-mid: #00994B; /* Main Green */
     --kuveyt-light: #F0FAF3; /* Light Background */
     --kuveyt-text: #1C1C1C;
-    --kuveyt-gold: #FFC000;
-    --shadow-color: rgba(0, 122, 62, 0.15); /* Soft shadow for app feel */
+    --shadow-color: rgba(0, 122, 62, 0.15);
   }
   html,body{
     height:100%;
@@ -30,7 +29,8 @@
   }
   button{
     cursor: pointer;
-    transition: background-color 0.2s, box-shadow 0.2s;
+    transition: background-color 0.2s, transform 0.1s;
+    border: none;
   }
   button:active{
     transform: scale(0.98);
@@ -64,9 +64,12 @@
   }
   .header-icon{
     background:none; border:none; color:#fff; font-size:22px; cursor:pointer; padding: 4px; line-height: 1;
-    transition: opacity 0.2s;
   }
-  .header-icon:hover{ opacity: 0.8; }
+  .header-icon.dark{ color: var(--kuveyt-deep); }
+  .icon-svg{
+      width: 24px; height: 24px; vertical-align: middle;
+      fill: currentColor;
+  }
 
   /* --- LOGIN SCREEN --- */
   #login-screen{
@@ -81,13 +84,13 @@
   .login-btn{
     width: 100%; padding:12px; border-radius:8px; border:none;
     background:var(--kuveyt-mid);
-    color:#fff; font-weight:700; cursor:pointer; margin-top: 10px;
+    color:#fff; font-weight:700; margin-top: 10px;
   }
   .login-input{
     width: 100%; padding:12px; border-radius:8px; border:1px solid #ddd; margin-top: 10px; text-align: right;
   }
 
-  /* --- MAIN CONTENT (App Home Screen) --- */
+  /* --- MAIN CONTENT (Home Screen) --- */
   #main-content{
     padding-bottom: 70px; 
     display: none;
@@ -96,12 +99,11 @@
   .welcome-section{
     padding: 20px 18px 0;
     background: #fff;
-    border-bottom: 1px solid #eee;
   }
   .welcome-section h1{
-    font-size: 24px;
+    font-size: 20px;
     font-weight: 800;
-    margin: 0 0 4px 0;
+    margin: 0 0 10px 0;
     color: var(--kuveyt-deep);
   }
   .balance-card{
@@ -109,48 +111,69 @@
     padding: 15px;
     border-radius: 10px;
     border: 1px solid #e0e0e0;
-    margin: 15px 0;
     box-shadow: 0 4px 10px var(--shadow-color);
   }
+  .balance-card .amount-group{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
   .balance-card .amount{
-    font-size: 30px;
+    font-size: 32px;
     font-weight: 900;
     color: var(--kuveyt-deep);
     display: block;
-    margin-top: 5px;
   }
-
-  /* Quick Actions Grid */
-  .quick-actions-grid{
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
+  .balance-actions{
+    display: flex; 
+    justify-content: space-between; 
+    margin-top: 15px; 
     gap: 10px;
-    padding: 10px 18px 20px;
-    background: #fff;
-    border-bottom: 8px solid var(--kuveyt-light);
   }
-  .action-item{
-    text-align: center;
-    cursor: pointer;
-  }
-  .action-icon{
-    width: 50px;
-    height: 50px;
-    border-radius: 12px; /* Square icons for modern look */
-    background: var(--kuveyt-deep);
-    color: #fff;
+  .balance-actions button{
+    flex: 1; 
+    padding: 10px; 
+    border-radius: 8px; 
+    background: #f0f0f0; 
+    color: var(--kuveyt-deep); 
+    font-weight: 700;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 20px; /* Smaller icon size */
-    margin: 0 auto 5px;
+    gap: 8px;
+    border: 1px solid #e0e0e0;
   }
-  .action-item span{
-    font-size: 11px;
-    font-weight: 700;
-    color: #444;
+
+  /* --- SAĞLAM KART --- */
+  .saglam-card {
+    width: 90%;
+    max-width: 350px;
+    height: 190px;
+    border-radius: 14px;
+    padding: 16px;
+    margin: 25px auto 30px; /* Increased margin for spacing */
+    position: relative;
+    color: #fff;
+    background: linear-gradient(135deg, #007A3E 0%, #00994B 100%);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.25);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    font-family: 'Consolas', 'Menlo', 'Monaco', monospace; 
   }
-  
+  .saglam-card .card-header,
+  .saglam-card .card-meta{ z-index: 2; position: relative; }
+
+  .saglam-card .chip { width: 50px; height: 36px; border-radius: 6px; background: linear-gradient(180deg, #d4af37, #f7d750); box-shadow: 0 1px 4px rgba(0,0,0,0.2); }
+  .saglam-card .bank-logo-group { display: flex; flex-direction: column; align-items: flex-end; text-align: right; }
+  .saglam-card .bank-logo { display: flex; gap: 6px; align-items: center; flex-direction: row-reverse; }
+  .saglam-card .bank-logo .mark { width: 36px; height: 36px; border-radius: 6px; background: #fff; color: var(--kuveyt-deep); font-weight: 900; font-size: 14px; display: flex; align-items: center; justify-content: center; }
+  .saglam-card .bank-name { font-weight: 800; font-size: 12px; color: #fff; }
+  .saglam-card .saglam-text { font-weight: 900; font-size: 14px; color: #fff; text-transform: uppercase; letter-spacing: 1px; margin-top: 2px; font-family: "Tajawal", Arial, sans-serif; }
+  .saglam-card .card-number{ font-size: 18px; letter-spacing: 2px; font-weight: 700; text-align: left; margin-top: 10px; }
+  .saglam-card .card-meta{ display:flex; justify-content: space-between; align-items: flex-end; font-size: 12px; opacity:.95; direction: ltr; }
+  .saglam-card .network-badge{ position:absolute; bottom:16px; right:16px; padding:4px 8px; border-radius: 6px; background:rgba(255,255,255,0.9); color:var(--kuveyt-deep); font-weight:800; z-index:2; font-size: 11px; }
+
   /* --- Bottom Navigation Bar --- */
   .app-navbar{
     position: fixed;
@@ -177,60 +200,33 @@
   .nav-item-active{
     color: var(--kuveyt-mid);
   }
-  .nav-icon{
-    font-size: 20px;
+  .nav-icon-wrapper{
     display: block;
     margin-bottom: 2px;
+    height: 24px;
+  }
+  .nav-icon-wrapper .icon-svg{
+      width: 20px; height: 20px;
+      fill: currentColor;
   }
 
-  /* --- SAĞLAM KART (Final Tweak) --- */
-  .saglam-card {
-    width: 90%;
-    max-width: 350px;
-    height: 190px;
-    border-radius: 14px;
-    padding: 16px;
-    margin: 20px auto;
-    position: relative;
-    color: #fff;
-    background: linear-gradient(135deg, #007A3E 0%, #00994B 100%);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    font-family: 'Consolas', 'Menlo', 'Monaco', monospace; 
-  }
-
-  /* Card and Panel Visibility */
-  #cards-panel {
-    display: none; /* Hidden by default */
-    padding: 15px 18px;
-    background: #fff;
-    min-height: 400px; /* Ensure content area */
-  }
-
-  /* Custom Icons (Using Unicode) */
-  .i-home::before { content: '🏠'; }
-  .i-transfer::before { content: '🔁'; }
-  .i-card::before { content: '💳'; }
-  .i-settings::before { content: '⚙️'; }
-  .i-money::before { content: '💵'; }
-  .i-bill::before { content: '📄'; }
-  .i-stock::before { content: '📈'; }
-  .i-loan::before { content: '🏦'; }
-  .i-deposit::before { content: '⏳'; }
-  .i-insurance::before { content: '🛡️'; }
-  .i-more::before { content: '•••'; font-size: 18px;}
-
-  /* Panel View Style */
+  /* Panel View Styles */
   .panel-view{
     display: none;
     min-height: calc(100vh - 70px);
-    padding: 15px 18px;
-    background: #fff;
   }
   .panel-active{
     display: block !important;
+  }
+  .app-section{
+    padding: 0 18px 15px;
+    background: #fff;
+  }
+  .app-section h3{
+    font-size: 16px;
+    color: var(--kuveyt-deep);
+    margin: 0 0 10px 0;
+    padding-right: 8px;
   }
 
 </style>
@@ -249,14 +245,6 @@
         </g>
       </svg>">
   </div>
-
-  <div id="cookie-bar" style="display:none; position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%); max-width: 400px; width: 90%; z-index: 101; background: #fff; padding: 12px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
-    <div>نستخدم ملفات تعريف الارتباط لتحسين تجربتك.</div>
-    <div style="display: flex; gap: 8px; margin-top: 8px;">
-      <button id="accept-cookies" class="login-btn" style="background: var(--kuveyt-mid); padding: 8px; margin-top: 0; flex: 1;">قبول الكل</button>
-    </div>
-  </div>
-
 
   <div id="login-screen" aria-hidden="false">
     <div class="login-box">
@@ -280,85 +268,46 @@
     <div id="home-view" class="panel-view panel-active">
         
       <div class="app-header">
-        <button class="header-icon" onclick="navigate('Back')" style="font-size: 28px;">&times;</button>
+        <button class="header-icon" onclick="navigate('Close')" style="font-size: 28px;">&times;</button>
         <span>الشاشة الرئيسية</span>
-        <button class="header-icon" onclick="navigate('Settings')">&#9881;</button>
+        <button class="header-icon" onclick="navigate('Settings')">
+            <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm0-4h-2V7h2v8z" fill="#fff"/></svg>
+        </button>
       </div>
 
       <div class="welcome-section">
-        <div style="display: flex; justify-content: space-between; align-items: center;">
-          <h1>مرحباً، عبدالرحمن</h1>
-          <div style="font-size: 30px; color: var(--kuveyt-mid); cursor: pointer;" onclick="alert('إظهار/إخفاء الرصيد')">👁️</div>
-        </div>
+        <h1>مرحباً، عبدالرحمن</h1>
         
         <div class="balance-card">
-          <div style="font-size: 14px; color: #666;">الرصيد الكلي المتاح (لجميع الحسابات)</div>
-          <span class="amount" id="balance-amount">$129,000.00</span>
-          <div style="display: flex; justify-content: space-between; margin-top: 10px;">
-            <button class="login-btn" style="flex: 1; margin: 0 5px 0 0; padding: 10px; background: #f0f0f0; color: var(--kuveyt-deep);" onclick="navigate('Accounts')">الحسابات</button>
-            <button class="login-btn" style="flex: 1; margin: 0 0 0 5px; padding: 10px; background: #f0f0f0; color: var(--kuveyt-deep);" onclick="togglePayments(true)">تحويل</button>
+          <div class="amount-group">
+            <div>
+              <div style="font-size: 14px; color: #666;">الرصيد الكلي المتاح</div>
+              <span class="amount" id="balance-amount">$129,000.00</span>
+            </div>
+            <button style="background: none; color: var(--kuveyt-mid);" onclick="alert('إظهار/إخفاء الرصيد')">
+              <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+            </button>
+          </div>
+          
+          <div class="balance-actions">
+            <button onclick="navigate('Accounts')">
+                <svg class="icon-svg" viewBox="0 0 24 24"><path d="M4 6c-1.1 0-1.99.9-1.99 2L2 19c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-3V4c0-1.1-.9-2-2-2H9c-1.1 0-2 .9-2 2v2H4zm5 0h6V4H9v2z"/></svg>
+                الحسابات
+            </button>
+            <button onclick="togglePayments(true)">
+                <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 2L4 5v6.09c0 4.54 3.23 8.65 7.5 9.87V12h-2v4h4v-4h-2V5.41L12 3.1 20 5v6.09c0 4.54-3.23 8.65-7.5 9.87 4.27-1.22 7.5-5.33 7.5-9.87V5L12 2z"/></svg>
+                تحويل الآن
+            </button>
           </div>
         </div>
       </div>
-
-      <div class="quick-actions-grid">
-        <div class="action-item" onclick="navigate('Transfers')">
-          <div class="action-icon i-transfer" style="background: var(--kuveyt-deep);"></div>
-          <span>تحويل</span>
-        </div>
-        <div class="action-item" onclick="navigate('Cards')">
-          <div class="action-icon i-card"></div>
-          <span>بطاقاتي</span>
-        </div>
-        <div class="action-item" onclick="navigate('Bills')">
-          <div class="action-icon i-bill"></div>
-          <span>دفع فواتير</span>
-        </div>
-        <div class="action-item" onclick="navigate('Investments')">
-          <div class="action-icon i-stock"></div>
-          <span>استثمار</span>
-        </div>
-        <div class="action-item" onclick="navigate('Loan')">
-          <div class="action-icon i-loan" style="background: #3c9;"></div>
-          <span>تمويل</span>
-        </div>
-        <div class="action-item" onclick="navigate('Deposits')">
-          <div class="action-icon i-deposit" style="background: #555;"></div>
-          <span>ودائع</span>
-        </div>
-        <div class="action-item" onclick="navigate('Insurance')">
-          <div class="action-icon i-insurance" style="background: #c53;"></div>
-          <span>تأمين</span>
-        </div>
-        <div class="action-item" onclick="navigate('More')">
-          <div class="action-icon i-more" style="background: #888;"></div>
-          <span>المزيد</span>
-        </div>
-      </div>
-
-
+      
+      
       <div class="app-section">
-        <h3 style="border-right-color: var(--kuveyt-deep);">آخر العمليات</h3>
-        <ul id="tx-list" style="list-style: none; padding: 0; margin: 0;">
-          <li style="padding: 8px; background: var(--kuveyt-light); border-radius: 6px; margin-bottom: 5px; font-size: 14px; color: #cc0000;">فاتورة (كهرباء): -120.00 TL</li>
-          <li style="padding: 8px; background: var(--kuveyt-light); border-radius: 6px; margin-bottom: 5px; font-size: 14px; color: #007A3E;">تحويل وارد (الراتب): +3200.00 USD</li>
-        </ul>
-        <button class="login-btn" style="background: #f0f0f0; color: var(--kuveyt-deep); margin-top: 10px; padding: 10px;" onclick="navigate('All Transactions')">عرض كافة العمليات</button>
-      </div>
-    </div>
-
-
-    <div id="cards-view" class="panel-view">
-      <div class="app-header" style="background: #f0f0f0;">
-        <button class="header-icon" onclick="navigate('Home')" style="font-size: 20px; color: var(--kuveyt-deep);">&#x2192;</button>
-        <span style="color: var(--kuveyt-deep);">بطاقاتي</span>
-        <button class="header-icon" onclick="navigate('Cards_Add')" style="font-size: 20px; color: var(--kuveyt-deep);">+</button>
-      </div>
-
-      <div class="app-section">
-        <h3 style="border-right-color: #00994B;">بطاقة الصراف الآلي</h3>
+        <h3 style="margin-top: 15px;">بطاقة الصراف الآلي</h3>
+        
         <div class="saglam-card" aria-hidden="false">
-          <div class="card-header">
+          <div class="card-header" style="display: flex; justify-content: space-between;">
             <div class="chip" aria-hidden="true"></div>
             <div class="bank-logo-group">
               <div class="bank-logo">
@@ -383,7 +332,38 @@
           </div>
           <div class="network-badge" aria-hidden="true" style="right: 16px; left: auto;">Visa/Troy</div>
         </div>
-        <button class="login-btn" style="background: #f0f0f0; color: var(--kuveyt-deep); margin-top: 15px; padding: 10px;" onclick="alert('عرض التفاصيل وإدارة البطاقة')">إدارة البطاقة</button>
+        
+        <button class="login-btn" style="background: #f0f0f0; color: var(--kuveyt-deep); margin-top: -10px; padding: 10px;" onclick="navigate('Cards_Manage')">إدارة البطاقة</button>
+
+      </div>
+      
+      <div class="app-section">
+        <h3 style="border-right: 3px solid var(--kuveyt-mid); padding-right: 8px;">آخر العمليات</h3>
+        <ul id="tx-list" style="list-style: none; padding: 0; margin: 0;">
+          <li style="padding: 10px; background: var(--kuveyt-light); border-radius: 8px; margin-bottom: 5px; font-size: 14px; color: #cc0000; border: 1px solid #eee;">فاتورة (كهرباء): **-120.00 TL**</li>
+          <li style="padding: 10px; background: var(--kuveyt-light); border-radius: 8px; margin-bottom: 5px; font-size: 14px; color: #007A3E; border: 1px solid #eee;">تحويل وارد (الراتب): **+3200.00 USD**</li>
+        </ul>
+        <button class="login-btn" style="background: #f0f0f0; color: var(--kuveyt-deep); margin-top: 10px; padding: 10px;" onclick="navigate('All Transactions')">عرض كافة العمليات</button>
+      </div>
+    </div>
+
+    <div id="cards-view" class="panel-view">
+      <div class="app-header" style="background: #f0f0f0;">
+        <button class="header-icon dark" onclick="navigate('Home')">
+             <svg class="icon-svg" viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z" fill="currentColor"/></svg>
+        </button>
+        <span style="color: var(--kuveyt-deep);">البطاقات</span>
+        <button class="header-icon dark" onclick="navigate('Cards_Add')" style="font-size: 20px;">
+             <svg class="icon-svg" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" fill="currentColor"/></svg>
+        </button>
+      </div>
+      <div class="app-section">
+          <h3 style="margin-top: 20px;">هذه صفحة إدارة البطاقات</h3>
+          <p style="color: #666;">يتم هنا عرض البطاقات الأخرى الخاصة بك (مثل بطاقات الائتمان) والتحكم في إعداداتها.</p>
+          <div style="text-align: center; padding: 20px; border: 1px dashed #ccc; border-radius: 10px;">
+              <p style="font-weight: bold;">بطاقة أخرى (افتراضية)</p>
+              <div style="width: 200px; height: 120px; background: #eee; border-radius: 8px; margin: 10px auto;"></div>
+          </div>
       </div>
     </div>
     
@@ -391,27 +371,35 @@
 
 
   <div class="app-navbar">
-    <div class="nav-item i-home" onclick="navigate('Home')">
-      <span class="nav-icon i-home"></span>
+    <div class="nav-item nav-item-active" onclick="navigate('Home')">
+      <span class="nav-icon-wrapper">
+          <svg class="icon-svg" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" fill="currentColor"/></svg>
+      </span>
       <span>الرئيسية</span>
     </div>
-    <div class="nav-item i-transfer" onclick="navigate('Transfers')">
-      <span class="nav-icon i-transfer"></span>
+    <div class="nav-item" onclick="navigate('Transfers')">
+      <span class="nav-icon-wrapper">
+          <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 8V4l-8 8 8 8v-4h8V8z" fill="currentColor"/></svg>
+      </span>
       <span>التحويلات</span>
     </div>
-    <div class="nav-item i-card" onclick="navigate('Cards')">
-      <span class="nav-icon i-card"></span>
+    <div class="nav-item" onclick="navigate('Cards')">
+      <span class="nav-icon-wrapper">
+          <svg class="icon-svg" viewBox="0 0 24 24"><path d="M20 4H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4v-6h16v6zm0-10H4V6h16v2z" fill="currentColor"/></svg>
+      </span>
       <span>البطاقات</span>
     </div>
-    <div class="nav-item i-settings" onclick="navigate('Settings')">
-      <span class="nav-icon i-settings"></span>
+    <div class="nav-item" onclick="navigate('Settings')">
+      <span class="nav-icon-wrapper">
+          <svg class="icon-svg" viewBox="0 0 24 24"><path d="M19.43 12.98c.04-.32.07-.64.07-.98s-.03-.66-.07-.98l2.11-1.65c.19-.15.24-.42.12-.64l-2-3.46c-.12-.22-.39-.3-.61-.22l-2.49 1c-.52-.4-1.09-.76-1.71-1.05L14.7 2.22c-.09-.22-.3-.38-.52-.38h-4c-.22 0-.43.16-.52.38L9.19 4.15c-.63.29-1.2.65-1.71 1.05l-2.49-1c-.22-.08-.49 0-.61.22l-2 3.46c-.13.22-.07.49.12.64l2.11 1.65c-.04.32-.07.64-.07.98s.03.66.07.98l-2.11 1.65c-.19.15-.24.42-.12.64l2 3.46c.12.22.39.3.61.22l2.49-1c.52.4 1.09.76 1.71 1.05l.31 1.83c.09.22.3.38.52.38h4c.22 0 .43-.16.52-.38l.31-1.83c.63-.29 1.2-.65 1.71-1.05l2.49 1c.22.08.49 0 .61-.22l2-3.46c.13-.22.07-.49-.12-.64l-2.11-1.65zM12 15.5c-1.93 0-3.5-1.57-3.5-3.5s1.57-3.5 3.5-3.5 3.5 1.57 3.5 3.5-1.57 3.5-3.5 3.5z" fill="currentColor"/></svg>
+      </span>
       <span>الإعدادات</span>
     </div>
   </div>
 
 
   <div id="payments-services" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); min-width:300px; max-width: 90%; background:#fff; padding:18px; border-radius:12px; box-shadow:0 18px 50px rgba(0,0,0,.3); z-index:200;">
-    <button onclick="togglePayments(false)" class="header-icon" style="float:left; color: #555;">&times;</button>
+    <button onclick="togglePayments(false)" class="header-icon dark" style="float:left; font-size: 28px;">&times;</button>
     <h3 style="margin-top: 0; color: var(--kuveyt-deep);">تنفيذ تحويل</h3>
     <form id="transfer-form">
       <input id="tf-amount" type="number" placeholder="المبلغ (USD)" required class="login-input" style="text-align: right;">
@@ -425,7 +413,6 @@
 const views = {
     'Home': document.getElementById('home-view'),
     'Cards': document.getElementById('cards-view'),
-    // Add other views here if created: 'Transfers': document.getElementById('transfers-view'),
 };
 
 const navItems = document.querySelectorAll('.app-navbar .nav-item');
@@ -438,13 +425,14 @@ function navigate(page) {
         // Show the requested view
         views[page].classList.add('panel-active');
 
-        // Update active navigation icon
-        navItems.forEach(item => item.classList.remove('nav-item-active'));
-        document.querySelector(`.app-navbar .i-${page.toLowerCase()}`).classList.add('nav-item-active');
+        // Update active navigation icon (Based on the order)
+        const activeIndex = Object.keys(views).indexOf(page);
+        navItems.forEach((item, index) => {
+            item.classList.toggle('nav-item-active', index === activeIndex);
+        });
 
-    } else if (page === 'Home') {
-         // Fallback for home if needed
-        navigate('Home');
+    } else if (page === 'Close') {
+        alert('محاكاة: تم إغلاق التطبيق/العودة للخلف.');
     }
      else {
         // 2. Handle simple alerts for unimplemented buttons
@@ -454,10 +442,6 @@ function navigate(page) {
 
 // Set initial active nav item and view on load
 window.addEventListener('load', () => {
-    // Check which view is currently active (should be home by default)
-    const activeViewKey = Object.keys(views).find(key => views[key].classList.contains('panel-active')) || 'Home';
-    document.querySelector(`.app-navbar .i-${activeViewKey.toLowerCase()}`).classList.add('nav-item-active');
-
     // Hide splash screen after a short delay
     setTimeout(() => {
         const overlay = document.getElementById('bank-overlay');
@@ -472,9 +456,6 @@ function showMainAfterLogin(){
   document.getElementById('login-screen').style.display = 'none';
   document.getElementById('main-content').style.display = 'block';
   navigate('Home'); // Ensure we start on the home screen
-  
-  // Show the cookie bar briefly
-  if(!localStorage.getItem('demo_cookies')) document.getElementById('cookie-bar').style.display = 'block';
 }
 document.getElementById("manual-login-btn").onclick = () => { showMainAfterLogin(); };
 
@@ -495,12 +476,6 @@ document.getElementById('transfer-form').addEventListener('submit', (e)=>{
   
   alert('تم تنفيذ تحويل مبلغ $' + amount + ' بنجاح!');
   togglePayments(false);
-});
-
-// Cookie Logic
-document.getElementById('accept-cookies').addEventListener('click', ()=>{
-  localStorage.setItem('demo_cookies','accepted');
-  document.getElementById('cookie-bar').style.display = 'none';
 });
 </script>
 </body>
