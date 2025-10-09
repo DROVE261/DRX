@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Demo Bank — واجهة تجريبية</title>
+<title>Kuveyt Bank TR — واجهة تجريبية</title>
 <style>
   :root{
     --green-deep:#0b6b3a;
@@ -22,7 +22,7 @@
     -webkit-font-smoothing:antialiased;
   }
 
-  /* ---------- OVERLAY (يظهر ثم يختفي بعد ثانية) ---------- */
+  /* ---------- OVERLAY ---------- */
   #bank-overlay{
     position:fixed;
     inset:0;
@@ -31,18 +31,16 @@
     justify-content:center;
     background:rgba(11,139,62,0.94);
     z-index:9999;
-    /* animation: stay visible for 1s then fade out quickly */
     animation: overlayHide 1.6s forwards;
   }
   #bank-overlay img{ width:320px; max-width:80%; display:block; filter: drop-shadow(0 8px 36px rgba(0,0,0,.3)); }
 
   @keyframes overlayHide{
     0%   { opacity:1; pointer-events:auto; }
-    62%  { opacity:1; pointer-events:auto; } /* stay visible ~1s */
+    62%  { opacity:1; pointer-events:auto; }
     100% { opacity:0; pointer-events:none; display:none; }
   }
 
-  /* ---------- HEADER / LAYOUT ---------- */
   header{
     display:flex;
     justify-content:space-between;
@@ -82,7 +80,6 @@
   }
   .login-small{ margin-top:10px; padding:8px 12px; border-radius:8px; border:none; background:#fff; color:var(--green-mid); cursor:pointer; }
 
-  /* ---------- MAIN ---------- */
   main{ display:none; min-height:100vh; padding-bottom:40px; }
 
   .hero{ margin:20px 18px; border-radius:12px; overflow:hidden; box-shadow:0 12px 36px rgba(0,0,0,.06); }
@@ -94,7 +91,6 @@
 
   .card{ background:#fff; border-radius:12px; padding:16px; box-shadow:0 8px 20px rgba(0,0,0,.06); text-align:center; }
 
-  /* ---------- ACCOUNT PANEL (قابلة للتمرير) ---------- */
   #account-panel{
     position:fixed; top:8%; right:18px; width:380px; max-height:78vh;
     background:linear-gradient(180deg,#fff,#fbfffb); border-radius:14px; padding:16px;
@@ -106,12 +102,10 @@
   .balance .amount{ font-size:20px; font-weight:900; color:var(--green-deep); }
   .acct-actions{ display:flex; gap:8px; margin-top:12px; }
 
-  /* make the inner content scrollable */
   .panel-body{ max-height: calc(78vh - 180px); overflow:auto; padding-right:6px; margin-top:12px; }
   .panel-body::-webkit-scrollbar{ width:8px; }
   .panel-body::-webkit-scrollbar-thumb{ background: linear-gradient(180deg,var(--green-mid),var(--green-deep)); border-radius:10px; }
 
-  /* ---------- VISA CARD (الشكل المطلوب) ---------- */
   .card-display{ display:flex; justify-content:center; margin-top:8px; }
   .visa-card{
     width:320px; height:190px; border-radius:14px; padding:16px; position:relative; color:#fff;
@@ -120,7 +114,6 @@
       linear-gradient(135deg,#19b86a 0%, #0b8b3e 60%, #063f24 100%);
     box-shadow:0 18px 50px rgba(3,60,30,0.22); overflow:hidden; font-family:"Courier New", monospace;
   }
-  /* white stripe on top */
   .visa-card .top-stripe{
     position:absolute; top:0; left:0; right:0; height:14px; background:#fff; opacity:0.95;
     border-top-left-radius:14px; border-top-right-radius:14px;
@@ -138,22 +131,18 @@
   }
   .card-type{ position:absolute; bottom:12px; left:16px; font-size:12px; opacity:.95; z-index:2; }
 
-  /* ---------- ACCOUNTS / TRANSACTIONS ---------- */
   .accounts-list{ background:#fff; border-radius:10px; padding:10px; box-shadow:0 8px 20px rgba(0,0,0,.04); margin-top:12px; }
   .acct-item{ display:flex; justify-content:space-between; align-items:center; padding:10px; border-radius:8px; border:1px solid #f0f6f0; margin-top:8px; }
   .last-transactions ul{ list-style:none; padding:0; margin:0; }
   .last-transactions ul li{ background:#f0fff4; padding:10px; border-radius:8px; margin-top:8px; color:#065; font-weight:700; }
 
-  /* buttons */
   .btn{ padding:10px 12px; border-radius:10px; border:none; cursor:pointer; }
   .btn-primary{ background:linear-gradient(90deg,var(--green-mid),var(--green-accent)); color:#fff; font-weight:800; }
   .btn-ghost{ background:#fff; color:var(--green-deep); border:1px solid #e9f6ef; font-weight:700; }
 
-  /* cookie area */
   #cookie-bar{ position:fixed; left:0; right:0; bottom:18px; margin:0 auto; max-width:920px; background:linear-gradient(90deg,#fff,#f7fff7); padding:12px 16px; display:flex; gap:12px; align-items:center; justify-content:space-between; border-radius:12px; box-shadow:0 12px 30px rgba(0,0,0,.08); z-index:80; }
   #cookie-bar .actions{ display:flex; gap:8px; }
 
-  /* responsiveness */
   @media (max-width:900px){
     #account-panel{ right:12px; left:12px; width:auto; max-width:92vw; }
     .visa-card{ width:92%; height:180px; }
@@ -163,278 +152,239 @@
 </head>
 <body>
 
-  <!-- OVERLAY: يظهر عند الدخول ثم يختفي تلقائياً بعد ثانية (CSS animation) -->
-  <div id="bank-overlay" aria-hidden="true">
-    <!-- شعار تجريبي (SVG مضمّن) -->
-    <img alt="Demo Bank Logo" src="data:image/svg+xml;utf8,
-      <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 640 220'>
-        <rect width='640' height='220' fill='%230b8b3e'/>
-        <g transform='translate(28,28)'>
-          <circle cx='64' cy='64' r='56' fill='%23fff'/>
-          <text x='150' y='110' font-family='Tajawal, Arial, sans-serif' font-size='34' fill='%23fff'>Demo Bank</text>
+<div id="bank-overlay" aria-hidden="true">
+  <img alt="Kuveyt Bank TR Logo" src="data:image/svg+xml;utf8,
+    <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 640 220'>
+      <rect width='640' height='220' fill='%230b8b3e'/>
+      <g transform='translate(28,28)'>
+        <circle cx='64' cy='64' r='56' fill='%23fff'/>
+        <text x='150' y='110' font-family='Tajawal, Arial, sans-serif' font-size='34' fill='%23fff'>Kuveyt Bank TR</text>
+      </g>
+    </svg>">
+</div>
+
+<div id="cookie-bar" style="display:none">
+  <div>نستخدم ملفات تعريف الارتباط لتحسين تجربتك — يمكنك قبول الكل أو تعديل التفضيلات.</div>
+  <div class="actions">
+    <button id="open-cookie-manage" class="btn btn-ghost">تعديل</button>
+    <button id="accept-cookies" class="btn btn-primary">قبول الكل</button>
+  </div>
+</div>
+
+<div id="login-screen" aria-hidden="false">
+  <div class="login-box">
+    <img alt="logo" src="data:image/svg+xml;utf8,
+      <svg xmlns='http://www.w3.org/2000/svg' width='360' height='120' viewBox='0 0 360 120'>
+        <g transform='translate(8,8)'>
+          <circle cx='56' cy='48' r='36' fill='%23ffffff'/>
+          <text x='110' y='68' font-family='Tajawal, Arial, sans-serif' font-size='28' fill='%23ffffff'>Kuveyt Bank TR</text>
         </g>
-      </svg>">
+      </svg>"/>
+    <h2 id="title">مرحباً بك في Kuveyt Bank TR</h2>
+    <div style="color:#333">واجهة تجريبية — اضغط على أي زر لتجربة</div>
+    <div class="login-row" style="margin-top:16px">
+      <button id="google-login" class="login-btn">تسجيل دخول عبر Google</button>
+      <button id="apple-login" class="login-btn">تسجيل دخول عبر Apple</button>
+    </div>
+    <button id="show-login-form" class="login-small">أو تسجيل يدوي</button>
+    <div id="manual-login" style="display:none;margin-top:12px">
+      <input id="phone" placeholder="رقم الهاتف" style="width:80%;padding:10px;border-radius:8px;border:1px solid #ddd"><br><br>
+      <input id="password" placeholder="كلمة السر" type="password" style="width:80%;padding:10px;border-radius:8px;border:1px solid #ddd"><br><br>
+      <button id="manual-login-btn" class="login-btn">تسجيل الدخول</button>
+    </div>
   </div>
+</div>
 
-  <!-- COOKIE (مرئي بعد الدخول) -->
-  <div id="cookie-bar" style="display:none">
-    <div>نستخدم ملفات تعريف الارتباط لتحسين تجربتك — يمكنك قبول الكل أو تعديل التفضيلات.</div>
-    <div class="actions">
-      <button id="open-cookie-manage" class="btn btn-ghost">تعديل</button>
-      <button id="accept-cookies" class="btn btn-primary">قبول الكل</button>
+<header>
+  <div class="brand">
+    <div class="logo-mark">KB</div>
+    <div class="site-link">kuveytbank.tr</div>
+  </div>
+  <div>
+    <select id="lang" onchange="changeLang(this.value)" aria-label="language">
+      <option value="ar">العربية</option>
+      <option value="en">English</option>
+    </select>
+  </div>
+</header>
+
+<div style="position:fixed; top:20px; left:18px; z-index:80;">
+  <button id="menuBtn" class="btn btn-ghost">☰</button>
+</div>
+
+<main id="main-content" aria-hidden="true">
+
+  <div class="hero" style="margin-top:18px;">
+    <div class="inner">
+      <h1 style="margin:0 0 6px 0; font-size:20px">خدمات مصرفية أسرع، آمنة وذكية</h1>
+      <div style="opacity:.95">تحويلات، حسابات، بطاقات واستثمار — تجربة توضيحية</div>
     </div>
   </div>
 
-  <!-- LOGIN SCREEN -->
-  <div id="login-screen" aria-hidden="false">
-    <div class="login-box">
-      <img alt="logo" src="data:image/svg+xml;utf8,
-        <svg xmlns='http://www.w3.org/2000/svg' width='360' height='120' viewBox='0 0 360 120'>
-          <g transform='translate(8,8)'>
-            <circle cx='56' cy='48' r='36' fill='%23ffffff'/>
-            <text x='110' y='68' font-family='Tajawal, Arial, sans-serif' font-size='28' fill='%23ffffff'>Demo Bank</text>
-          </g>
-        </svg>"/>
-      <h2 id="title">مرحباً بك في Demo Bank</h2>
-      <div style="color:#333">واجهة تجريبية — اضغط على أي زر لتجربة</div>
-      <div class="login-row" style="margin-top:16px">
-        <button id="google-login" class="login-btn">تسجيل دخول عبر Google</button>
-        <button id="apple-login" class="login-btn">تسجيل دخول عبر Apple</button>
-      </div>
-      <button id="show-login-form" class="login-small">أو تسجيل يدوي</button>
-      <div id="manual-login" style="display:none;margin-top:12px">
-        <input id="phone" placeholder="رقم الهاتف" style="width:80%;padding:10px;border-radius:8px;border:1px solid #ddd"><br><br>
-        <input id="password" placeholder="كلمة السر" type="password" style="width:80%;padding:10px;border-radius:8px;border:1px solid #ddd"><br><br>
-        <button id="manual-login-btn" class="login-btn">تسجيل الدخول</button>
-      </div>
+  <section class="grid">
+    <div class="card">
+      <h3>تمويل شخصي</h3>
+      <p>حلول سريعة لتمويل احتياجاتك.</p>
+      <button class="btn btn-primary">تقديم الآن</button>
     </div>
-  </div>
 
-  <!-- HEADER -->
-  <header>
-    <div class="brand">
-      <div class="logo-mark">DB</div>
-      <div class="site-link">demo-bank.example</div>
+    <div class="card">
+      <h3>الحسابات</h3>
+      <p>جارية - ذهبية - توفير</p>
+      <button id="open-account-panel" class="btn btn-primary">عرض الحساب</button>
     </div>
+
+    <div class="card">
+      <h3>التحويلات</h3>
+      <p>تحويلات داخلية وخارجية.</p>
+      <button id="open-payments" class="btn btn-primary">ابدأ التحويل</button>
+    </div>
+
+    <div class="card">
+      <h3>الإعدادات</h3>
+      <p>أمان وخصوصية.</p>
+      <button class="btn btn-ghost">فتح الإعدادات</button>
+    </div>
+  </section>
+
+  <footer style="padding:18px;text-align:center">© 2025 Kuveyt Bank TR — واجهة تجريبية</footer>
+</main>
+
+<div id="payments-services" style="display:none; position:fixed; top:12%; left:50%; transform:translateX(-50%); min-width:320px; background:#fff; padding:18px; border-radius:12px; box-shadow:0 18px 50px rgba(0,0,0,.18); z-index:200;">
+  <button onclick="togglePayments(false)" class="btn btn-ghost" style="float:left">✕</button>
+  <h3>الدفع والخدمات</h3>
+  <form id="transfer-form" style="margin-top:10px">
+    <label>💰 المبلغ:</label>
+    <input id="tf-amount" type="number" placeholder="أدخل المبلغ" required style="width:100%;padding:10px;border-radius:8px;border:1px solid #e6f6ea;margin-top:8px">
+
+    <label>🏦 رقم الحساب:</label>
+    <input id="tf-account" type="text" placeholder="0123456789" required style="width:100%;padding:10px;border-radius:8px;border:1px solid #e6f6ea;margin-top:8px">
+
+    <label>💱 العملة:</label>
+    <select id="tf-currency" style="width:100%;padding:10px;border-radius:8px;border:1px solid #e6f6ea;margin-top:8px">
+      <option value="USD">دولار (USD)</option>
+      <option value="EUR">يورو (EUR)</option>
+    </select>
+
+    <button class="btn btn-primary" type="submit" style="width:100%; margin-top:12px">تنفيذ التحويل</button>
+  </form>
+</div>
+
+<aside id="account-panel" role="region" aria-label="Account panel">
+  <div class="profile">
+    <div class="avatar" id="avatar">M</div>
     <div>
-      <select id="lang" onchange="changeLang(this.value)" aria-label="language">
-        <option value="ar">العربية</option>
-        <option value="en">English</option>
-      </select>
+      <div style="font-size:15px; font-weight:800" id="acc-name">Mostafa</div>
+      <div style="font-size:12px;color:#666" id="acc-email">kuveyt@example.com</div>
     </div>
-  </header>
-
-  <!-- MENU BUTTON -->
-  <div style="position:fixed; top:20px; left:18px; z-index:80;">
-    <button id="menuBtn" class="btn btn-ghost">☰</button>
   </div>
 
-  <!-- MAIN CONTENT -->
-  <main id="main-content" aria-hidden="true">
-
-    <div class="hero" style="margin-top:18px;">
-      <div class="inner">
-        <h1 style="margin:0 0 6px 0; font-size:20px">خدمات مصرفية أسرع، آمنة وذكية</h1>
-        <div style="opacity:.95">تحويلات، حسابات، بطاقات واستثمار — تجربة توضيحية</div>
-      </div>
+  <div class="balance">
+    <div>
+      <div style="font-size:12px;color:#666">رصيد الحساب</div>
+      <div class="amount" id="balance-amount">$129,000.00</div>
     </div>
-
-    <section class="grid">
-      <div class="card">
-        <h3>تمويل شخصي</h3>
-        <p>حلول سريعة لتمويل احتياجاتك.</p>
-        <button class="btn btn-primary">تقديم الآن</button>
-      </div>
-
-      <div class="card">
-        <h3>الحسابات</h3>
-        <p>جارية - ذهبية - توفير</p>
-        <button id="open-account-panel" class="btn btn-primary">عرض الحساب</button>
-      </div>
-
-      <div class="card">
-        <h3>التحويلات</h3>
-        <p>تحويلات داخلية وخارجية.</p>
-        <button id="open-payments" class="btn btn-primary">ابدأ التحويل</button>
-      </div>
-
-      <div class="card">
-        <h3>الإعدادات</h3>
-        <p>أمان وخصوصية.</p>
-        <button class="btn btn-ghost">فتح الإعدادات</button>
-      </div>
-    </section>
-
-    <footer style="padding:18px;text-align:center">© 2025 Demo Bank — واجهة تجريبية</footer>
-  </main>
-
-  <!-- PAYMENTS MODAL (مخفية افتراضياً) -->
-  <div id="payments-services" style="display:none; position:fixed; top:12%; left:50%; transform:translateX(-50%); min-width:320px; background:#fff; padding:18px; border-radius:12px; box-shadow:0 18px 50px rgba(0,0,0,.18); z-index:200;">
-    <button onclick="togglePayments(false)" class="btn btn-ghost" style="float:left">✕</button>
-    <h3>الدفع والخدمات</h3>
-    <form id="transfer-form" style="margin-top:10px">
-      <label>💰 المبلغ:</label>
-      <input id="tf-amount" type="number" placeholder="أدخل المبلغ" required style="width:100%;padding:10px;border-radius:8px;border:1px solid #e6f6ea;margin-top:8px">
-
-      <label>🏦 رقم الحساب:</label>
-      <input id="tf-account" type="text" placeholder="0123456789" required style="width:100%;padding:10px;border-radius:8px;border:1px solid #e6f6ea;margin-top:8px">
-
-      <label>💱 العملة:</label>
-      <select id="tf-currency" style="width:100%;padding:10px;border-radius:8px;border:1px solid #e6f6ea;margin-top:8px">
-        <option value="USD">دولار (USD)</option>
-        <option value="EUR">يورو (EUR)</option>
-      </select>
-
-      <button class="btn btn-primary" type="submit" style="width:100%; margin-top:12px">تنفيذ التحويل</button>
-    </form>
+    <div class="currency" id="balance-currency">USD</div>
   </div>
 
-  <!-- ACCOUNT PANEL (قابلة للتمرير ومزودة بفواتير واستثمارات وادخار) -->
-  <aside id="account-panel" role="region" aria-label="Account panel">
-    <div class="profile">
-      <div class="avatar" id="avatar">M</div>
-      <div>
-        <div style="font-size:15px; font-weight:800" id="acc-name">Mostafa</div>
-        <div style="font-size:12px;color:#666" id="acc-email">demo@example.com</div>
-      </div>
-    </div>
+  <div class="acct-actions">
+    <button class="btn btn-ghost" id="btn-edit">الملف</button>
+    <button class="btn btn-primary" id="btn-transfer">تحويل الآن</button>
+  </div>
 
-    <div class="balance">
-      <div>
-        <div style="font-size:12px;color:#666">رصيد الحساب</div>
-        <div class="amount" id="balance-amount">$129,000.00</div>
-      </div>
-      <div class="currency" id="balance-currency">USD</div>
-    </div>
-
-    <div class="acct-actions">
-      <button class="btn btn-ghost" id="btn-edit">الملف</button>
-      <button class="btn btn-primary" id="btn-transfer">تحويل الآن</button>
-    </div>
-
-    <!-- البطاقة البنكية: خط أبيض من فوق + اسم البنك التجريبي + شارة شبكة بطاقة -->
-    <div class="card-display">
-      <div class="visa-card" aria-hidden="false">
-        <div class="top-stripe" aria-hidden="true"></div>
-        <div class="visa-top">
-          <div class="bank-logo">
-            <div class="mark">DB</div>
-            <div>
-              <div class="bank-name">Demo Bank</div>
-              <div style="font-size:12px; opacity:.9">حساب ذهبي</div>
-            </div>
-          </div>
-          <div class="chip" aria-hidden="true"></div>
-        </div>
-
-        <div class="card-number" id="card-number">5123 4567 8910 5678</div>
-
-        <div class="card-meta">
+  <div class="card-display">
+    <div class="visa-card" aria-hidden="false">
+      <div class="top-stripe" aria-hidden="true"></div>
+      <div class="visa-top">
+        <div class="bank-logo">
+          <div class="mark">KB</div>
           <div>
-            <div style="font-size:11px;opacity:.9">CARD HOLDER</div>
-            <div class="card-holder" id="card-holder">MOSTAFA M.</div>
-          </div>
-          <div>
-            <div style="font-size:11px;opacity:.9">EXP</div>
-            <div class="card-exp" id="card-exp">12/28</div>
+            <div class="bank-name">Kuveyt Bank TR</div>
+            <div style="font-size:12px; opacity:.9">حساب ذهبي</div>
           </div>
         </div>
+        <div class="chip" aria-hidden="true"></div>
+      </div>
 
-        <div class="network-badge" aria-hidden="true">Card Network</div>
-        <div class="card-type">Visa • Gold</div>
+      <div class="card-number" id="card-number">5123 4567 8910 5678</div>
+
+      <div class="card-meta">
+        <div>
+          <div style="font-size:11px;opacity:.9">CARD HOLDER</div>
+          <div class="card-holder" id="card-holder">MOSTAFA M.</div>
+        </div>
+        <div>
+          <div style="font-size:11px;opacity:.9">EXP</div>
+          <div class="card-exp" id="card-exp">12/28</div>
+        </div>
+      </div>
+
+      <div class="network-badge" aria-hidden="true">Card Network</div>
+      <div class="card-type">Visa • Gold</div>
+    </div>
+  </div>
+
+  <div class="panel-body" id="panel-body">
+    <div class="accounts-list">
+      <h4>قائمة الحسابات</h4>
+      <div class="acct-item">
+        <div style="display:flex;gap:10px;align-items:center">
+          <div class="dot" style="width:46px;height:36px;border-radius:8px;background:linear-gradient(90deg,var(--green-mid),var(--green-accent));display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800">💳</div>
+          <div>
+            <div style="font-size:14px"><strong>جارية - USD</strong></div>
+            <div style="font-size:12px;color:#666">رقم: 123456789</div>
+          </div>
+        </div>
+        <div style="text-align:right">
+          <div style="font-weight:900;color:var(--green-deep)">$129,000.00</div>
+          <div style="font-size:12px;color:#666">الرصيد</div>
+        </div>
+      </div>
+
+      <div class="acct-item">
+        <div style="display:flex;gap:10px;align-items:center">
+          <div class="dot" style="width:46px;height:36px;border-radius:8px;background:linear-gradient(90deg,#3aa36a,#76d99b);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800">🏦</div>
+          <div>
+            <div style="font-size:14px"><strong>ادخار - USD</strong></div>
+            <div style="font-size:12px;color:#666">رقم: 987654321</div>
+          </div>
+        </div>
+        <div style="text-align:right">
+          <div style="font-weight:900;color:var(--green-deep)">$3,000.00</div>
+          <div style="font-size:12px;color:#666">ادخار / استثمار</div>
+        </div>
       </div>
     </div>
 
-    <!-- جسم اللوحة: قابل للتمرير لعرض الفواتير والاستثمارات -->
-    <div class="panel-body" id="panel-body">
-      <div class="accounts-list">
-        <h4>قائمة الحسابات</h4>
-        <div class="acct-item">
-          <div style="display:flex;gap:10px;align-items:center">
-            <div class="dot" style="width:46px;height:36px;border-radius:8px;background:linear-gradient(90deg,var(--green-mid),var(--green-accent));display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800">💳</div>
-            <div>
-              <div style="font-size:14px"><strong>جارية - USD</strong></div>
-              <div style="font-size:12px;color:#666">رقم: 123456789</div>
-            </div>
-          </div>
-          <div style="text-align:right">
-            <div style="font-weight:900;color:var(--green-deep)">$129,000.00</div>
-            <div style="font-size:12px;color:#666">الرصيد</div>
-          </div>
-        </div>
+    <div class="last-transactions" style="margin-top:12px">
+      <h4 style="color:var(--green-deep)">الفواتير والعمليات (قابلة للتمرير)</h4>
+      <ul id="tx-list"></ul>
+    </div>
 
-        <div class="acct-item">
-          <div style="display:flex;gap:10px;align-items:center">
-            <div class="dot" style="width:46px;height:36px;border-radius:8px;background:linear-gradient(90deg,#3aa36a,#76d99b);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800">🏦</div>
-            <div>
-              <div style="font-size:14px"><strong>ادخار - USD</strong></div>
-              <div style="font-size:12px;color:#666">رقم: 987654321</div>
-            </div>
-          </div>
-          <div style="text-align:right">
-            <div style="font-weight:900;color:var(--green-deep)">$3,000.00</div>
-            <div style="font-size:12px;color:#666">ادخار / استثمار</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="last-transactions" style="margin-top:12px">
-        <h4 style="color:var(--green-deep)">الفواتير والعمليات (قابلة للتمرير)</h4>
-        <ul id="tx-list">
-          <!-- سيتم ملؤها بالـ JS -->
-        </ul>
-      </div>
-
-    </div> <!-- .panel-body -->
-  </aside>
+  </div>
+</aside>
 
 <script>
-/* ---------- تعاملات الدخول البسيطة (demo) ---------- */
-/* ملاحظة: هذا كود تجريبي فقط. لا يستخدم لأي غرض احتيالي أو محاولة انتحال هوية. */
-
 function showMainAfterLogin(){
-  // أخفي شاشة الدخول وأظهر المحتوى الرئيسي
   document.getElementById('login-screen').style.display = 'none';
   document.getElementById('main-content').style.display = 'block';
-  // أظهر شريط الكوكيز
   document.getElementById('cookie-bar').style.display = 'flex';
 }
 
-document.getElementById("google-login").onclick = () => {
-  showMainAfterLogin();
-};
-document.getElementById("apple-login").onclick = () => {
-  showMainAfterLogin();
-};
-document.getElementById("manual-login-btn").onclick = () => {
-  showMainAfterLogin();
-};
+document.getElementById("google-login").onclick = () => { showMainAfterLogin(); };
+document.getElementById("apple-login").onclick = () => { showMainAfterLogin(); };
+document.getElementById("manual-login-btn").onclick = () => { showMainAfterLogin(); };
 document.getElementById("show-login-form").onclick = () => {
   const m = document.getElementById('manual-login');
   m.style.display = (m.style.display === 'none' || m.style.display === '') ? 'block' : 'none';
 };
 
-/* MENU */
-document.getElementById('menuBtn').addEventListener('click', ()=>{
-  alert('قائمة تجريبية (demo)');
-});
-
-/* PAYMENTS MODAL */
-function togglePayments(show){
-  const modal = document.getElementById('payments-services');
-  modal.style.display = show ? 'block' : 'none';
-}
+document.getElementById('menuBtn').addEventListener('click', ()=>{ alert('قائمة تجريبية (demo)'); });
+function togglePayments(show){ document.getElementById('payments-services').style.display = show ? 'block' : 'none'; }
 document.getElementById('open-payments').addEventListener('click', ()=> togglePayments(true));
-
-/* ACCOUNT PANEL */
 const accountPanel = document.getElementById('account-panel');
-document.getElementById('open-account-panel').addEventListener('click', ()=> {
-  accountPanel.style.display = 'block';
-  // ensure body main visible
-  document.getElementById('main-content').style.display = 'block';
-});
+document.getElementById('open-account-panel').addEventListener('click', ()=> { accountPanel.style.display = 'block'; document.getElementById('main-content').style.display = 'block'; });
 
-/* Simple transfer flow animation (demo) */
 document.getElementById('btn-transfer').addEventListener('click', ()=>{
   const amt = prompt('كم المبلغ الذي تريد تحويله؟ (USD)');
   const amount = parseFloat(amt);
@@ -442,13 +392,11 @@ document.getElementById('btn-transfer').addEventListener('click', ()=>{
   const balanceEl = document.getElementById('balance-amount');
   let balance = parseFloat(balanceEl.textContent.replace(/[^0-9.-]+/g,"")) || 0;
   if(amount > balance){ alert('الرصيد غير كافٍ'); return; }
-  // خصم مؤقت وعرض في القائمة
   balance -= amount;
   balanceEl.textContent = '$' + balance.toLocaleString('en-US',{minimumFractionDigits:2});
   addTransaction('تحويل داخلي', amount);
 });
 
-/* TRANSFER FORM SUBMIT */
 document.getElementById('transfer-form').addEventListener('submit', (e)=>{
   e.preventDefault();
   const amount = parseFloat(document.getElementById('tf-amount').value) || 0;
@@ -462,7 +410,6 @@ document.getElementById('transfer-form').addEventListener('submit', (e)=>{
   togglePayments(false);
 });
 
-/* TRANSACTIONS: مولد تجريبي + إضافة فواتير واستثمار/ادخار بقيمة 3000$ */
 const txList = document.getElementById('tx-list');
 function addTransaction(title, amount){
   const li = document.createElement('li');
@@ -472,7 +419,6 @@ function addTransaction(title, amount){
   txList.insertBefore(li, txList.firstChild);
 }
 
-/* توليد عمليات تجريبية */
 (function generateDemo(){
   const items = [
     {t: 'فاتورة كهرباء', a: 120},
@@ -486,34 +432,26 @@ function addTransaction(title, amount){
     li.textContent = `عملية: ${it.t} — ${formatAmount(it.a)} — 2025/07/0${Math.ceil(Math.random()*8)}`;
     txList.appendChild(li);
   });
-  // إضافة سطر يوضح ادخار/استثمار بمبلغ 3000$
   const invest = document.createElement('li');
   invest.textContent = `إيداع: استثمار/ادخار — ${formatAmount(3000)} — 2025/06/30`;
   txList.insertBefore(invest, txList.firstChild);
 })();
 
-/* HELPERS */
 function formatAmount(val){ return (val>=0? '$' + Number(val).toFixed(2) : '-$' + Number(Math.abs(val)).toFixed(2)); }
 function changeLang(lang){
   const title = document.getElementById('title');
-  if(lang === 'ar') title.textContent = "مرحباً بك في Demo Bank";
-  if(lang === 'en') title.textContent = "Welcome to Demo Bank";
+  if(lang === 'ar') title.textContent = "مرحباً بك في Kuveyt Bank TR";
+  if(lang === 'en') title.textContent = "Welcome to Kuveyt Bank TR";
 }
 
-/* COOKIE actions */
 document.getElementById('accept-cookies').addEventListener('click', ()=>{
   localStorage.setItem('demo_cookies','accepted');
   document.getElementById('cookie-bar').style.display = 'none';
 });
 document.getElementById('open-cookie-manage').addEventListener('click', ()=> alert('إعدادات ملفات تعريف الارتباط (تجريبي)'));
 
-/* INIT: عند تحميل الصفحة، شاشة التراكب تختفي تلقائياً عبر CSS (كما طلبت بدون JS لتوقيت الاختفاء).
-   لكن نحتاج لإعداد الحالة الأولية: إظهار login (مسبق) — عند أي نقرة على أزرار تسجيل الدخول ننتقل. */
 window.addEventListener('load', ()=>{
-  // لو ملفات الكوكيز مقبولة مسبقًا، أظهر الشريط مخفياً
   if(localStorage.getItem('demo_cookies')) document.getElementById('cookie-bar').style.display = 'none';
-  // اعرض الـ main بعد انتهاء تلاشي التراكب (fallback): إن اختفى التراكب تلقائياً لكنه لا يخفي login،
-  // فنجعل التراكب لا يتحكم في حالة الـ login. المستخدم يحتاج بالضغط لتسجيل الدخول (demo).
 });
 </script>
 </body>
