@@ -6,117 +6,161 @@
   <title>Kuveyt Türk Clone</title>
   <style>
     body {
+      font-family: "Tajawal", sans-serif;
+      background-color: #f4f4f4;
       margin: 0;
-      font-family: Arial, sans-serif;
-      background: #0b8b3e;
-      color: #fff;
+      padding: 0;
+      direction: rtl;
     }
+
+    /* شاشة تسجيل الدخول */
     #login-screen {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
+      text-align: center;
+      margin-top: 100px;
+      transition: opacity 1s ease;
     }
-    #login-screen input {
-      padding: 10px;
-      margin: 5px 0;
-      width: 250px;
-      border-radius: 5px;
+    #login-screen.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .logo img {
+      width: 180px;
+      animation: fadeInDown 1s ease;
+    }
+
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .login-buttons button {
+      background-color: #0b8b3e;
+      color: white;
       border: none;
-    }
-    #login-screen button {
       padding: 10px 20px;
-      background: #fff;
-      color: #0b8b3e;
-      border: none;
-      border-radius: 5px;
+      margin: 8px;
       cursor: pointer;
-      margin-top: 10px;
+      border-radius: 5px;
+      transition: background 0.3s;
     }
-    #main-content.hidden {
-      display: none;
+    .login-buttons button:hover {
+      background-color: #06662c;
     }
-    header, footer {
+
+    #main-content.hidden { display: none; }
+
+    /* الهيدر */
+    header {
+      background-color: #0b8b3e;
+      color: white;
       padding: 10px 20px;
-      background: rgba(0,0,0,0.2);
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
-    .grid {
-      display: flex;
-      gap: 20px;
-      padding: 20px;
-      flex-wrap: wrap;
-    }
-    .card {
-      background: rgba(255,255,255,0.1);
-      padding: 20px;
-      border-radius: 10px;
-      flex: 1 1 200px;
-    }
+    header img { height: 40px; }
+
+    /* القائمة */
     .menu-dots {
       position: absolute;
       top: 10px;
       left: 10px;
     }
-    .menu-options {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-      display: none;
-      background: rgba(255,255,255,0.9);
-      color: #0b8b3e;
-      border-radius: 5px;
-      position: absolute;
-      top: 30px;
-      left: 0;
-      z-index: 1000;
-    }
-    .menu-options li {
-      padding: 10px 20px;
-      cursor: pointer;
-    }
-    .menu-options li:hover {
-      background: #06662c;
-      color: white;
-    }
-
-    /* Fancy Dropdown */
-    .fancy-dropdown {
-      position: absolute;
-      top: 80px;
-      left: 20px;
-      background: rgba(255,255,255,0.95);
-      color: #0b8b3e;
-      padding: 20px;
-      border-radius: 10px;
-      min-width: 300px;
-      box-shadow: 0 0 20px rgba(0,0,0,0.5);
-      display: none;
-      z-index: 1000;
-    }
-    .fancy-dropdown h2 {
-      margin-top: 0;
-      border-bottom: 2px solid #0b8b3e;
-      padding-bottom: 5px;
-    }
-    .fancy-dropdown input, .fancy-dropdown select, .fancy-dropdown button {
-      width: 100%;
-      padding: 8px;
-      margin-top: 5px;
-      margin-bottom: 10px;
-      border-radius: 5px;
-      border: 1px solid #0b8b3e;
-    }
-    .fancy-dropdown button {
-      background: #0b8b3e;
+    .menu-dots button {
+      font-size: 22px;
+      background: none;
       color: white;
       border: none;
       cursor: pointer;
     }
-    .fancy-dropdown button:hover {
+    .menu-options {
+      display: none;
+      position: absolute;
+      background: white;
+      color: #0b8b3e;
+      list-style: none;
+      padding: 10px;
+      border-radius: 10px;
+      margin-top: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    }
+    .menu-dots:hover .menu-options {
+      display: block;
+    }
+    .menu-options li {
+      margin: 8px 0;
+      cursor: pointer;
+    }
+
+    /* البانر */
+    .hero-slider img {
+      width: 100%;
+      height: 350px;
+      object-fit: cover;
+      border-bottom: 3px solid #0b8b3e;
+    }
+
+    /* الشبكة */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 15px;
+      padding: 20px;
+    }
+    .card {
+      background: white;
+      border-radius: 10px;
+      padding: 15px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+    .card:hover { transform: translateY(-5px); }
+
+    footer {
+      text-align: center;
+      padding: 10px;
+      background: #0b8b3e;
+      color: white;
+    }
+
+    /* الدفع والخدمات */
+    #payments-services {
+      position: fixed;
+      top: 80px;
+      left: 20px;
+      background: rgba(255,255,255,0.98);
+      color: #0b8b3e;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.3);
+      min-width: 300px;
+      display: none;
+      z-index: 1000;
+      animation: fadeIn 0.5s ease;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    #payments-services input,
+    #payments-services select,
+    #payments-services button {
+      width: 100%;
+      padding: 8px;
+      margin-top: 8px;
+      border-radius: 5px;
+      border: 1px solid #0b8b3e;
+    }
+    #payments-services button {
+      background: #0b8b3e;
+      color: white;
+      border: none;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    #payments-services button:hover {
       background: #06662c;
     }
   </style>
@@ -126,27 +170,27 @@
   <!-- شاشة تسجيل الدخول -->
   <div id="login-screen">
     <div class="logo">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/7/7e/Kuveyt_T%C3%BCrk_logo.svg" alt="Logo" width="150">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/7/7e/Kuveyt_T%C3%BCrk_logo.svg" alt="Logo">
     </div>
     <h2>مرحباً بك في Kuveyt Türk</h2>
-    <input type="text" id="phone" placeholder="رقم الهاتف">
-    <input type="password" id="password" placeholder="كلمة السر">
-    <button id="login-btn">تسجيل الدخول</button>
+    <div class="login-buttons">
+      <button class="login-btn">تسجيل الدخول عبر Google</button>
+      <button class="login-btn">تسجيل الدخول عبر Twitter</button>
+      <button class="login-btn">تسجيل الدخول عبر Apple</button>
+    </div>
   </div>
 
   <!-- المحتوى الرئيسي -->
   <div id="main-content" class="hidden">
-    <!-- قائمة الثلاث نقاط -->
     <div class="menu-dots">
-      <button id="menu-btn">☰</button>
+      <button>☰</button>
       <ul class="menu-options">
         <li>التمويل</li>
         <li>الحسابات</li>
         <li>البطاقات</li>
-        <li>الدفع والخدمات</li>
+        <li id="payments-item">الدفع والخدمات</li>
         <li>التأمين والتقاعد</li>
         <li>المنتجات الاستثمارية</li>
-        <li>المعاملات المصرفية الذهبية</li>
         <li>الخدمات المصرفية الخاصة</li>
         <li>المنتجات والخدمات الأخرى</li>
         <li>الخدمات المخصصة للأجانب</li>
@@ -155,91 +199,99 @@
 
     <header>
       <div class="logo">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/7/7e/Kuveyt_T%C3%BCrk_logo.svg" alt="Logo" width="100">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/7/7e/Kuveyt_T%C3%BCrk_logo.svg" alt="Logo">
+      </div>
+      <div class="top-right">
+        <select>
+          <option>العربية</option>
+          <option>Türkçe</option>
+          <option>English</option>
+        </select>
       </div>
     </header>
 
     <div class="hero-slider">
-      <div class="slide active">
-        <img src="https://images.unsplash.com/photo-1581090700227-1e37b190418e" alt="Banner 1" width="100%">
-      </div>
+      <img src="https://images.unsplash.com/photo-1581090700227-1e37b190418e" alt="Banner 1">
     </div>
 
     <section>
       <div class="grid">
-        <div class="card"><h3>تمويل شخصي</h3></div>
-        <div class="card"><h3>الحسابات</h3></div>
-        <div class="card"><h3>التحويلات</h3></div>
-        <div class="card"><h3>الإعدادات</h3></div>
+        <div class="card"><h3>تمويل شخصي</h3><p>حلول مالية تناسب احتياجاتك</p><button>تقديم الآن</button></div>
+        <div class="card"><h3>الحسابات</h3><p>جارية، ذهبية، المشاركة</p><button>المزيد</button></div>
+        <div class="card"><h3>التحويلات</h3><p>تحويل العملات بسهولة</p><button>ابدأ التحويل</button></div>
+        <div class="card"><h3>الإعدادات</h3><p>إدارة الحساب والأمان</p><button>فتح الإعدادات</button></div>
       </div>
     </section>
-
-    <!-- الدفع والخدمات -->
-    <div id="payments-services" class="fancy-dropdown">
-      <h2>الدفع والخدمات</h2>
-      <form id="transfer-form">
-        <label>المبلغ:</label>
-        <input type="number" placeholder="أدخل المبلغ" required><br><br>
-
-        <label>رقم الحساب:</label>
-        <input type="text" placeholder="0123456789" required><br><br>
-
-        <label>رقم الهوية / الهاتف:</label>
-        <input type="text" placeholder="01227043648" required><br><br>
-
-        <label>العملة:</label>
-        <select>
-          <option value="USD">دولار</option>
-          <option value="EUR">يورو</option>
-          <option value="TRY">ليرة تركية</option>
-          <option value="SAR">ريال سعودي</option>
-          <option value="KWD">دينار كويتي</option>
-        </select><br><br>
-
-        <label>البلد / البنك:</label>
-        <select>
-          <option>تركيا</option>
-          <option>السعودية</option>
-          <option>الكويت</option>
-          <option>الإمارات</option>
-          <option>باقي الدول</option>
-        </select><br><br>
-
-        <button type="submit">تنفيذ التحويل</button>
-      </form>
-    </div>
 
     <footer>
       <p>© 2025 Kuveyt Türk | جميع الحقوق محفوظة</p>
     </footer>
   </div>
 
+  <!-- قائمة الدفع والخدمات -->
+  <div id="payments-services">
+    <h2>الدفع والخدمات</h2>
+    <form id="transfer-form">
+      <label>المبلغ:</label>
+      <input type="number" placeholder="أدخل المبلغ" required><br>
+
+      <label>رقم الحساب:</label>
+      <input type="text" placeholder="0123456789" required><br>
+
+      <label>رقم الهوية / الهاتف:</label>
+      <input type="text" placeholder="01227043648" required><br>
+
+      <label>العملة:</label>
+      <select>
+        <option value="USD">دولار</option>
+        <option value="EUR">يورو</option>
+        <option value="TRY">ليرة تركية</option>
+        <option value="SAR">ريال سعودي</option>
+        <option value="KWD">دينار كويتي</option>
+      </select><br>
+
+      <label>البلد / البنك:</label>
+      <select>
+        <option>تركيا</option>
+        <option>السعودية</option>
+        <option>الكويت</option>
+        <option>الإمارات</option>
+        <option>باقي الدول</option>
+      </select><br>
+
+      <button type="submit">تنفيذ التحويل</button>
+    </form>
+  </div>
+
   <script>
-    // تسجيل الدخول
-    const loginBtn = document.getElementById('login-btn');
-    loginBtn.addEventListener('click', () => {
-      const phone = document.getElementById('phone').value;
-      const password = document.getElementById('password').value;
-
-      if(phone === '01227043648' && password === '120120') {
-        document.getElementById('login-screen').style.display = 'none';
-        document.getElementById('main-content').classList.remove('hidden');
-        alert('مرحبا بك في بنك Kuveyt Türk!');
-      } else {
-        alert('رقم الهاتف أو كلمة السر خاطئة!');
-      }
+    // إخفاء شاشة الدخول عند الضغط على أي زر تسجيل دخول
+    const loginBtns = document.querySelectorAll('.login-btn');
+    const loginScreen = document.getElementById('login-screen');
+    const mainContent = document.getElementById('main-content');
+    loginBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        loginScreen.classList.add('hidden');
+        setTimeout(() => {
+          loginScreen.style.display = 'none';
+          mainContent.classList.remove('hidden');
+        }, 1000);
+      });
     });
 
-    // القائمة الجانبية
-    const menuBtn = document.getElementById('menu-btn');
-    const menuOptions = document.querySelector('.menu-options');
-    menuBtn.addEventListener('click', () => {
-      menuOptions.style.display = menuOptions.style.display === 'block' ? 'none' : 'block';
-    });
-
-    // فتح Fancy Dropdown عند الضغط على "الدفع والخدمات"
+    // فتح قائمة الدفع والخدمات
+    const paymentsItem = document.getElementById('payments-item');
     const paymentsDropdown = document.getElementById('payments-services');
-    const allOptions = document.querySelectorAll('.menu-options li');
-    allOptions.forEach(option => {
-      option.addEventListener('click', (e) => {
-        if(e.target.innerText.includes('الد
+    paymentsItem.addEventListener('click', () => {
+      paymentsDropdown.style.display = paymentsDropdown.style.display === 'block' ? 'none' : 'block';
+    });
+
+    // تنفيذ التحويل
+    document.getElementById('transfer-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      alert('✅ تم تنفيذ التحويل بنجاح!');
+      paymentsDropdown.style.display = 'none';
+    });
+  </script>
+
+</body>
+</html>
