@@ -8,93 +8,83 @@
 </head>
 <body>
 
-<!-- Header -->
-<header>
-  <div class="logo">
-    <img src="kuveyt-logo.png" alt="Logo">
+<!-- شاشة الدخول -->
+<div id="login-screen" class="login-screen">
+  <div class="login-box">
+    <img src="kuveyt-logo.png" alt="Logo" class="login-logo">
+    <h2>أهلاً بك في Kuveyt Türk</h2>
+    <button id="enter-btn">الدخول</button>
   </div>
-  <div class="top-right">
-    <select id="languageSelect">
-      <option value="ar">العربية</option>
-      <option value="tr">Türkçe</option>
-      <option value="en">English</option>
-    </select>
-    <input type="text" placeholder="بحث...">
-  </div>
-</header>
-
-<!-- Main Navigation -->
-<nav class="main-nav">
-  <ul>
-    <li>أفراد
-      <ul class="sub-menu">
-        <li>تمويل</li>
-        <li>حسابات</li>
-        <li>بطاقات</li>
-        <li>مدفوعات</li>
-        <li>تأمين</li>
-        <li>استثمار</li>
-      </ul>
-    </li>
-    <li>أعمال</li>
-    <li>من نحن</li>
-    <li>علاقات المستثمرين</li>
-    <li>الخدمات المصرفية الرقمية</li>
-  </ul>
-</nav>
-
-<!-- Hero Slider -->
-<div class="hero-slider">
-  <div class="slide active">
-    <img src="banner1.jpg" alt="Banner 1">
-    <div class="slide-text">
-      <h2>خدمة مميزة 1</h2>
-      <button>فتح حساب</button>
-      <button>المزيد</button>
-    </div>
-  </div>
-  <div class="slide">
-    <img src="banner2.jpg" alt="Banner 2">
-    <div class="slide-text">
-      <h2>خدمة مميزة 2</h2>
-      <button>فتح حساب</button>
-      <button>المزيد</button>
-    </div>
-  </div>
-  <button class="prev">‹</button>
-  <button class="next">›</button>
 </div>
 
-<!-- Sections -->
-<section class="products">
-  <h2>المنتجات والخدمات</h2>
-  <div class="product-grid">
-    <div class="product-card">تمويل</div>
-    <div class="product-card">حسابات</div>
-    <div class="product-card">بطاقات</div>
-    <div class="product-card">استثمار</div>
-  </div>
-</section>
+<!-- الصفحة الرئيسية -->
+<div id="main-content" class="hidden">
 
-<section class="digital-services">
-  <h2>الخدمات الرقمية</h2>
-  <div class="service-grid">
-    <div class="service-card">بوابة الإنترنت</div>
-    <div class="service-card">محول العملات</div>
-    <div class="service-card">الأسواق</div>
-  </div>
-</section>
+  <!-- Header -->
+  <header>
+    <div class="logo">
+      <img src="kuveyt-logo.png" alt="Logo">
+    </div>
+    <div class="top-right">
+      <select id="languageSelect">
+        <option value="ar">العربية</option>
+        <option value="tr">Türkçe</option>
+        <option value="en">English</option>
+      </select>
+      <input type="text" placeholder="بحث...">
+    </div>
+  </header>
 
-<!-- Footer -->
-<footer>
-  <p>حقوق النشر © 2025 Kuveyt Türk. كل الحقوق محفوظة.</p>
-  <div class="social">
-    <a href="#">Facebook</a>
-    <a href="#">Instagram</a>
-    <a href="#">Twitter</a>
-    <a href="#">YouTube</a>
+  <!-- Main Navigation -->
+  <nav class="main-nav">
+    <ul>
+      <li>أفراد
+        <ul class="sub-menu">
+          <li>تمويل</li>
+          <li>حسابات</li>
+          <li>بطاقات</li>
+        </ul>
+      </li>
+      <li>أعمال</li>
+      <li>من نحن</li>
+      <li>الخدمات المصرفية الرقمية</li>
+    </ul>
+  </nav>
+
+  <!-- Hero Slider -->
+  <div class="hero-slider">
+    <div class="slide active">
+      <img src="banner1.jpg" alt="Banner 1">
+      <div class="slide-text">
+        <h2>خدمة مميزة 1</h2>
+        <button>فتح حساب</button>
+        <button>المزيد</button>
+      </div>
+    </div>
+    <div class="slide">
+      <img src="banner2.jpg" alt="Banner 2">
+      <div class="slide-text">
+        <h2>خدمة مميزة 2</h2>
+        <button>فتح حساب</button>
+        <button>المزيد</button>
+      </div>
+    </div>
+    <button class="prev">‹</button>
+    <button class="next">›</button>
   </div>
-</footer>
+
+  <!-- Footer -->
+  <footer>
+    <p>حقوق النشر © 2025 Kuveyt Türk. كل الحقوق محفوظة.</p>
+    <div class="social">
+      <a href="#">Facebook</a>
+      <a href="#">Instagram</a>
+      <a href="#">Twitter</a>
+      <a href="#">YouTube</a>
+    </div>
+  </footer>
+
+</div>
 
 <script src="script.js"></script>
 </body>
