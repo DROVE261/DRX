@@ -4,6 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>Kuveyt Bank TR — واجهة تجريبية</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;800;900&display=swap" rel="stylesheet">
 <style>
   :root{
     --green-deep:#0b6b3a;
@@ -107,29 +108,125 @@
   .panel-body::-webkit-scrollbar-thumb{ background: linear-gradient(180deg,var(--green-mid),var(--green-deep)); border-radius:10px; }
 
   .card-display{ display:flex; justify-content:center; margin-top:8px; }
-  .visa-card{
-    width:320px; height:190px; border-radius:14px; padding:16px; position:relative; color:#fff;
-    background:
-      linear-gradient(180deg, rgba(255,255,255,0.03), rgba(0,0,0,0.02)),
-      linear-gradient(135deg,#19b86a 0%, #0b8b3e 60%, #063f24 100%);
-    box-shadow:0 18px 50px rgba(3,60,30,0.22); overflow:hidden; font-family:"Courier New", monospace;
-  }
-  .visa-card .top-stripe{
-    position:absolute; top:0; left:0; right:0; height:14px; background:#fff; opacity:0.95;
-    border-top-left-radius:14px; border-top-right-radius:14px;
-  }
-  .visa-card .visa-top{ display:flex; justify-content:space-between; align-items:center; z-index:2; position:relative; }
-  .bank-logo{ display:flex; gap:10px; align-items:center; }
-  .bank-logo .mark{ width:48px; height:48px; border-radius:10px; background:rgba(255,255,255,0.12); display:flex; align-items:center; justify-content:center; font-weight:800; }
-  .bank-name{ font-weight:800; font-size:14px; }
-  .chip{ width:58px; height:40px; border-radius:8px; background:linear-gradient(180deg,rgba(255,255,255,0.22),rgba(255,255,255,0.08)); }
 
-  .card-number{ margin-top:18px; font-size:20px; letter-spacing:3px; font-weight:700; z-index:2; position:relative; }
-  .card-meta{ display:flex; justify-content:space-between; margin-top:12px; font-size:12px; opacity:.95; z-index:2; position:relative; }
-  .network-badge{
-    position:absolute; bottom:12px; right:16px; padding:6px 10px; border-radius:10px; background:#fff; color:var(--green-deep); font-weight:800; z-index:2;
+  /* Kuveyt Türk Sağlam Kart Styles */
+  .saglam-card {
+    width: 320px;
+    height: 190px;
+    border-radius: 14px;
+    padding: 16px;
+    position: relative;
+    color: #fff;
+    /* Updated background to match the green card */
+    background: linear-gradient(135deg, #0f8c4d 0%, #4ecb84 100%);
+    box-shadow: 0 18px 50px rgba(3,60,30,0.22);
+    overflow: hidden;
+    font-family: "Courier New", monospace; /* Font for numbers */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
   }
-  .card-type{ position:absolute; bottom:12px; left:16px; font-size:12px; opacity:.95; z-index:2; }
+
+  .saglam-card .top-stripe { display: none; /* No top stripe in the example image */ }
+
+  .saglam-card .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start; /* Align logos to the top */
+    z-index: 2;
+    position: relative;
+  }
+  .saglam-card .bank-logo-group {
+    display: flex;
+    flex-direction: column; /* Stack logo and text */
+    align-items: flex-start;
+  }
+  .saglam-card .bank-logo {
+    display: flex;
+    gap: 8px; /* Reduced gap */
+    align-items: center;
+    margin-bottom: 4px; /* Space between logo and "SAĞLAM KART" */
+  }
+  .saglam-card .bank-logo .mark {
+    width: 40px; /* Adjusted size */
+    height: 40px; /* Adjusted size */
+    border-radius: 8px; /* Slightly smaller radius */
+    background: #fff; /* White background for logo mark */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 900; /* Bolder font */
+    color: var(--green-deep); /* Green text */
+    font-size: 16px; /* Adjusted font size */
+  }
+  .saglam-card .bank-name {
+    font-weight: 800;
+    font-size: 13px; /* Smaller font size */
+    color: #fff; /* White text for bank name */
+  }
+  .saglam-card .saglam-text {
+    font-weight: 900;
+    font-size: 16px; /* Adjust as needed */
+    color: #fff; /* White text */
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-right: 20px; /* Space from bank logo */
+  }
+
+  .saglam-card .chip {
+    width: 50px; /* Adjusted size */
+    height: 36px; /* Adjusted size */
+    border-radius: 6px; /* Adjusted radius */
+    background: linear-gradient(180deg, #d4af37, #f7d750); /* Golden chip */
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    align-self: flex-start; /* Align chip to the top right */
+    margin-top: 4px; /* Slight adjustment */
+  }
+
+  .saglam-card .card-number{
+    margin-top: 20px; /* Adjust spacing */
+    font-size: 20px;
+    letter-spacing: 2px; /* Slightly less spacing for realism */
+    font-weight: 700;
+    z-index: 2;
+    position: relative;
+    text-align: left; /* Align numbers left */
+    font-family: 'Consolas', 'Menlo', 'Monaco', monospace; /* Monospace font for card numbers */
+  }
+  .saglam-card .card-meta{
+    display:flex;
+    justify-content: space-between;
+    align-items: flex-end; /* Align holder name and expiry to bottom */
+    margin-top: 12px;
+    font-size: 12px;
+    opacity:.95;
+    z-index: 2;
+    position: relative;
+    direction: ltr; /* Ensure numbers and names are LTR */
+  }
+  .saglam-card .card-meta > div:first-child { text-align: left; }
+  .saglam-card .card-meta > div:last-child { text-align: right; }
+
+  .saglam-card .network-badge{
+    position:absolute; bottom:12px; left:16px; /* Moved to left for Visa/Mastercard style */
+    padding:6px 10px; border-radius:10px; background:#fff; color:var(--green-deep); font-weight:800; z-index:2;
+    font-size: 11px;
+  }
+  .saglam-card .card-type{ display:none; /* Not visible in example image */ }
+
+  /* New element for Sağlam Kart text */
+  .saglam-card-label {
+    position: absolute;
+    top: 20px;
+    right: 16px;
+    font-size: 16px;
+    font-weight: 900;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  /* End Kuveyt Türk Sağlam Kart Styles */
 
   .accounts-list{ background:#fff; border-radius:10px; padding:10px; box-shadow:0 8px 20px rgba(0,0,0,.04); margin-top:12px; }
   .acct-item{ display:flex; justify-content:space-between; align-items:center; padding:10px; border-radius:8px; border:1px solid #f0f6f0; margin-top:8px; }
@@ -145,8 +242,8 @@
 
   @media (max-width:900px){
     #account-panel{ right:12px; left:12px; width:auto; max-width:92vw; }
-    .visa-card{ width:92%; height:180px; }
-    .card-number{ font-size:18px; }
+    .saglam-card{ width:92%; height:180px; }
+    .saglam-card .card-number{ font-size:18px; }
   }
 </style>
 </head>
@@ -293,35 +390,32 @@
   </div>
 
   <div class="card-display">
-    <div class="visa-card" aria-hidden="false">
-      <div class="top-stripe" aria-hidden="true"></div>
-      <div class="visa-top">
-        <div class="bank-logo">
-          <div class="mark">KB</div>
-          <div>
-            <div class="bank-name">Kuveyt Bank TR</div>
-            <div style="font-size:12px; opacity:.9">حساب ذهبي</div>
+    <div class="saglam-card" aria-hidden="false">
+      <div class="card-header">
+        <div class="bank-logo-group">
+          <div class="bank-logo">
+            <div class="mark">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2ZM10.5 17L6 12.5L7.5 11L10.5 14L16.5 8L18 9.5L10.5 17Z" fill="currentColor"/>
+              </svg>
+            </div>
+            <div class="bank-name">KUVEYT TÜRK</div>
           </div>
+          <div class="saglam-text">SAĞLAM KART</div>
         </div>
         <div class="chip" aria-hidden="true"></div>
       </div>
 
-      <div class="card-number" id="card-number">5123 4567 8910 5678</div>
+      <div class="card-number" id="card-number">5188 &bull;&bull;&bull;&bull; &bull;&bull;&bull;&bull; 3840</div>
 
       <div class="card-meta">
         <div>
           <div style="font-size:11px;opacity:.9">CARD HOLDER</div>
-          <div class="card-holder" id="card-holder">MOSTAFA M.</div>
-        </div>
+          <div class="card-holder" id="card-holder">AMMAR SALOUM</div> </div>
         <div>
-          <div style="font-size:11px;opacity:.9">EXP</div>
-          <div class="card-exp" id="card-exp">12/28</div>
-        </div>
+          <div style="font-size:11px;opacity:.9">VALID THRU</div> <div class="card-exp" id="card-exp">12/28</div> </div>
       </div>
-
-      <div class="network-badge" aria-hidden="true">Card Network</div>
-      <div class="card-type">Visa • Gold</div>
-    </div>
+      <div class="network-badge" aria-hidden="true">Visa</div> </div>
   </div>
 
   <div class="panel-body" id="panel-body">
