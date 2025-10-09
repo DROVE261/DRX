@@ -137,7 +137,7 @@
     font-weight: 700;
   }
 
-  /* Quick Actions Grid (Re-introduced with new purpose) */
+  /* Quick Actions Grid */
   .quick-actions-grid{
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -174,12 +174,12 @@
     color: #444;
   }
   
-  /* SAĞLAM KART */
+  /* --- MILES & SMILES CARD STYLE (NEW) --- */
   .card-section-wrapper{
     padding: 20px 18px 30px;
     background: #fff;
   }
-  .saglam-card {
+  .miles-smiles-card {
     width: 100%;
     max-width: 380px;
     height: 200px;
@@ -188,24 +188,56 @@
     margin: 0 auto;
     position: relative;
     color: #fff;
-    background: linear-gradient(135deg, #007A3E 0%, #00994B 100%);
-    box-shadow: 0 12px 30px rgba(0,0,0,0.25);
+    /* Luxury Black/Dark Gray Gradient */
+    background: linear-gradient(135deg, #1C1C1C 0%, #3A3A3A 100%);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.4);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     font-family: 'Consolas', 'Menlo', 'Monaco', monospace; 
+    border: 1px solid #444;
   }
-  .saglam-card .card-header, .saglam-card .card-meta{ z-index: 2; position: relative; }
-  .saglam-card .chip { width: 50px; height: 36px; border-radius: 6px; background: linear-gradient(180deg, #d4af37, #f7d750); box-shadow: 0 1px 4px rgba(0,0,0,0.2); }
-  .saglam-card .bank-logo-group { display: flex; flex-direction: column; align-items: flex-end; text-align: right; }
-  .saglam-card .bank-logo { display: flex; gap: 6px; align-items: center; flex-direction: row-reverse; }
-  .saglam-card .bank-logo .mark { width: 36px; height: 36px; border-radius: 6px; background: #fff; color: var(--kuveyt-deep); font-weight: 900; font-size: 14px; display: flex; align-items: center; justify-content: center; }
-  .saglam-card .bank-name { font-weight: 800; font-size: 12px; color: #fff; }
-  .saglam-card .saglam-text { font-weight: 900; font-size: 14px; color: #fff; text-transform: uppercase; letter-spacing: 1px; margin-top: 2px; font-family: "Tajawal", Arial, sans-serif; }
-  .saglam-card .card-number{ font-size: 18px; letter-spacing: 2px; font-weight: 700; text-align: left; margin-top: 10px; }
-  .saglam-card .card-meta{ display:flex; justify-content: space-between; align-items: flex-end; font-size: 12px; opacity:.95; direction: ltr; }
-  .saglam-card .network-badge{ position:absolute; bottom:16px; right:16px; padding:4px 8px; border-radius: 6px; background:rgba(255,255,255,0.9); color:var(--kuveyt-deep); font-weight:800; z-index:2; font-size: 11px; }
+  .miles-smiles-card .card-header, .miles-smiles-card .card-meta{ z-index: 2; position: relative; }
 
+  /* Turkish Airlines and Kuveyt Turk logos */
+  .card-header{ display: flex; justify-content: space-between; align-items: flex-start; }
+  .logo-left { font-size: 16px; font-weight: 700; }
+  .logo-right { font-size: 14px; font-weight: 800; text-align: right; line-height: 1.2; }
+  .logo-right div { font-size: 10px; }
+  .miles-smiles-title{ font-size: 20px; font-weight: 900; letter-spacing: 0.5px; }
+
+  /* Chip */
+  .miles-smiles-card .chip { 
+    width: 40px; 
+    height: 30px; 
+    border-radius: 4px; 
+    background: silver; /* Silver chip */
+    box-shadow: 0 1px 4px rgba(0,0,0,0.2); 
+    border: 1px solid #aaa;
+    margin-top: 5px;
+  }
+
+  /* Card Number and Text Styles */
+  .miles-smiles-card .card-number{ font-size: 20px; letter-spacing: 2px; font-weight: 700; text-align: center; margin-top: 10px; }
+  .miles-smiles-card .card-holder-name { font-size: 14px; font-weight: 700; margin-top: 5px; }
+  .miles-smiles-card .card-exp-date { font-size: 14px; font-weight: 700; }
+  .miles-smiles-card .card-meta{ 
+      display:flex; 
+      justify-content: space-between; 
+      align-items: flex-end; 
+      font-size: 12px; 
+      opacity:.95; 
+      direction: ltr; 
+  }
+  .miles-smiles-card .mastercard-logo { 
+      width: 40px; 
+      height: 25px; 
+      border-radius: 50%; 
+      background: #fff; 
+      margin-left: 5px;
+      display: inline-block;
+  }
+  
   /* Transaction Section (Adjusted padding) */
   .transactions-section{
     background: #fff;
@@ -356,32 +388,33 @@
       <div class="card-section-wrapper">
         <h3 style="color: var(--kuveyt-deep); margin-bottom: 15px; border-right: 3px solid var(--kuveyt-mid); padding-right: 8px;">بطاقتي</h3>
         
-        <div class="saglam-card" aria-hidden="false">
-          <div class="card-header" style="display: flex; justify-content: space-between;">
+        <div class="miles-smiles-card" aria-hidden="false">
+          <div class="card-header">
             <div class="chip" aria-hidden="true"></div>
-            <div class="bank-logo-group">
-              <div class="bank-logo">
-                <div class="bank-name">KUVEYT TÜRK</div>
-                <div class="mark">KB</div>
+            <div class="logo-right">
+              KUVEYTTÜRK
+              <div>Private Platinum</div>
+            </div>
+          </div>
+          
+          <div class="miles-smiles-title" style="text-align: left; margin-top: -10px;">Miles & Smiles</div>
+
+          <div class="card-number" id="card-number">5201 8012 3456 7890</div>
+          
+          <div class="card-meta" style="justify-content: flex-start; gap: 20px;">
+              <div class="card-holder-name" id="card-holder" style="direction: ltr;">SEDA YILMAZ</div>
+              <div class="card-exp-date" id="card-exp">08/26</div>
+              <div style="flex-grow: 1; text-align: right; display: flex; justify-content: flex-end;">
+                  <svg width="40" height="25" viewBox="0 0 100 60" xmlns="http://www.w3.org/2000/svg">
+                      <circle cx="30" cy="30" r="20" fill="#FF5F00"/>
+                      <circle cx="50" cy="30" r="20" fill="#EB001B"/>
+                      <circle cx="40" cy="30" r="20" fill="#F79E1B" opacity="0.6"/>
+                  </svg>
               </div>
-              <div class="saglam-text">SAĞLAM KART</div>
-            </div>
           </div>
-
-          <div class="card-number" id="card-number">5188 &bull;&bull;&bull;&bull; &bull;&bull;&bull;&bull; 3840</div>
-
-          <div class="card-meta">
-            <div>
-              <div style="font-size:11px;opacity:.9">CARD HOLDER</div>
-              <div class="card-holder" id="card-holder">ABDULRAHMAN MOSTAFA BARBOUR</div>
-            </div>
-            <div>
-              <div style="font-size:11px;opacity:.9">VALID THRU</div>
-              <div class="card-exp" id="card-exp">12/28</div>
-            </div>
-          </div>
-          <div class="network-badge" aria-hidden="true" style="right: 16px; left: auto;">Visa/Troy</div>
         </div>
+        
+         <button class="login-btn" style="background: #f0f0f0; color: var(--kuveyt-deep); margin-top: 20px; padding: 10px;" onclick="navigate('Card_Details')">تفاصيل وإدارة البطاقة</button>
       </div>
       
       <div class="transactions-section">
