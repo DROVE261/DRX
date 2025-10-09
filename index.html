@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>تسجيل الدخول - Kuveyt Türk</title>
+  <title>Kuveyt Türk Clone</title>
   <link rel="stylesheet" href="style.css">
   <style>
     body { 
@@ -24,14 +24,17 @@
       100%{background-position:0% 50%;}
     }
 
-    .login-container {
+    .login-container, #main-content { 
       background: rgba(255,255,255,0.95);
       padding: 40px;
       border-radius: 10px;
       box-shadow: 0 0 25px rgba(0,0,0,0.2);
       text-align: center;
-      animation: fadeIn 1s ease;
+      width: 90%;
+      max-width: 500px;
     }
+
+    #main-content { display: none; } /* محتوى الموقع الرئيسي مخفي بالبداية */
 
     h2 { 
       margin-bottom: 20px; 
@@ -73,7 +76,6 @@
       animation: slideIn 1s forwards, glow 2s ease infinite alternate;
     }
 
-    @keyframes fadeIn { from {opacity:0;} to {opacity:1;} }
     @keyframes slideIn { from {opacity:0; transform: translateY(-20px);} to {opacity:1; transform: translateY(0);} }
     @keyframes glow {
       from {text-shadow: 0 0 5px #007f3e;}
@@ -83,26 +85,44 @@
 </head>
 <body>
 
+  <!-- شاشة تسجيل الدخول -->
   <div class="login-container">
     <h2>تسجيل الدخول</h2>
     <input type="text" id="phone" placeholder="رقم الهاتف">
     <input type="password" id="password" placeholder="كلمة السر">
     <br>
-    <button onclick="login()">دخول</button>
+    <button id="login-btn">تسجيل الدخول</button>
+    <br><br>
+    <a href="signup.html"><button id="signup-btn">إنشاء حساب جديد</button></a>
     <div id="welcome">مرحبا بك في بنك Kuveyt Türk!</div>
   </div>
 
+  <!-- المحتوى الرئيسي للموقع -->
+  <div id="main-content">
+    <header>
+      <div class="logo">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/7/7e/Kuveyt_T%C3%BCrk_logo.svg" alt="Logo">
+      </div>
+      <h2>مرحباً بك في بنك Kuveyt Türk</h2>
+      <p>هنا يمكن أن تضع محتوى الموقع الرئيسي: التمويل، البطاقات، الحسابات، التحويلات...</p>
+    </header>
+  </div>
+
   <script>
-    function login() {
+    document.getElementById('login-btn').addEventListener('click', function() {
       const phone = document.getElementById('phone').value;
       const password = document.getElementById('password').value;
 
       if(phone === "01227043648" && password === "120120") {
         document.getElementById('welcome').style.display = 'block';
+        setTimeout(() => {
+          document.querySelector('.login-container').style.display = 'none';
+          document.getElementById('main-content').style.display = 'block';
+        }, 2000);
       } else {
         alert('رقم الهاتف أو كلمة السر غير صحيحة!');
       }
-    }
+    });
   </script>
 
 </body>
