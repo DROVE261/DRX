@@ -71,8 +71,8 @@ header .top-right select, header .top-right input {
   position: absolute;
   bottom: 30px;
   left: 30px;
-  color: #fff;
 }
+.slide-text h2 { color: #fff; }
 .slide-text button {
   padding: 10px 20px;
   background: #004d3a;
@@ -114,13 +114,13 @@ section h2 {
 }
 
 /* Grid layout for cards */
-.finance-grid, .account-grid, .cards-grid, .digital-grid, .investment-grid {
+.grid {
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
   justify-content: center;
 }
-.finance-card, .account-card, .card-card, .digital-card, .investment-card {
+.card {
   flex: 1 1 300px;
   background: #e6f2e6;
   color: #004d3a;
@@ -130,12 +130,10 @@ section h2 {
   transition: 0.3s;
   cursor: pointer;
 }
-.finance-card:hover, .account-card:hover, .card-card:hover, .digital-card:hover, .investment-card:hover {
+.card:hover {
   background: #cce6cc;
 }
-
-/* Buttons inside cards */
-.finance-card button, .account-card button, .card-card button, .digital-card button, .investment-card button {
+.card button {
   margin: 10px 5px;
   padding: 10px 20px;
   background: #004d3a;
@@ -165,6 +163,6 @@ footer .social a:hover { text-decoration: underline; }
 @media screen and (max-width: 768px){
   header { flex-direction: column; align-items: flex-start; }
   .main-nav ul { flex-direction: column; }
-  .finance-grid, .account-grid, .cards-grid, .digital-grid, .investment-grid { flex-direction: column; }
+  .grid { flex-direction: column; }
   .hero-slider { max-width: 100%; }
 }
