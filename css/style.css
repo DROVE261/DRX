@@ -1,9 +1,9 @@
 * {margin:0; padding:0; box-sizing:border-box;}
-body, html {width:100%; height:100%; font-family:'Segoe UI', sans-serif; background:#006747;}
+body, html {width:100%; height:100%; font-family:'Segoe UI', sans-serif; background:#006747; direction:rtl;}
 .screen {width:100%; height:100%; display:flex; justify-content:center; align-items:center; position:absolute; top:0; left:0; background:#006747; transition:0.5s;}
 .hidden {display:none;}
 
-/* Password Screen */
+/* شاشة كلمة السر */
 .center-box {text-align:center; background:rgba(255,255,255,0.1); padding:30px; border-radius:15px; animation:fadeIn 1s;}
 .center-box h1 {margin-bottom:15px; color:#fff;}
 .center-box input {padding:10px; width:200px; border-radius:5px; border:none; margin-bottom:10px;}
@@ -11,16 +11,16 @@ body, html {width:100%; height:100%; font-family:'Segoe UI', sans-serif; backgro
 .center-box button:hover {background:#f0f0f0;}
 #loginMsg {color:#ff8080; margin-top:10px;}
 
-/* Home Screen */
+/* الصفحة الرئيسية */
 header {position:absolute; top:20px; left:20px;}
 .menu-btn {font-size:30px; cursor:pointer; color:#fff;}
-.menu {position:absolute; top:35px; left:0; background:#fff; color:#000; list-style:none; padding:5px 0; border-radius:5px; min-width:120px;}
+.menu {position:absolute; top:35px; left:0; background:#fff; color:#000; list-style:none; padding:5px 0; border-radius:5px; min-width:150px;}
 .menu li {padding:8px 15px; cursor:pointer;}
 .menu li:hover {background:#eee;}
 .home-content {display:flex; justify-content:center; align-items:center; height:100%; animation:fadeIn 1s;}
 .home-content .logo {width:300px; animation:zoomIn 1s;}
 
-/* Transfer Screen */
+/* صفحة التحويل */
 .transfer-content {padding:20px; width:100%; display:flex; justify-content:center;}
 .balance-card {background:#00a060; padding:20px; border-radius:15px; max-width:400px; width:100%; color:#fff;}
 .balance-card h2 {margin-bottom:10px;}
@@ -30,6 +30,6 @@ header {position:absolute; top:20px; left:20px;}
 .balance-card button {width:100%; padding:10px; margin-top:10px; border:none; border-radius:5px; background:#fff; color:#006747; font-weight:bold; cursor:pointer;}
 .balance-card button:hover {background:#f0f0f0;}
 
-/* Animations */
+/* تأثيرات الحركة */
 @keyframes fadeIn {from{opacity:0;} to{opacity:1;}}
 @keyframes zoomIn {from{transform:scale(0.5); opacity:0;} to{transform:scale(1); opacity:1;}}
