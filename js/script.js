@@ -1,14 +1,15 @@
-// Login functionality
-const loginScreen = document.getElementById('loginScreen');
-const mainPage = document.getElementById('mainPage');
+// Password screen
+const passwordScreen = document.getElementById('passwordScreen');
+const homeScreen = document.getElementById('homeScreen');
+const transferScreen = document.getElementById('transferScreen');
 const loginBtn = document.getElementById('loginBtn');
 const passwordInput = document.getElementById('passwordInput');
 const loginMsg = document.getElementById('loginMsg');
 
 loginBtn.addEventListener('click', ()=>{
   if(passwordInput.value === '1201200780'){
-    loginScreen.classList.add('hidden');
-    mainPage.classList.remove('hidden');
+    passwordScreen.classList.add('hidden');
+    homeScreen.classList.remove('hidden');
   } else {
     loginMsg.classList.remove('hidden');
   }
@@ -19,17 +20,17 @@ const menuBtn = document.getElementById('menuBtn');
 const menu = document.getElementById('menu');
 menuBtn.addEventListener('click', ()=> menu.classList.toggle('hidden'));
 
-// Transfer modal
-const modal = document.getElementById('modal');
-const openBtn = document.getElementById('openTransfer');
-const closeBtn = document.getElementById('closeModal');
-const form = document.getElementById('transferForm');
-const result = document.getElementById('result');
-
-openBtn.addEventListener('click', ()=> modal.classList.remove('hidden'));
-closeBtn.addEventListener('click', ()=> modal.classList.add('hidden'));
+// Navigate to Transfer
+const transferBtn = document.getElementById('transferBtn');
+transferBtn.addEventListener('click', ()=>{
+  homeScreen.classList.add('hidden');
+  transferScreen.classList.remove('hidden');
+  menu.classList.add('hidden');
+});
 
 // Transfer form
+const form = document.getElementById('transferForm');
+const result = document.getElementById('result');
 form.addEventListener('submit', e=>{
   e.preventDefault();
   const to = document.getElementById('to').value;
