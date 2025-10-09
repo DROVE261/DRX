@@ -7,15 +7,52 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
   <div class="signup-page">
     <h1>إنشاء حساب جديد</h1>
-    <form>
-      <input type="text" placeholder="الاسم الكامل" required><br><br>
-      <input type="email" placeholder="البريد الإلكتروني" required><br><br>
-      <input type="password" placeholder="كلمة المرور" required><br><br>
+    <form id="signup-form">
+      <input type="text" placeholder="الاسم الكامل" name="name" required><br><br>
+      <input type="email" placeholder="البريد الإلكتروني" name="email" required><br><br>
+      <input type="password" placeholder="كلمة المرور" name="password" required><br><br>
       <button type="submit">إنشاء الحساب</button>
     </form>
     <p>لديك حساب؟ <a href="index.html">تسجيل الدخول</a></p>
   </div>
+
+  <!-- Firebase SDK -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
+    import { getAuth, createUserWithEmailAndPassword, sendEmailVerification } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-analytics.js";
+
+    // تكوين Firebase
+    const firebaseConfig = {
+      apiKey: "AIzaSyA-DVVbKVg5jN3Gtzow3-AEt0UBfQtmAU8",
+      authDomain: "kuveyt-turk-bank.firebaseapp.com",
+      projectId: "kuveyt-turk-bank",
+      storageBucket: "kuveyt-turk-bank.firebasestorage.app",
+      messagingSenderId: "851164370783",
+      appId: "1:851164370783:web:2df1518c5aabb9daf948ea",
+      measurementId: "G-XEGWXEV2F8"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+    const auth = getAuth(app);
+
+    // فورم تسجيل الحساب
+    document.getElementById('signup-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = e.target.email.value;
+      const password = e.target.password.value;
+      try {
+        const userCred = await createUserWithEmailAndPassword(auth, email, password);
+        await sendEmailVerification(userCred.user);
+        alert('تم إرسال إيميل لتأكيد الحساب!');
+      } catch (err) {
+        alert(err.message);
+      }
+    });
+  </script>
 </body>
 </html>
