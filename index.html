@@ -6,88 +6,77 @@
   <title>Kuveyt Türk Clone</title>
   <link rel="stylesheet" href="style.css">
   <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background-color: #0b8b3e; /* خلفية خضراء */
-      color: white;
-    }
-
     /* شاشة تسجيل الدخول */
     #login-screen {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: #0b8b3e;
+      color: white;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      height: 100vh;
-      text-align: center;
+      z-index: 2000;
     }
-    #login-screen.hidden { display: none; }
-
-    .logo img { width: 150px; margin-bottom: 20px; }
-
-    .language-select button {
+    #login-screen button {
       margin: 5px;
-      padding: 5px 10px;
-      cursor: pointer;
-    }
-
-    .login-buttons button {
-      margin: 10px;
       padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
       cursor: pointer;
     }
 
     /* المحتوى الرئيسي */
     #main-content.hidden { display: none; }
-    header { display: flex; justify-content: space-between; padding: 10px 20px; align-items: center; }
-    header .logo img { width: 120px; }
-    header input { padding: 5px; }
+    body { font-family: Arial, sans-serif; background: #eaf5ed; }
 
-    /* hero-slider */
-    .hero-slider { position: relative; text-align: center; margin: 20px; }
+    header { display: flex; justify-content: space-between; padding: 10px 20px; background: #0b8b3e; color: white; }
+    .hero-slider { position: relative; margin: 20px; }
     .hero-slider img { width: 100%; max-height: 400px; object-fit: cover; border-radius: 10px; }
-    .slide-text { position: absolute; top: 40%; left: 50%; transform: translate(-50%, -50%); background: rgba(0,0,0,0.4); padding: 20px; border-radius: 10px; }
+    .slide-text { position: absolute; bottom: 20px; left: 20px; color: white; background: rgba(0,0,0,0.3); padding: 10px; border-radius: 5px; }
 
-    /* grid */
-    .grid { display: flex; flex-wrap: wrap; gap: 20px; padding: 20px; justify-content: center; }
-    .card { background: rgba(255,255,255,0.1); padding: 20px; border-radius: 10px; width: 220px; text-align: center; }
-    .card button { margin-top: 10px; padding: 5px 10px; cursor: pointer; }
+    .grid { display: flex; flex-wrap: wrap; gap: 20px; padding: 20px; }
+    .card { background: white; padding: 20px; border-radius: 10px; flex: 1 1 200px; box-shadow: 0 0 10px rgba(0,0,0,0.2); }
 
-    footer { text-align: center; padding: 10px; margin-top: 20px; }
+    footer { text-align: center; padding: 10px; background: #0b8b3e; color: white; margin-top: 20px; }
 
-    /* Hamburger menu */
-    .hamburger-menu {
-      position: fixed;
-      top: 20px;
+    /* Fancy Dropdown */
+    .fancy-dropdown {
+      position: absolute;
+      top: 80px;
       left: 20px;
+      background: rgba(255,255,255,0.95);
+      color: #0b8b3e;
+      padding: 20px;
+      border-radius: 10px;
+      min-width: 300px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.5);
+      display: none;
       z-index: 1000;
     }
-    #menu-btn {
-      font-size: 24px;
-      background: #fff;
-      color: #0b8b3e;
-      border: none;
-      padding: 10px;
-      border-radius: 5px;
-      cursor: pointer;
+    .fancy-dropdown h2 {
+      margin-top: 0;
+      border-bottom: 2px solid #0b8b3e;
+      padding-bottom: 5px;
     }
-    #menu-list {
-      list-style: none;
-      padding: 10px;
-      background: #fff;
-      color: #0b8b3e;
+    .fancy-dropdown input, .fancy-dropdown select, .fancy-dropdown button {
+      width: 100%;
+      padding: 8px;
       margin-top: 5px;
+      margin-bottom: 10px;
       border-radius: 5px;
-      display: none;
-      min-width: 200px;
+      border: 1px solid #0b8b3e;
     }
-    #menu-list li {
-      padding: 8px 5px;
+    .fancy-dropdown button {
+      background: #0b8b3e;
+      color: white;
+      border: none;
       cursor: pointer;
-      border-bottom: 1px solid #ddd;
     }
-    #menu-list li:hover { background: #ddd; }
+    .fancy-dropdown button:hover {
+      background: #06662c;
+    }
   </style>
 </head>
 <body>
@@ -95,35 +84,33 @@
   <!-- شاشة تسجيل الدخول -->
   <div id="login-screen">
     <div class="logo">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/7/7e/Kuveyt_T%C3%BCrk_logo.svg" alt="Logo">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/7/7e/Kuveyt_T%C3%BCrk_logo.svg" alt="Logo" width="200">
     </div>
     <h2>مرحباً بك في Kuveyt Türk</h2>
-    <div class="login-buttons">
-      <button id="google-login">تسجيل الدخول عبر Google</button>
-      <button id="twitter-login">تسجيل الدخول عبر Twitter</button>
-      <button id="apple-login">تسجيل الدخول عبر Apple</button>
-    </div>
-    <div class="signup">
-      <a href="signup.html"><button>إنشاء حساب جديد</button></a>
+    <div class="login-form">
+      <input type="text" id="phone" placeholder="رقم الهاتف" value="01227043648"><br><br>
+      <input type="password" id="password" placeholder="كلمة السر" value="120120"><br><br>
+      <button id="login-btn">تسجيل الدخول</button>
     </div>
   </div>
 
   <!-- المحتوى الرئيسي -->
   <div id="main-content" class="hidden">
-    <!-- قائمة الثلاث خطوط -->
-    <div class="hamburger-menu">
-      <button id="menu-btn">☰</button>
-      <ul id="menu-list">
-        <li>التمويل</li>
-        <li>الحسابات</li>
-        <li>البطاقات</li>
-        <li>الدفع والخدمات</li>
-        <li>التأمين والتقاعد</li>
+
+    <!-- قائمة الثلاث نقاط -->
+    <div class="menu-dots">
+      <button>☰</button>
+      <ul class="menu-options">
+        <li>• التمويل</li>
+        <li>• الحسابات</li>
+        <li>• البطاقات</li>
+        <li>٣ الدفع والخدمات</li>
+        <li>+ التأمين والتقاعد</li>
         <li>المنتجات الاستثمارية</li>
         <li>المعاملات المصرفية الذهبية</li>
         <li>الخدمات المصرفية الخاصة</li>
-        <li>المنتجات والخدمات الأخرى</li>
-        <li>الخدمات المخصصة للأجانب</li>
+        <li>٦ المنتجات والخدمات الأخرى</li>
+        <li>الخدمات المصيفة للأحانب</li>
       </ul>
     </div>
 
@@ -131,22 +118,65 @@
       <div class="logo">
         <img src="https://upload.wikimedia.org/wikipedia/commons/7/7e/Kuveyt_T%C3%BCrk_logo.svg" alt="Logo">
       </div>
-      <input type="text" placeholder="بحث...">
+      <div class="top-right">
+        <input type="text" placeholder="بحث...">
+      </div>
     </header>
 
     <div class="hero-slider">
-      <img src="https://images.unsplash.com/photo-1581090700227-1e37b190418e" alt="Banner">
-      <div class="slide-text"><h2>مرحبا بك في بنك Kuveyt Türk</h2></div>
+      <div class="slide active">
+        <img src="https://images.unsplash.com/photo-1581090700227-1e37b190418e" alt="Banner 1">
+        <div class="slide-text"><h2>تمويل بيت أحلامك</h2><button>اعرف المزيد</button></div>
+      </div>
+      <div class="slide">
+        <img src="https://images.unsplash.com/photo-1507679799987-c73779587ccf" alt="Banner 2">
+        <div class="slide-text"><h2>تحويل سريع وآمن</h2><button>المزيد</button></div>
+      </div>
     </div>
 
     <section>
       <div class="grid">
-        <div class="card"><h3>تمويل شخصي</h3><p>حلول مالية تناسب احتياجاتك</p></div>
-        <div class="card"><h3>الحسابات</h3><p>جارية، ذهبية، المشاركة</p></div>
-        <div class="card"><h3>التحويلات</h3><p>تحويل العملات بسهولة</p></div>
-        <div class="card"><h3>الإعدادات</h3><p>إدارة الحساب والأمان</p></div>
+        <div class="card"><h3>تمويل شخصي</h3><p>حلول مالية تناسب احتياجاتك</p><button>تقديم الآن</button></div>
+        <div class="card"><h3>الحسابات</h3><p>جارية، ذهبية، المشاركة</p><button>المزيد</button></div>
+        <div class="card"><h3>التحويلات</h3><p>تحويل العملات بسهولة</p><button>ابدأ التحويل</button></div>
+        <div class="card"><h3>الإعدادات</h3><p>إدارة الحساب والأمان</p><button>فتح الإعدادات</button></div>
       </div>
     </section>
+
+    <!-- Fancy Dropdown -->
+    <div id="payments-services" class="fancy-dropdown">
+      <h2>الدفع والخدمات</h2>
+      <form id="transfer-form">
+        <label>المبلغ:</label>
+        <input type="number" placeholder="أدخل المبلغ" required><br><br>
+
+        <label>رقم الحساب:</label>
+        <input type="text" placeholder="0123456789" required><br><br>
+
+        <label>رقم الهوية / الهاتف:</label>
+        <input type="text" placeholder="01227043648" required><br><br>
+
+        <label>العملة:</label>
+        <select>
+          <option value="USD">دولار</option>
+          <option value="EUR">يورو</option>
+          <option value="TRY">ليرة تركية</option>
+          <option value="SAR">ريال سعودي</option>
+          <option value="KWD">دينار كويتي</option>
+        </select><br><br>
+
+        <label>البلد / البنك:</label>
+        <select>
+          <option>تركيا</option>
+          <option>السعودية</option>
+          <option>الكويت</option>
+          <option>الإمارات</option>
+          <option>باقي الدول</option>
+        </select><br><br>
+
+        <button type="submit">تنفيذ التحويل</button>
+      </form>
+    </div>
 
     <footer>
       <p>© 2025 Kuveyt Türk | جميع الحقوق محفوظة</p>
@@ -154,28 +184,10 @@
   </div>
 
   <script>
-    const loginScreen = document.getElementById('login-screen');
-    const mainContent = document.getElementById('main-content');
-
-    document.getElementById('google-login').addEventListener('click', () => {
-      loginScreen.classList.add('hidden');
-      mainContent.classList.remove('hidden');
-    });
-    document.getElementById('twitter-login').addEventListener('click', () => {
-      loginScreen.classList.add('hidden');
-      mainContent.classList.remove('hidden');
-    });
-    document.getElementById('apple-login').addEventListener('click', () => {
-      loginScreen.classList.add('hidden');
-      mainContent.classList.remove('hidden');
-    });
-
-    // Hamburger Menu
-    const menuBtn = document.getElementById('menu-btn');
-    const menuList = document.getElementById('menu-list');
-    menuBtn.addEventListener('click', () => {
-      menuList.style.display = menuList.style.display === 'block' ? 'none' : 'block';
-    });
-  </script>
-</body>
-</html>
+    // تسجيل الدخول (رقم الهاتف + كلمة السر)
+    const loginBtn = document.getElementById('login-btn');
+    loginBtn.addEventListener('click', () => {
+      const phone = document.getElementById('phone').value;
+      const password = document.getElementById('password').value;
+      if(phone === '01227043648' && password === '120120') {
+        document.getElementById('login-screen').style
