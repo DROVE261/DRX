@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -8,24 +8,24 @@
 </head>
 <body>
 
-<!-- Password Screen -->
+<!-- شاشة كلمة السر -->
 <div id="passwordScreen" class="screen">
   <div class="center-box">
-    <h1>Enter Password</h1>
+    <h1>أدخل كلمة السر</h1>
     <input type="password" id="passwordInput" placeholder="Password">
-    <button id="loginBtn">Enter</button>
-    <p id="loginMsg" class="hidden">Incorrect password!</p>
+    <button id="loginBtn">دخول</button>
+    <p id="loginMsg" class="hidden">كلمة السر غير صحيحة!</p>
   </div>
 </div>
 
-<!-- Home Screen -->
+<!-- الصفحة الرئيسية -->
 <div id="homeScreen" class="screen hidden">
   <header>
     <span id="menuBtn" class="menu-btn">⋮</span>
     <ul id="menu" class="menu hidden">
-      <li id="profileBtn">Profile</li>
-      <li id="settingsBtn">Settings</li>
-      <li id="transferBtn">Transfer</li>
+      <li id="profileBtn">الملف الشخصي</li>
+      <li id="settingsBtn">الإعدادات</li>
+      <li id="transferBtn">تحويل</li>
     </ul>
   </header>
   <div class="home-content">
@@ -33,22 +33,22 @@
   </div>
 </div>
 
-<!-- Transfer Screen -->
+<!-- صفحة التحويل -->
 <div id="transferScreen" class="screen hidden">
   <header>
     <img src="kuveyt-logo.png" alt="Kuveyt Bank Logo" class="logo">
   </header>
   <main class="transfer-content">
     <section class="balance-card">
-      <h2>Current Balance</h2>
+      <h2>الرصيد الحالي</h2>
       <div class="balance">3000 $</div>
       <div class="card-number">Visa: 4445 73XXXXXX</div>
       <form id="transferForm">
-        <label>To Account / Name:</label>
+        <label>إلى الحساب / الاسم:</label>
         <input type="text" id="to" required>
-        <label>Amount:</label>
+        <label>المبلغ:</label>
         <input type="number" id="amountInput" required>
-        <label>Currency:</label>
+        <label>العملة:</label>
         <select id="currency">
           <option value="USD">$ USD</option>
           <option value="EUR">€ EUR</option>
@@ -57,7 +57,7 @@
           <option value="AED">AED</option>
           <option value="EGP">EGP</option>
         </select>
-        <button type="submit">Transfer (Demo)</button>
+        <button type="submit">تحويل (تجريبي)</button>
       </form>
       <div id="result" class="hidden"></div>
     </section>
