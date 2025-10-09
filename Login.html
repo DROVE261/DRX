@@ -88,12 +88,14 @@
     <input type="text" id="phone" placeholder="رقم الهاتف">
     <input type="password" id="password" placeholder="كلمة السر">
     <br>
-    <button onclick="login()">دخول</button>
+    <button id="login-btn">تسجيل الدخول</button>
+    <br><br>
+    <a href="signup.html"><button id="signup-btn">إنشاء حساب جديد</button></a>
     <div id="welcome">مرحبا بك في بنك Kuveyt Türk!</div>
   </div>
 
   <script>
-    function login() {
+    document.getElementById('login-btn').addEventListener('click', function() {
       const phone = document.getElementById('phone').value;
       const password = document.getElementById('password').value;
 
@@ -102,7 +104,7 @@
       } else {
         alert('رقم الهاتف أو كلمة السر غير صحيحة!');
       }
-    }
+    });
   </script>
 
 </body>
