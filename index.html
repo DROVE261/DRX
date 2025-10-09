@@ -7,551 +7,503 @@
 <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;800;900&display=swap" rel="stylesheet">
 <style>
   :root{
-    --green-deep:#0b6b3a;
-    --green-mid:#0f8c4d;
-    --green-accent:#4ecb84;
-    --glass: rgba(255,255,255,0.96);
-    --text:#123;
+    /* Kuveyt Türk Green Palette */
+    --kuveyt-deep: #007A3E; /* Dark Green */
+    --kuveyt-mid: #00994B; /* Main Green */
+    --kuveyt-light: #F0FAF3; /* Light Background */
+    --kuveyt-text: #1C1C1C;
+    --kuveyt-gold: #FFC000;
   }
   html,body{
     height:100%;
     margin:0;
     font-family:"Tajawal", Arial, sans-serif;
     direction:rtl;
-    background:#eaf7ee;
-    color:var(--text);
+    background:var(--kuveyt-light);
+    color:var(--kuveyt-text);
     -webkit-font-smoothing:antialiased;
+    box-sizing: border-box;
+  }
+  *,*::before,*::after {
+    box-sizing: inherit;
   }
 
-  /* ---------- OVERLAY ---------- */
-  #bank-overlay{
-    position:fixed;
-    inset:0;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    background:rgba(11,139,62,0.94);
-    z-index:9999;
-    animation: overlayHide 1.6s forwards;
-  }
-  #bank-overlay img{ width:320px; max-width:80%; display:block; filter: drop-shadow(0 8px 36px rgba(0,0,0,.3)); }
+  /* --- GLOBAL APP INTERFACE STYLES --- */
 
-  @keyframes overlayHide{
-    0%   { opacity:1; pointer-events:auto; }
-    62%  { opacity:1; pointer-events:auto; }
-    100% { opacity:0; pointer-events:none; display:none; }
+  /* Main Container (Simulating Phone Screen) */
+  #app-container {
+    max-width: 420px;
+    margin: 0 auto;
+    background: #fff;
+    min-height: 100vh;
+    box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    position: relative;
+    overflow: hidden;
   }
 
-  header{
+  /* Fixed App Header/Top Bar */
+  .app-header{
     display:flex;
     justify-content:space-between;
     align-items:center;
-    padding:12px 18px;
-    background:linear-gradient(90deg,var(--green-deep),var(--green-mid));
+    padding:14px 18px;
+    background:var(--kuveyt-mid);
     color:#fff;
-    position:sticky;
-    top:0;
-    z-index:60;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    font-size: 16px;
+    font-weight: 700;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
   }
-  .brand{display:flex;align-items:center;gap:12px}
-  .logo-mark{
-    width:46px;height:46px;border-radius:10px;
-    background:rgba(255,255,255,0.12);
-    display:flex;align-items:center;justify-content:center;font-weight:800;color:#fff;
-    font-size:18px;
+  .header-icon{
+    background:none; border:none; color:#fff; font-size:22px; cursor:pointer; padding: 4px; line-height: 1;
   }
-  .site-link{font-weight:800;opacity:.95}
 
-  /* ---------- LOGIN SCREEN ---------- */
+  /* --- LOGIN SCREEN (Modified) --- */
   #login-screen{
     position:fixed; inset:0; display:flex; align-items:center; justify-content:center;
-    background:linear-gradient(180deg,var(--green-mid),var(--green-accent));
+    background: linear-gradient(180deg, var(--kuveyt-mid), var(--kuveyt-deep));
     z-index:900;
   }
   .login-box{
-    width:360px; background:var(--glass); padding:26px; border-radius:14px;
+    width:360px; max-width: 90%; background:rgba(255,255,255,0.96); padding:26px; border-radius:14px;
     box-shadow:0 12px 40px rgba(0,0,0,.18); text-align:center;
   }
   .login-box img{ width:120px; margin-bottom:8px; }
-  .login-row{ display:flex; gap:8px; justify-content:center; margin-top:12px; }
   .login-btn{
-    flex:1; padding:10px; border-radius:8px; border:none;
-    background:linear-gradient(135deg,var(--green-mid),var(--green-accent));
-    color:#fff; font-weight:700; cursor:pointer;
+    width: 100%; padding:12px; border-radius:8px; border:none;
+    background:var(--kuveyt-mid);
+    color:#fff; font-weight:700; cursor:pointer; margin-top: 10px;
   }
-  .login-small{ margin-top:10px; padding:8px 12px; border-radius:8px; border:none; background:#fff; color:var(--green-mid); cursor:pointer; }
-
-  main{ display:none; min-height:100vh; padding-bottom:40px; }
-
-  .hero{ margin:20px 18px; border-radius:12px; overflow:hidden; box-shadow:0 12px 36px rgba(0,0,0,.06); }
-  .hero .inner{
-    background:linear-gradient(90deg,var(--green-deep),var(--green-mid));
-    padding:28px; color:#fff;
+  .login-input{
+    width: 100%; padding:12px; border-radius:8px; border:1px solid #ddd; margin-top: 10px; text-align: right;
   }
-  .grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:18px; padding:18px; }
 
-  .card{ background:#fff; border-radius:12px; padding:16px; box-shadow:0 8px 20px rgba(0,0,0,.06); text-align:center; }
-
-  #account-panel{
-    position:fixed; top:8%; right:18px; width:380px; max-height:78vh;
-    background:linear-gradient(180deg,#fff,#fbfffb); border-radius:14px; padding:16px;
-    box-shadow:0 22px 60px rgba(0,0,0,.14); z-index:160; display:none; overflow:hidden;
+  /* --- MAIN CONTENT (App Home Screen) --- */
+  #main-content{
+    padding-bottom: 70px; /* Space for navbar */
+    display: none;
+    min-height: 100vh;
   }
-  .profile{ display:flex; gap:12px; align-items:center; }
-  .avatar{ width:64px; height:64px; border-radius:50%; display:flex; align-items:center; justify-content:center; background:linear-gradient(135deg,#fff,#eefaf0); color:var(--green-mid); font-weight:800; font-size:20px; border:3px solid rgba(11,139,62,0.08); }
-  .balance{ margin-top:12px; background:linear-gradient(90deg,#f8fff8,#fff); padding:12px; border-radius:10px; border:1px solid #e6f6ea; display:flex; justify-content:space-between; align-items:center; }
-  .balance .amount{ font-size:20px; font-weight:900; color:var(--green-deep); }
-  .acct-actions{ display:flex; gap:8px; margin-top:12px; }
+  .welcome-section{
+    padding: 20px 18px 0;
+    background: #fff;
+    border-bottom: 1px solid #eee;
+  }
+  .welcome-section h1{
+    font-size: 24px;
+    font-weight: 800;
+    margin: 0 0 4px 0;
+    color: var(--kuveyt-deep);
+  }
+  .balance-card{
+    background: #fff;
+    padding: 15px;
+    border-radius: 10px;
+    border: 1px solid #f0f0f0;
+    margin: 15px 0;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  }
+  .balance-card .amount{
+    font-size: 30px;
+    font-weight: 900;
+    color: var(--kuveyt-deep);
+    display: block;
+    margin-top: 5px;
+  }
 
-  .panel-body{ max-height: calc(78vh - 180px); overflow:auto; padding-right:6px; margin-top:12px; }
-  .panel-body::-webkit-scrollbar{ width:8px; }
-  .panel-body::-webkit-scrollbar-thumb{ background: linear-gradient(180deg,var(--green-mid),var(--green-deep)); border-radius:10px; }
+  /* Quick Actions Grid */
+  .quick-actions-grid{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    padding: 10px 18px 20px;
+    background: #fff;
+    border-bottom: 8px solid var(--kuveyt-light);
+  }
+  .action-item{
+    text-align: center;
+    cursor: pointer;
+  }
+  .action-icon{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: var(--kuveyt-mid);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    margin: 0 auto 5px;
+  }
+  .action-item span{
+    font-size: 11px;
+    font-weight: 700;
+    color: #444;
+  }
 
-  .card-display{ display:flex; justify-content:center; margin-top:8px; }
+  /* --- Bottom Navigation Bar --- */
+  .app-navbar{
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    max-width: 420px;
+    background: #fff;
+    border-top: 1px solid #eee;
+    display: flex;
+    justify-content: space-around;
+    padding: 8px 0;
+    box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+    z-index: 100;
+  }
+  .nav-item{
+    text-align: center;
+    font-size: 11px;
+    color: #777;
+    font-weight: 700;
+    cursor: pointer;
+  }
+  .nav-item-active{
+    color: var(--kuveyt-mid);
+  }
+  .nav-icon{
+    font-size: 20px;
+    display: block;
+    margin-bottom: 2px;
+  }
 
-  /* Kuveyt Türk Sağlam Kart Styles - UPDATED */
+  /* --- SAĞLAM KART (Updated for App look) --- */
   .saglam-card {
-    width: 320px;
+    width: 90%;
+    max-width: 350px;
     height: 190px;
     border-radius: 14px;
     padding: 16px;
+    margin: 20px auto;
     position: relative;
     color: #fff;
-    /* Updated background to be lighter and more gradient-like */
-    background: linear-gradient(135deg, #119e59 0%, #4ecb84 100%);
-    box-shadow: 0 18px 50px rgba(3,60,30,0.22);
-    overflow: hidden;
-    font-family: "Courier New", monospace;
+    /* Use a more subtle gradient for a professional app card look */
+    background: linear-gradient(135deg, #007A3E 0%, #00994B 100%);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    font-family: 'Consolas', 'Menlo', 'Monaco', monospace; 
   }
 
   .saglam-card .card-header {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    z-index: 2;
-    position: relative;
   }
-  
-  /* Chip position: left-top */
   .saglam-card .chip {
     width: 50px;
     height: 36px;
     border-radius: 6px;
     background: linear-gradient(180deg, #d4af37, #f7d750);
-    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    box-shadow: 0 1px 4px rgba(0,0,0,0.2);
     align-self: flex-start;
   }
 
-  /* Bank logo and SAĞLAM KART text position: right-top */
+  /* Logo group on the right */
   .saglam-card .bank-logo-group {
     display: flex;
     flex-direction: column; 
-    align-items: flex-end; /* Align right */
+    align-items: flex-end; 
     text-align: right;
   }
   .saglam-card .bank-logo {
     display: flex;
-    gap: 8px;
+    gap: 6px;
     align-items: center;
-    margin-bottom: 4px;
-    /* Reverse order to place KB mark on the right */
     flex-direction: row-reverse; 
   }
   .saglam-card .bank-logo .mark {
-    width: 40px;
-    height: 40px;
-    border-radius: 8px;
+    width: 36px;
+    height: 36px;
+    border-radius: 6px;
     background: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    color: var(--kuveyt-deep);
     font-weight: 900;
-    color: var(--green-deep);
-    font-size: 16px;
+    font-size: 14px;
+    display: flex; align-items: center; justify-content: center;
   }
   .saglam-card .bank-name {
     font-weight: 800;
-    font-size: 13px;
+    font-size: 12px;
     color: #fff;
   }
   .saglam-card .saglam-text {
     font-weight: 900;
-    font-size: 16px;
+    font-size: 14px;
     color: #fff;
     text-transform: uppercase;
     letter-spacing: 1px;
-    /* Adjust spacing to align correctly with logo group */
-    margin-top: -6px; 
-    padding-right: 4px; 
+    margin-top: 2px; 
+    font-family: "Tajawal", Arial, sans-serif; /* Use Arabic font for this label */
   }
 
   .saglam-card .card-number{
-    margin-top: 10px; /* Reduced spacing */
-    font-size: 20px;
+    font-size: 18px;
     letter-spacing: 2px;
     font-weight: 700;
-    z-index: 2;
-    position: relative;
     text-align: left;
-    font-family: 'Consolas', 'Menlo', 'Monaco', monospace;
+    margin-top: 10px;
+    font-family: 'Consolas', 'Menlo', 'Monaco', monospace; 
   }
   .saglam-card .card-meta{
     display:flex;
     justify-content: space-between;
     align-items: flex-end;
-    margin-top: 12px;
     font-size: 12px;
     opacity:.95;
-    z-index: 2;
-    position: relative;
     direction: ltr;
-    padding-bottom: 8px; /* Added padding for space above badge */
   }
-  .saglam-card .card-meta > div:first-child { text-align: left; }
-  .saglam-card .card-meta > div:last-child { text-align: right; }
-
-  /* Network badge position: right-bottom (Changed from left-bottom) */
   .saglam-card .network-badge{
-    position:absolute; bottom:12px; right:16px; 
-    padding:4px 8px; /* Smaller padding */
-    border-radius: 6px; /* Smaller radius */
-    background:rgba(255,255,255,0.9); /* Slightly transparent background */
-    color:var(--green-deep); font-weight:800; z-index:2;
+    position:absolute; bottom:16px; right:16px; 
+    padding:4px 8px;
+    border-radius: 6px;
+    background:rgba(255,255,255,0.9);
+    color:var(--kuveyt-deep); font-weight:800; z-index:2;
     font-size: 11px;
   }
-  .saglam-card .card-type{ display:none; }
-
-  /* End Kuveyt Türk Sağlam Kart Styles */
-
-  .accounts-list{ background:#fff; border-radius:10px; padding:10px; box-shadow:0 8px 20px rgba(0,0,0,.04); margin-top:12px; }
-  .acct-item{ display:flex; justify-content:space-between; align-items:center; padding:10px; border-radius:8px; border:1px solid #f0f6f0; margin-top:8px; }
-  .last-transactions ul{ list-style:none; padding:0; margin:0; }
-  .last-transactions ul li{ background:#f0fff4; padding:10px; border-radius:8px; margin-top:8px; color:#065; font-weight:700; }
-
-  .btn{ padding:10px 12px; border-radius:10px; border:none; cursor:pointer; }
-  .btn-primary{ background:linear-gradient(90deg,var(--green-mid),var(--green-accent)); color:#fff; font-weight:800; }
-  .btn-ghost{ background:#fff; color:var(--green-deep); border:1px solid #e9f6ef; font-weight:700; }
-
-  #cookie-bar{ position:fixed; left:0; right:0; bottom:18px; margin:0 auto; max-width:920px; background:linear-gradient(90deg,#fff,#f7fff7); padding:12px 16px; display:flex; gap:12px; align-items:center; justify-content:space-between; border-radius:12px; box-shadow:0 12px 30px rgba(0,0,0,.08); z-index:80; }
-  #cookie-bar .actions{ display:flex; gap:8px; }
-
-  @media (max-width:900px){
-    #account-panel{ right:12px; left:12px; width:auto; max-width:92vw; }
-    .saglam-card{ width:92%; height:180px; }
-    .saglam-card .card-number{ font-size:18px; }
+  
+  /* Additional Content Sections */
+  .app-section{
+    padding: 15px 18px;
+    margin-top: 8px;
+    background: #fff;
+    border-bottom: 1px solid #eee;
   }
+  .app-section h3{
+    font-size: 16px;
+    color: var(--kuveyt-deep);
+    margin: 0 0 10px 0;
+    border-right: 3px solid var(--kuveyt-mid);
+    padding-right: 8px;
+  }
+
 </style>
 </head>
 <body>
 
-<div id="bank-overlay" aria-hidden="true">
-  <img alt="Kuveyt Bank TR Logo" src="data:image/svg+xml;utf8,
-    <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 640 220'>
-      <rect width='640' height='220' fill='%230b8b3e'/>
-      <g transform='translate(28,28)'>
-        <circle cx='64' cy='64' r='56' fill='%23fff'/>
-        <text x='150' y='110' font-family='Tajawal, Arial, sans-serif' font-size='34' fill='%23fff'>Kuveyt Bank TR</text>
-      </g>
-    </svg>">
-</div>
+<div id="app-container">
 
-<div id="cookie-bar" style="display:none">
-  <div>نستخدم ملفات تعريف الارتباط لتحسين تجربتك — يمكنك قبول الكل أو تعديل التفضيلات.</div>
-  <div class="actions">
-    <button id="open-cookie-manage" class="btn btn-ghost">تعديل</button>
-    <button id="accept-cookies" class="btn btn-primary">قبول الكل</button>
-  </div>
-</div>
-
-<div id="login-screen" aria-hidden="false">
-  <div class="login-box">
-    <img alt="logo" src="data:image/svg+xml;utf8,
-      <svg xmlns='http://www.w3.org/2000/svg' width='360' height='120' viewBox='0 0 360 120'>
-        <g transform='translate(8,8)'>
-          <circle cx='56' cy='48' r='36' fill='%23ffffff'/>
-          <text x='110' y='68' font-family='Tajawal, Arial, sans-serif' font-size='28' fill='%23ffffff'>Kuveyt Bank TR</text>
+  <div id="bank-overlay" aria-hidden="true">
+    <img alt="Kuveyt Bank TR Logo" src="data:image/svg+xml;utf8,
+      <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 640 220'>
+        <rect width='640' height='220' fill='%23007A3E'/>
+        <g transform='translate(28,28)'>
+          <circle cx='64' cy='64' r='56' fill='%23fff'/>
+          <text x='150' y='110' font-family='Tajawal, Arial, sans-serif' font-size='34' fill='%23fff'>Kuveyt Türk</text>
         </g>
-      </svg>"/>
-    <h2 id="title">مرحباً بك في Kuveyt Bank TR</h2>
-    <div style="color:#333">واجهة تجريبية — اضغط على أي زر لتجربة</div>
-    <div class="login-row" style="margin-top:16px">
-      <button id="google-login" class="login-btn">تسجيل دخول عبر Google</button>
-      <button id="apple-login" class="login-btn">تسجيل دخول عبر Apple</button>
+      </svg>">
+  </div>
+
+  <div id="cookie-bar" style="display:none; position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%); max-width: 400px; width: 90%; z-index: 101; background: #fff; padding: 12px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+    <div>نستخدم ملفات تعريف الارتباط لتحسين تجربتك.</div>
+    <div style="display: flex; gap: 8px; margin-top: 8px;">
+      <button id="accept-cookies" class="login-btn" style="background: var(--kuveyt-mid); padding: 8px; margin-top: 0; flex: 1;">قبول الكل</button>
     </div>
-    <button id="show-login-form" class="login-small">أو تسجيل يدوي</button>
-    <div id="manual-login" style="display:none;margin-top:12px">
-      <input id="phone" placeholder="رقم الهاتف" style="width:80%;padding:10px;border-radius:8px;border:1px solid #ddd"><br><br>
-      <input id="password" placeholder="كلمة السر" type="password" style="width:80%;padding:10px;border-radius:8px;border:1px solid #ddd"><br><br>
+  </div>
+
+
+  <div id="login-screen" aria-hidden="false">
+    <div class="login-box">
+      <img alt="logo" src="data:image/svg+xml;utf8,
+        <svg xmlns='http://www.w3.org/2000/svg' width='360' height='120' viewBox='0 0 360 120'>
+          <g transform='translate(8,8)'>
+            <circle cx='56' cy='48' r='36' fill='%2300994B'/>
+            <text x='110' y='68' font-family='Tajawal, Arial, sans-serif' font-size='28' fill='%23007A3E'>Kuveyt Türk</text>
+          </g>
+        </svg>"/>
+      <h2 id="title" style="color: var(--kuveyt-deep);">مرحباً بك</h2>
+      <input id="user-id" placeholder="رقم الهوية أو العميل" class="login-input">
+      <input id="password" placeholder="كلمة السر" type="password" class="login-input">
       <button id="manual-login-btn" class="login-btn">تسجيل الدخول</button>
-    </div>
-  </div>
-</div>
-
-<header>
-  <div class="brand">
-    <div class="logo-mark">KB</div>
-    <div class="site-link">kuveytbank.tr</div>
-  </div>
-  <div>
-    <select id="lang" onchange="changeLang(this.value)" aria-label="language">
-      <option value="ar">العربية</option>
-      <option value="en">English</option>
-    </select>
-  </div>
-</header>
-
-<div style="position:fixed; top:20px; left:18px; z-index:80;">
-  <button id="menuBtn" class="btn btn-ghost">☰</button>
-</div>
-
-<main id="main-content" aria-hidden="true">
-
-  <div class="hero" style="margin-top:18px;">
-    <div class="inner">
-      <h1 style="margin:0 0 6px 0; font-size:20px">خدمات مصرفية أسرع، آمنة وذكية</h1>
-      <div style="opacity:.95">تحويلات، حسابات، بطاقات واستثمار — تجربة توضيحية</div>
+      <button class="login-btn" style="background: #ccc; color: #555;">نسيت كلمة السر؟</button>
     </div>
   </div>
 
-  <section class="grid">
-    <div class="card">
-      <h3>تمويل شخصي</h3>
-      <p>حلول سريعة لتمويل احتياجاتك.</p>
-      <button class="btn btn-primary">تقديم الآن</button>
+
+  <main id="main-content" aria-hidden="true">
+
+    <div class="app-header">
+      <button class="header-icon" onclick="alert('زر العودة/الخروج')" style="font-size: 28px;">&times;</button>
+      <span>الشاشة الرئيسية</span>
+      <button class="header-icon" onclick="alert('زر الإعدادات')">&#9881;</button>
     </div>
 
-    <div class="card">
-      <h3>الحسابات</h3>
-      <p>جارية - ذهبية - توفير</p>
-      <button id="open-account-panel" class="btn btn-primary">عرض الحساب</button>
+    <div class="welcome-section">
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <h1>مرحباً، عبدالرحمن</h1>
+        <div style="font-size: 30px; color: var(--kuveyt-mid); cursor: pointer;" onclick="alert('إظهار الرصيد')">👁️</div>
+      </div>
+      
+      <div class="balance-card">
+        <div style="font-size: 14px; color: #666;">الرصيد الكلي المتاح (لجميع الحسابات)</div>
+        <span class="amount" id="balance-amount">$129,000.00</span>
+        <div style="display: flex; justify-content: space-between; margin-top: 10px;">
+          <button class="login-btn" style="flex: 1; margin: 0 5px 0 0; padding: 10px; background: #f0f0f0; color: var(--kuveyt-deep);" onclick="alert('الحسابات')">الحسابات</button>
+          <button class="login-btn" style="flex: 1; margin: 0 0 0 5px; padding: 10px; background: #f0f0f0; color: var(--kuveyt-deep);" onclick="togglePayments(true)">تحويل</button>
+        </div>
+      </div>
     </div>
 
-    <div class="card">
-      <h3>التحويلات</h3>
-      <p>تحويلات داخلية وخارجية.</p>
-      <button id="open-payments" class="btn btn-primary">ابدأ التحويل</button>
+    <div class="quick-actions-grid">
+      <div class="action-item" onclick="alert('تحويل')">
+        <div class="action-icon" style="background: var(--kuveyt-deep);">💸</div>
+        <span>تحويل</span>
+      </div>
+      <div class="action-item" onclick="alert('البطاقات')">
+        <div class="action-icon">💳</div>
+        <span>بطاقاتي</span>
+      </div>
+      <div class="action-item" onclick="alert('الدفع')">
+        <div class="action-icon">🧾</div>
+        <span>دفع فواتير</span>
+      </div>
+      <div class="action-item" onclick="alert('الاستثمار')">
+        <div class="action-icon">📈</div>
+        <span>استثمار</span>
+      </div>
+      <div class="action-item" onclick="alert('تمويل')">
+        <div class="action-icon" style="background: #3c9;">💰</div>
+        <span>تمويل</span>
+      </div>
+      <div class="action-item" onclick="alert('الودائع')">
+        <div class="action-icon" style="background: #555;">⏳</div>
+        <span>ودائع</span>
+      </div>
+      <div class="action-item" onclick="alert('تأمين')">
+        <div class="action-icon" style="background: #c53;">🛡️</div>
+        <span>تأمين</span>
+      </div>
+      <div class="action-item" onclick="alert('كل الخدمات')">
+        <div class="action-icon" style="background: #888;">...</div>
+        <span>المزيد</span>
+      </div>
     </div>
 
-    <div class="card">
-      <h3>الإعدادات</h3>
-      <p>أمان وخصوصية.</p>
-      <button class="btn btn-ghost">فتح الإعدادات</button>
-    </div>
-  </section>
 
-  <footer style="padding:18px;text-align:center">© 2025 Kuveyt Bank TR — واجهة تجريبية</footer>
-</main>
+    <div class="app-section">
+      <h3>بطاقة الصراف الآلي</h3>
+      <div class="saglam-card" aria-hidden="false">
+        <div class="card-header">
+          <div class="chip" aria-hidden="true"></div>
 
-<div id="payments-services" style="display:none; position:fixed; top:12%; left:50%; transform:translateX(-50%); min-width:320px; background:#fff; padding:18px; border-radius:12px; box-shadow:0 18px 50px rgba(0,0,0,.18); z-index:200;">
-  <button onclick="togglePayments(false)" class="btn btn-ghost" style="float:left">✕</button>
-  <h3>الدفع والخدمات</h3>
-  <form id="transfer-form" style="margin-top:10px">
-    <label>💰 المبلغ:</label>
-    <input id="tf-amount" type="number" placeholder="أدخل المبلغ" required style="width:100%;padding:10px;border-radius:8px;border:1px solid #e6f6ea;margin-top:8px">
-
-    <label>🏦 رقم الحساب:</label>
-    <input id="tf-account" type="text" placeholder="0123456789" required style="width:100%;padding:10px;border-radius:8px;border:1px solid #e6f6ea;margin-top:8px">
-
-    <label>💱 العملة:</label>
-    <select id="tf-currency" style="width:100%;padding:10px;border-radius:8px;border:1px solid #e6f6ea;margin-top:8px">
-      <option value="USD">دولار (USD)</option>
-      <option value="EUR">يورو (EUR)</option>
-    </select>
-
-    <button class="btn btn-primary" type="submit" style="width:100%; margin-top:12px">تنفيذ التحويل</button>
-  </form>
-</div>
-
-<aside id="account-panel" role="region" aria-label="Account panel">
-  <div class="profile">
-    <div class="avatar" id="avatar">M</div>
-    <div>
-      <div style="font-size:15px; font-weight:800" id="acc-name">Mostafa</div>
-      <div style="font-size:12px;color:#666" id="acc-email">kuveyt@example.com</div>
-    </div>
-  </div>
-
-  <div class="balance">
-    <div>
-      <div style="font-size:12px;color:#666">رصيد الحساب</div>
-      <div class="amount" id="balance-amount">$129,000.00</div>
-    </div>
-    <div class="currency" id="balance-currency">USD</div>
-  </div>
-
-  <div class="acct-actions">
-    <button class="btn btn-ghost" id="btn-edit">الملف</button>
-    <button class="btn btn-primary" id="btn-transfer">تحويل الآن</button>
-  </div>
-
-  <div class="card-display">
-    
-    <div class="saglam-card" aria-hidden="false">
-      <div class="card-header">
-        
-        <div class="chip" aria-hidden="true"></div>
-
-        <div class="bank-logo-group">
-          <div class="bank-logo">
-            <div class="bank-name">KUVEYT TÜRK</div>
-            <div class="mark">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2ZM10.5 17L6 12.5L7.5 11L10.5 14L16.5 8L18 9.5L10.5 17Z" fill="currentColor"/>
-              </svg>
+          <div class="bank-logo-group">
+            <div class="bank-logo">
+              <div class="bank-name">KUVEYT TÜRK</div>
+              <div class="mark">KB</div>
             </div>
+            <div class="saglam-text">ساغلام كارت</div>
           </div>
-          <div class="saglam-text">SAĞLAM KART</div>
         </div>
-      </div>
 
-      <div class="card-number" id="card-number">5188 &bull;&bull;&bull;&bull; &bull;&bull;&bull;&bull; 3840</div>
+        <div class="card-number" id="card-number">5188 &bull;&bull;&bull;&bull; &bull;&bull;&bull;&bull; 3840</div>
 
-      <div class="card-meta">
-        <div>
-          <div style="font-size:11px;opacity:.9">CARD HOLDER</div>
-          <div class="card-holder" id="card-holder">AMMAR SALOUM</div>
+        <div class="card-meta">
+          <div>
+            <div style="font-size:11px;opacity:.9">CARD HOLDER</div>
+            <div class="card-holder" id="card-holder">ABDULRAHMAN MOSTAFA BARBOUR</div>
+          </div>
+          <div>
+            <div style="font-size:11px;opacity:.9">VALID THRU</div>
+            <div class="card-exp" id="card-exp">12/28</div>
+          </div>
         </div>
-        <div>
-          <div style="font-size:11px;opacity:.9">VALID THRU</div>
-          <div class="card-exp" id="card-exp">12/28</div>
-        </div>
+        <div class="network-badge" aria-hidden="true" style="right: 16px; left: auto;">Visa/Troy</div>
       </div>
-      <div class="network-badge" aria-hidden="true" style="right: 16px; left: auto;">Visa</div>
+    </div>
+
+
+    <div class="app-section">
+      <h3>آخر العمليات</h3>
+      <ul id="tx-list" style="list-style: none; padding: 0; margin: 0;">
+        <li style="padding: 8px; background: var(--kuveyt-light); border-radius: 6px; margin-bottom: 5px; font-size: 14px;">فاتورة (كهرباء): -120.00 TL</li>
+        <li style="padding: 8px; background: var(--kuveyt-light); border-radius: 6px; margin-bottom: 5px; font-size: 14px;">تحويل وارد (الراتب): +3200.00 USD</li>
+      </ul>
+      <button class="login-btn" style="background: #f0f0f0; color: var(--kuveyt-deep); margin-top: 10px; padding: 10px;" onclick="alert('عرض الكل')">عرض كافة العمليات</button>
+    </div>
+
+  </main>
+
+
+  <div class="app-navbar">
+    <div class="nav-item nav-item-active">
+      <span class="nav-icon">🏠</span>
+      <span>الرئيسية</span>
+    </div>
+    <div class="nav-item" onclick="alert('التحويلات')">
+      <span class="nav-icon">🔁</span>
+      <span>التحويلات</span>
+    </div>
+    <div class="nav-item" onclick="alert('البطاقات')">
+      <span class="nav-icon">💳</span>
+      <span>البطاقات</span>
+    </div>
+    <div class="nav-item" onclick="alert('الإعدادات')">
+      <span class="nav-icon">&#9881;</span>
+      <span>الإعدادات</span>
     </div>
   </div>
 
-  <div class="panel-body" id="panel-body">
-    <div class="accounts-list">
-      <h4>قائمة الحسابات</h4>
-      <div class="acct-item">
-        <div style="display:flex;gap:10px;align-items:center">
-          <div class="dot" style="width:46px;height:36px;border-radius:8px;background:linear-gradient(90deg,var(--green-mid),var(--green-accent));display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800">💳</div>
-          <div>
-            <div style="font-size:14px"><strong>جارية - USD</strong></div>
-            <div style="font-size:12px;color:#666">رقم: 123456789</div>
-          </div>
-        </div>
-        <div style="text-align:right">
-          <div style="font-weight:900;color:var(--green-deep)">$129,000.00</div>
-          <div style="font-size:12px;color:#666">الرصيد</div>
-        </div>
-      </div>
 
-      <div class="acct-item">
-        <div style="display:flex;gap:10px;align-items:center">
-          <div class="dot" style="width:46px;height:36px;border-radius:8px;background:linear-gradient(90deg,#3aa36a,#76d99b);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800">🏦</div>
-          <div>
-            <div style="font-size:14px"><strong>ادخار - USD</strong></div>
-            <div style="font-size:12px;color:#666">رقم: 987654321</div>
-          </div>
-        </div>
-        <div style="text-align:right">
-          <div style="font-weight:900;color:var(--green-deep)">$3,000.00</div>
-          <div style="font-size:12px;color:#666">ادخار / استثمار</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="last-transactions" style="margin-top:12px">
-      <h4 style="color:var(--green-deep)">الفواتير والعمليات (قابلة للتمرير)</h4>
-      <ul id="tx-list"></ul>
-    </div>
-
+  <div id="payments-services" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); min-width:300px; max-width: 90%; background:#fff; padding:18px; border-radius:12px; box-shadow:0 18px 50px rgba(0,0,0,.3); z-index:200;">
+    <button onclick="togglePayments(false)" class="header-icon" style="float:left; color: #555;">&times;</button>
+    <h3 style="margin-top: 0; color: var(--kuveyt-deep);">تنفيذ تحويل</h3>
+    <form id="transfer-form">
+      <input id="tf-amount" type="number" placeholder="المبلغ (USD)" required class="login-input" style="text-align: right;">
+      <input id="tf-account" type="text" placeholder="رقم حساب المستلم" required class="login-input" style="text-align: right;">
+      <button class="login-btn" type="submit" style="background: var(--kuveyt-mid);">تنفيذ</button>
+    </form>
   </div>
-</aside>
 
-<script>
+</div> <script>
 function showMainAfterLogin(){
   document.getElementById('login-screen').style.display = 'none';
   document.getElementById('main-content').style.display = 'block';
-  document.getElementById('cookie-bar').style.display = 'flex';
+  // Simulate showing the cookie bar briefly
+  if(!localStorage.getItem('demo_cookies')) document.getElementById('cookie-bar').style.display = 'block';
 }
 
-document.getElementById("google-login").onclick = () => { showMainAfterLogin(); };
-document.getElementById("apple-login").onclick = () => { showMainAfterLogin(); };
 document.getElementById("manual-login-btn").onclick = () => { showMainAfterLogin(); };
-document.getElementById("show-login-form").onclick = () => {
-  const m = document.getElementById('manual-login');
-  m.style.display = (m.style.display === 'none' || m.style.display === '') ? 'block' : 'none';
-};
 
-document.getElementById('menuBtn').addEventListener('click', ()=>{ alert('قائمة تجريبية (demo)'); });
 function togglePayments(show){ document.getElementById('payments-services').style.display = show ? 'block' : 'none'; }
-document.getElementById('open-payments').addEventListener('click', ()=> togglePayments(true));
-const accountPanel = document.getElementById('account-panel');
-document.getElementById('open-account-panel').addEventListener('click', ()=> { accountPanel.style.display = 'block'; document.getElementById('main-content').style.display = 'block'; });
-
-document.getElementById('btn-transfer').addEventListener('click', ()=>{
-  const amt = prompt('كم المبلغ الذي تريد تحويله؟ (USD)');
-  const amount = parseFloat(amt);
-  if(!amount || amount <= 0){ alert('مبلغ غير صالح'); return; }
-  const balanceEl = document.getElementById('balance-amount');
-  let balance = parseFloat(balanceEl.textContent.replace(/[^0-9.-]+/g,"")) || 0;
-  if(amount > balance){ alert('الرصيد غير كافٍ'); return; }
-  balance -= amount;
-  balanceEl.textContent = '$' + balance.toLocaleString('en-US',{minimumFractionDigits:2});
-  addTransaction('تحويل داخلي', amount);
-});
 
 document.getElementById('transfer-form').addEventListener('submit', (e)=>{
   e.preventDefault();
   const amount = parseFloat(document.getElementById('tf-amount').value) || 0;
   if(amount <= 0){ alert('أدخل مبلغ صحيح'); return; }
+  
+  // Simple check and update balance (demo logic)
   const balanceEl = document.getElementById('balance-amount');
-  let balance = parseFloat(balanceEl.textContent.replace(/[^0-9.-]+/g,"")) || 0;
-  if(amount > balance){ alert('الرصيد غير كافٍ'); return; }
+  let balance = parseFloat(balanceEl.textContent.replace(/[^0-9.]+/g,"")) || 0;
+  if(amount > balance){ alert('الرصيد غير كافٍ للتحويل'); return; }
+  
   balance -= amount;
   balanceEl.textContent = '$' + balance.toLocaleString('en-US',{minimumFractionDigits:2});
-  addTransaction('تحويل إلى ' + document.getElementById('tf-account').value, amount);
+  
+  alert('تم تنفيذ تحويل مبلغ $' + amount + ' بنجاح!');
   togglePayments(false);
 });
-
-const txList = document.getElementById('tx-list');
-function addTransaction(title, amount){
-  const li = document.createElement('li');
-  const date = new Date();
-  const ds = date.getFullYear() + '/' + String(date.getMonth()+1).padStart(2,'0') + '/' + String(date.getDate()).padStart(2,'0');
-  li.textContent = `تم سحب ${formatAmount(amount)} — ${title} — ${ds}`;
-  txList.insertBefore(li, txList.firstChild);
-}
-
-(function generateDemo(){
-  const items = [
-    {t: 'فاتورة كهرباء', a: 120},
-    {t: 'دخل شهري', a: -3200},
-    {t: 'تحويل داخلي', a: 500},
-    {t: 'سداد اشتراك', a: 35},
-    {t: 'شراء عبر الإنترنت', a: 78},
-  ];
-  items.forEach(it=>{
-    const li = document.createElement('li');
-    li.textContent = `عملية: ${it.t} — ${formatAmount(it.a)} — 2025/07/0${Math.ceil(Math.random()*8)}`;
-    txList.appendChild(li);
-  });
-  const invest = document.createElement('li');
-  invest.textContent = `إيداع: استثمار/ادخار — ${formatAmount(3000)} — 2025/06/30`;
-  txList.insertBefore(invest, txList.firstChild);
-})();
-
-function formatAmount(val){ return (val>=0? '$' + Number(val).toFixed(2) : '-$' + Number(Math.abs(val)).toFixed(2)); }
-function changeLang(lang){
-  const title = document.getElementById('title');
-  if(lang === 'ar') title.textContent = "مرحباً بك في Kuveyt Bank TR";
-  if(lang === 'en') title.textContent = "Welcome to Kuveyt Bank TR";
-}
 
 document.getElementById('accept-cookies').addEventListener('click', ()=>{
   localStorage.setItem('demo_cookies','accepted');
   document.getElementById('cookie-bar').style.display = 'none';
 });
-document.getElementById('open-cookie-manage').addEventListener('click', ()=> alert('إعدادات ملفات تعريف الارتباط (تجريبي)'));
 
 window.addEventListener('load', ()=>{
-  if(localStorage.getItem('demo_cookies')) document.getElementById('cookie-bar').style.display = 'none';
+  // Hide splash screen after a short delay
+  setTimeout(() => {
+    document.getElementById('bank-overlay').style.opacity = '0';
+    document.getElementById('bank-overlay').style.pointerEvents = 'none';
+  }, 1600);
 });
+
 </script>
 </body>
 </html>
