@@ -2,15 +2,15 @@
 <html lang="ar">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Kuveyt Bank - Demo</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kuveyt Türk Demo</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<!-- شاشة كلمة السر -->
-<div id="passwordScreen" class="screen">
-  <div class="center-box">
+<!-- شاشة الدخول -->
+<div id="loginScreen" class="screen">
+  <div class="login-box">
     <h1>أدخل كلمة السر</h1>
     <input type="password" id="passwordInput" placeholder="Password">
     <button id="loginBtn">دخول</button>
@@ -20,48 +20,64 @@
 
 <!-- الصفحة الرئيسية -->
 <div id="homeScreen" class="screen hidden">
-  <header>
-    <span id="menuBtn" class="menu-btn">⋮</span>
-    <ul id="menu" class="menu hidden">
-      <li id="profileBtn">الملف الشخصي</li>
-      <li id="settingsBtn">الإعدادات</li>
-      <li id="transferBtn">تحويل</li>
-    </ul>
-  </header>
-  <div class="home-content">
-    <img src="kuveyt-logo.png" alt="Kuveyt Bank Logo" class="logo">
-  </div>
-</div>
 
-<!-- صفحة التحويل -->
-<div id="transferScreen" class="screen hidden">
+  <!-- Header -->
   <header>
-    <img src="kuveyt-logo.png" alt="Kuveyt Bank Logo" class="logo">
+    <div class="logo">
+      <img src="kuveyt-logo.png" alt="Kuveyt Bank Logo">
+    </div>
+    <div class="top-right">
+      <select id="languageSelect">
+        <option value="ar">العربية</option>
+        <option value="tr">Türkçe</option>
+        <option value="en">English</option>
+      </select>
+      <input type="text" placeholder="بحث...">
+    </div>
   </header>
-  <main class="transfer-content">
-    <section class="balance-card">
-      <h2>الرصيد الحالي</h2>
-      <div class="balance">3000 $</div>
-      <div class="card-number">Visa: 4445 73XXXXXX</div>
-      <form id="transferForm">
-        <label>إلى الحساب / الاسم:</label>
-        <input type="text" id="to" required>
-        <label>المبلغ:</label>
-        <input type="number" id="amountInput" required>
-        <label>العملة:</label>
-        <select id="currency">
-          <option value="USD">$ USD</option>
-          <option value="EUR">€ EUR</option>
-          <option value="TRY">₺ TRY</option>
-          <option value="SAR">SAR</option>
-          <option value="AED">AED</option>
-          <option value="EGP">EGP</option>
-        </select>
-        <button type="submit">تحويل (تجريبي)</button>
-      </form>
-      <div id="result" class="hidden"></div>
-    </section>
-  </main>
+
+  <!-- القائمة الرئيسية -->
+  <nav class="main-nav">
+    <ul>
+      <li>أفراد
+        <ul class="sub-menu">
+          <li>تمويل</li>
+          <li>حسابات</li>
+          <li>بطاقات</li>
+          <li>مدفوعات</li>
+          <li>تأمين</li>
+          <li>استثمار</li>
+        </ul>
+      </li>
+      <li>أعمال</li>
+      <li>من نحن</li>
+      <li>علاقات المستثمرين</li>
+      <li>الخدمات المصرفية الرقمية</li>
+    </ul>
+  </nav>
+
+  <!-- Hero Slider -->
+  <div class="hero-slider">
+    <div class="slide active">
+      <img src="banner1.jpg" alt="Banner 1">
+      <div class="slide-text">
+        <h2>خدمة مميزة 1</h2>
+        <button>فتح حساب</button>
+        <button>المزيد</button>
+      </div>
+    </div>
+    <div class="slide">
+      <img src="banner2.jpg" alt="Banner 2">
+      <div class="slide-text">
+        <h2>خدمة مميزة 2</h2>
+        <button>فتح حساب</button>
+        <button>المزيد</button>
+      </div>
+    </div>
+    <button class="prev">‹</button>
+    <button class="next">›</button>
+  </div>
+
 </div>
 
 <script src="script.js"></script>
