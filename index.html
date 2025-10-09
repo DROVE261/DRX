@@ -35,17 +35,19 @@
     }
 
     .login-buttons button {
-      background-color: #0b8b3e;
+      background: linear-gradient(135deg, #0b8b3e, #0fa34d);
       color: white;
       border: none;
-      padding: 10px 20px;
+      padding: 10px 25px;
       margin: 8px;
       cursor: pointer;
-      border-radius: 5px;
-      transition: background 0.3s;
+      border-radius: 6px;
+      font-size: 16px;
+      transition: 0.3s;
     }
     .login-buttons button:hover {
-      background-color: #06662c;
+      transform: scale(1.05);
+      background: linear-gradient(135deg, #06662c, #0b8b3e);
     }
 
     #main-content.hidden { display: none; }
@@ -91,6 +93,11 @@
     .menu-options li {
       margin: 8px 0;
       cursor: pointer;
+      transition: 0.3s;
+    }
+    .menu-options li:hover {
+      color: #06662c;
+      transform: translateX(-4px);
     }
 
     /* البانر */
@@ -114,9 +121,12 @@
       padding: 15px;
       box-shadow: 0 0 10px rgba(0,0,0,0.2);
       text-align: center;
-      transition: transform 0.3s ease;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
-    .card:hover { transform: translateY(-5px); }
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 0 20px rgba(0,0,0,0.3);
+    }
 
     footer {
       text-align: center;
@@ -128,40 +138,63 @@
     /* الدفع والخدمات */
     #payments-services {
       position: fixed;
-      top: 80px;
-      left: 20px;
-      background: rgba(255,255,255,0.98);
+      top: 100px;
+      left: 50%;
+      transform: translateX(-50%) scale(0.95);
+      backdrop-filter: blur(10px);
+      background: rgba(255, 255, 255, 0.9);
       color: #0b8b3e;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.3);
-      min-width: 300px;
+      padding: 25px 30px;
+      border-radius: 15px;
+      box-shadow: 0 0 25px rgba(0,0,0,0.3);
+      min-width: 350px;
       display: none;
       z-index: 1000;
-      animation: fadeIn 0.5s ease;
+      animation: dropIn 0.6s ease forwards;
     }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(-20px); }
-      to { opacity: 1; transform: translateY(0); }
+
+    @keyframes dropIn {
+      from { opacity: 0; transform: translate(-50%, -20px) scale(0.9); }
+      to { opacity: 1; transform: translate(-50%, 0) scale(1); }
     }
+
+    #payments-services h2 {
+      text-align: center;
+      border-bottom: 2px solid #0b8b3e;
+      padding-bottom: 8px;
+      margin-top: 0;
+      font-size: 22px;
+      position: relative;
+    }
+
+    #payments-services h2::before {
+      content: "💸 ";
+    }
+
     #payments-services input,
     #payments-services select,
     #payments-services button {
       width: 100%;
-      padding: 8px;
+      padding: 10px;
       margin-top: 8px;
-      border-radius: 5px;
+      border-radius: 8px;
       border: 1px solid #0b8b3e;
+      font-size: 15px;
     }
+
     #payments-services button {
-      background: #0b8b3e;
+      background: linear-gradient(135deg, #0b8b3e, #13b65a);
       color: white;
       border: none;
       cursor: pointer;
+      font-weight: bold;
       transition: 0.3s;
+      margin-top: 10px;
     }
+
     #payments-services button:hover {
-      background: #06662c;
+      background: linear-gradient(135deg, #06662c, #0b8b3e);
+      transform: scale(1.05);
     }
   </style>
 </head>
@@ -188,7 +221,7 @@
         <li>التمويل</li>
         <li>الحسابات</li>
         <li>البطاقات</li>
-        <li id="payments-item">الدفع والخدمات</li>
+        <li id="payments-item">💳 الدفع والخدمات</li>
         <li>التأمين والتقاعد</li>
         <li>المنتجات الاستثمارية</li>
         <li>الخدمات المصرفية الخاصة</li>
@@ -232,16 +265,16 @@
   <div id="payments-services">
     <h2>الدفع والخدمات</h2>
     <form id="transfer-form">
-      <label>المبلغ:</label>
+      <label>💰 المبلغ:</label>
       <input type="number" placeholder="أدخل المبلغ" required><br>
 
-      <label>رقم الحساب:</label>
+      <label>🏦 رقم الحساب:</label>
       <input type="text" placeholder="0123456789" required><br>
 
-      <label>رقم الهوية / الهاتف:</label>
+      <label>📱 رقم الهوية / الهاتف:</label>
       <input type="text" placeholder="01227043648" required><br>
 
-      <label>العملة:</label>
+      <label>💱 العملة:</label>
       <select>
         <option value="USD">دولار</option>
         <option value="EUR">يورو</option>
@@ -250,7 +283,7 @@
         <option value="KWD">دينار كويتي</option>
       </select><br>
 
-      <label>البلد / البنك:</label>
+      <label>🌍 البلد / البنك:</label>
       <select>
         <option>تركيا</option>
         <option>السعودية</option>
@@ -259,7 +292,7 @@
         <option>باقي الدول</option>
       </select><br>
 
-      <button type="submit">تنفيذ التحويل</button>
+      <button type="submit">تنفيذ التحويل 💸</button>
     </form>
   </div>
 
@@ -292,6 +325,5 @@
       paymentsDropdown.style.display = 'none';
     });
   </script>
-
 </body>
 </html>
