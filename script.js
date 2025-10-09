@@ -11,11 +11,6 @@ document.getElementById("apple-login").onclick = () => {
   document.getElementById("login-screen").classList.add("hidden");
   document.getElementById("main-content").classList.remove("hidden");
 };
-document.getElementById("signup-btn").onclick = () => {
-  alert("ميزة إنشاء الحساب قيد التطوير ❤️");
-  document.getElementById("login-screen").classList.add("hidden");
-  document.getElementById("main-content").classList.remove("hidden");
-};
 
 // تغيير اللغة
 function changeLang(lang) {
