@@ -1,329 +1,399 @@
 <!DOCTYPE html>
 <html lang="ar">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Kuveyt Türk Clone</title>
-  <style>
-    body {
-      font-family: "Tajawal", sans-serif;
-      background-color: #f4f4f4;
-      margin: 0;
-      padding: 0;
-      direction: rtl;
-    }
-
-    /* شاشة تسجيل الدخول */
-    #login-screen {
-      text-align: center;
-      margin-top: 100px;
-      transition: opacity 1s ease;
-    }
-    #login-screen.hidden {
-      opacity: 0;
-      pointer-events: none;
-    }
-
-    .logo img {
-      width: 180px;
-      animation: fadeInDown 1s ease;
-    }
-
-    @keyframes fadeInDown {
-      from { opacity: 0; transform: translateY(-30px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .login-buttons button {
-      background: linear-gradient(135deg, #0b8b3e, #0fa34d);
-      color: white;
-      border: none;
-      padding: 10px 25px;
-      margin: 8px;
-      cursor: pointer;
-      border-radius: 6px;
-      font-size: 16px;
-      transition: 0.3s;
-    }
-    .login-buttons button:hover {
-      transform: scale(1.05);
-      background: linear-gradient(135deg, #06662c, #0b8b3e);
-    }
-
-    #main-content.hidden { display: none; }
-
-    /* الهيدر */
-    header {
-      background-color: #0b8b3e;
-      color: white;
-      padding: 10px 20px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    header img { height: 40px; }
-
-    /* القائمة */
-    .menu-dots {
-      position: absolute;
-      top: 10px;
-      left: 10px;
-    }
-    .menu-dots button {
-      font-size: 22px;
-      background: none;
-      color: white;
-      border: none;
-      cursor: pointer;
-    }
-    .menu-options {
-      display: none;
-      position: absolute;
-      background: white;
-      color: #0b8b3e;
-      list-style: none;
-      padding: 10px;
-      border-radius: 10px;
-      margin-top: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.3);
-    }
-    .menu-dots:hover .menu-options {
-      display: block;
-    }
-    .menu-options li {
-      margin: 8px 0;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-    .menu-options li:hover {
-      color: #06662c;
-      transform: translateX(-4px);
-    }
-
-    /* البانر */
-    .hero-slider img {
-      width: 100%;
-      height: 350px;
-      object-fit: cover;
-      border-bottom: 3px solid #0b8b3e;
-    }
-
-    /* الشبكة */
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 15px;
-      padding: 20px;
-    }
-    .card {
-      background: white;
-      border-radius: 10px;
-      padding: 15px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.2);
-      text-align: center;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-    .card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 0 20px rgba(0,0,0,0.3);
-    }
-
-    footer {
-      text-align: center;
-      padding: 10px;
-      background: #0b8b3e;
-      color: white;
-    }
-
-    /* الدفع والخدمات */
-    #payments-services {
-      position: fixed;
-      top: 100px;
-      left: 50%;
-      transform: translateX(-50%) scale(0.95);
-      backdrop-filter: blur(10px);
-      background: rgba(255, 255, 255, 0.9);
-      color: #0b8b3e;
-      padding: 25px 30px;
-      border-radius: 15px;
-      box-shadow: 0 0 25px rgba(0,0,0,0.3);
-      min-width: 350px;
-      display: none;
-      z-index: 1000;
-      animation: dropIn 0.6s ease forwards;
-    }
-
-    @keyframes dropIn {
-      from { opacity: 0; transform: translate(-50%, -20px) scale(0.9); }
-      to { opacity: 1; transform: translate(-50%, 0) scale(1); }
-    }
-
-    #payments-services h2 {
-      text-align: center;
-      border-bottom: 2px solid #0b8b3e;
-      padding-bottom: 8px;
-      margin-top: 0;
-      font-size: 22px;
-      position: relative;
-    }
-
-    #payments-services h2::before {
-      content: "💸 ";
-    }
-
-    #payments-services input,
-    #payments-services select,
-    #payments-services button {
-      width: 100%;
-      padding: 10px;
-      margin-top: 8px;
-      border-radius: 8px;
-      border: 1px solid #0b8b3e;
-      font-size: 15px;
-    }
-
-    #payments-services button {
-      background: linear-gradient(135deg, #0b8b3e, #13b65a);
-      color: white;
-      border: none;
-      cursor: pointer;
-      font-weight: bold;
-      transition: 0.3s;
-      margin-top: 10px;
-    }
-
-    #payments-services button:hover {
-      background: linear-gradient(135deg, #06662c, #0b8b3e);
-      transform: scale(1.05);
-    }
-  </style>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Kuveyt Bank Turk - Demo</title>
+<style>
+  :root{
+    --green:#0b8b3e;
+    --green-dark:#06662c;
+    --accent:#13b65a;
+    --glass: rgba(255,255,255,0.92);
+    --text-dark:#123;
+  }
+  html,body{height:100%;margin:0;font-family: "Tajawal", Arial, sans-serif;direction:rtl;background:#e9f6ee;color:var(--text-dark);}
+  /* ---------- LOGIN SCREEN ---------- */
+  #login-screen{
+    position:fixed;inset:0;display:flex;align-items:center;justify-content:center;
+    background:linear-gradient(180deg,var(--green), #0ea54a 70%);
+    z-index:50;transition:opacity .6s ease;
+  }
+  .login-box{width:360px;background:var(--glass);padding:28px;border-radius:14px;box-shadow:0 10px 40px rgba(0,0,0,.25);text-align:center;}
+  .login-box img{width:140px;margin-bottom:8px;filter:drop-shadow(0 6px 18px rgba(0,0,0,.2));}
+  .login-box h2{margin:6px 0 16px;color:var(--green-dark);}
+  .login-row{display:flex;gap:8px;justify-content:center;margin:10px 0;}
+  .login-btn{flex:1;padding:10px 12px;border-radius:8px;border:none;background:linear-gradient(135deg,var(--green),var(--accent));color:#fff;cursor:pointer;font-weight:700;box-shadow:0 6px 16px rgba(0,0,0,.18)}
+  .login-small{background:#fff;color:var(--green);padding:8px 12px;border-radius:8px;border:none;cursor:pointer;font-weight:600}
+  /* ---------- LAYOUT ---------- */
+  #main-content{display:none;min-height:100vh;}
+  header{display:flex;justify-content:space-between;align-items:center;padding:14px 22px;background:linear-gradient(90deg,var(--green-dark),var(--green));color:#fff}
+  header .logo img{height:44px;}
+  header .site-link{font-weight:700;margin-right:10px;color:#e6ffef}
+  .top-right select{padding:6px;border-radius:6px;border:none}
+  /* hamburger */
+  .menu-dots{position:fixed;top:18px;left:18px;z-index:2000}
+  .menu-btn{background:#fff;border-radius:8px;border:none;padding:8px 10px;cursor:pointer;font-size:20px;color:var(--green)}
+  .menu-options{display:none;position:fixed;top:56px;left:18px;background:#fff;color:var(--green);list-style:none;padding:10px;border-radius:12px;min-width:260px;box-shadow:0 12px 30px rgba(0,0,0,.18)}
+  .menu-options li{padding:10px;border-radius:8px;cursor:pointer;font-weight:600}
+  .menu-options li:hover{background:linear-gradient(90deg,#f0fff4,#ddfff0);transform:translateX(-6px)}
+  /* hero */
+  .hero-slider{margin:20px;padding:0 22px}
+  .hero-slider img{width:100%;height:320px;object-fit:cover;border-radius:14px;box-shadow:0 12px 30px rgba(0,0,0,.12)}
+  /* grid */
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px;padding:20px 22px}
+  .card{background:#fff;border-radius:12px;padding:18px;box-shadow:0 8px 24px rgba(0,0,0,.08);text-align:center}
+  .card h3{color:var(--green-dark);margin:6px 0}
+  .card p{color:#666}
+  .card button{margin-top:10px;padding:10px 14px;border:none;border-radius:8px;background:var(--green);color:#fff;cursor:pointer}
+  /* fancy payments box (centered modal style) */
+  #payments-services{position:fixed;top:12%;left:50%;transform:translateX(-50%);min-width:360px;background:rgba(255,255,255,0.95);border-radius:14px;padding:22px;box-shadow:0 18px 50px rgba(0,0,0,.22);z-index:150;display:none}
+  #payments-services h2{margin:0 0 12px;font-size:20px;color:var(--green-dark)}
+  #payments-services .row{display:flex;gap:10px}
+  #payments-services label{display:block;margin-top:10px;color:#333;font-weight:600}
+  #payments-services input, #payments-services select{width:100%;padding:10px;border-radius:10px;border:1px solid #cfe9d7}
+  #payments-services .submit{margin-top:12px;padding:12px;border-radius:10px;border:none;background:linear-gradient(90deg,var(--green),var(--accent));color:#fff;font-weight:700;cursor:pointer}
+  /* ---------- ACCOUNT PANEL (فخم) ---------- */
+  #account-panel{position:fixed;top:10%;right:22px;width:360px;background:linear-gradient(180deg,white,#fbfffb);border-radius:14px;padding:18px;box-shadow:0 20px 50px rgba(0,0,0,.18);z-index:160;display:none}
+  #account-panel .profile{display:flex;gap:12px;align-items:center}
+  .avatar{
+    width:72px;height:72px;border-radius:50%;overflow:hidden;flex:0 0 72px;border:4px solid rgba(11,139,62,0.12);
+    box-shadow:0 8px 22px rgba(0,0,0,.12);background:linear-gradient(135deg,#fff,#eefaf0);
+    display:flex;align-items:center;justify-content:center;font-weight:800;color:var(--green);font-size:20px;
+  }
+  #account-panel h3{margin:0;font-size:18px;color:var(--green-dark)}
+  #account-panel p{margin:6px 0;color:#666}
+  .balance{margin-top:12px;background:linear-gradient(90deg,#f8fff8,#ffffff);padding:12px;border-radius:10px;border:1px solid #e6f6ea;display:flex;justify-content:space-between;align-items:center}
+  .balance .amount{font-size:20px;font-weight:800;color:var(--green-dark)}
+  .balance .currency{font-size:13px;color:#666}
+  .acct-actions{display:flex;gap:8px;margin-top:12px}
+  .acct-actions button{flex:1;padding:10px;border-radius:10px;border:none;cursor:pointer}
+  .btn-transfer{background:linear-gradient(90deg,var(--green),var(--accent));color:#fff;font-weight:700}
+  .btn-profile{background:#fff;border:1px solid #e6f6ea;color:var(--green)}
+  /* transfer animation area inside panel */
+  .transfer-area{margin-top:14px;position:relative;min-height:72px}
+  .ticker{position:absolute;top:-24px;left:50%;transform:translateX(-50%);background:linear-gradient(90deg,#fff,#f7fff7);padding:6px 10px;border-radius:999px;color:var(--green);box-shadow:0 8px 20px rgba(0,0,0,.08);display:none}
+  /* flying coin */
+  .flying{
+    position:absolute;width:36px;height:36px;border-radius:50%;background:radial-gradient(circle at 30% 30%,#fff,#ffd24d 40%,#ffb700 100%);box-shadow:0 8px 18px rgba(0,0,0,.2);display:none;z-index:999;
+  }
+  /* success check */
+  .success-badge{position:absolute;right:14px;top:-22px;background:linear-gradient(90deg,var(--green),var(--accent));color:#fff;padding:8px;border-radius:999px;display:none;box-shadow:0 10px 30px rgba(11,139,62,.18);font-weight:800}
+  /* small responsive */
+  @media(max-width:700px){
+    #account-panel{right:12px;left:12px;width:auto}
+    #payments-services{width:92%}
+  }
+</style>
 </head>
 <body>
 
-  <!-- شاشة تسجيل الدخول -->
+  <!-- LOGIN -->
   <div id="login-screen">
-    <div class="logo">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/7/7e/Kuveyt_T%C3%BCrk_logo.svg" alt="Logo">
-    </div>
-    <h2>مرحباً بك في Kuveyt Türk</h2>
-    <div class="login-buttons">
-      <button class="login-btn">تسجيل الدخول عبر Google</button>
-      <button class="login-btn">تسجيل الدخول عبر Twitter</button>
-      <button class="login-btn">تسجيل الدخول عبر Apple</button>
+    <div class="login-box">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/7/7e/Kuveyt_T%C3%BCrk_logo.svg" alt="logo" />
+      <h2>مرحباً بك في Kuveyt Bank Turk</h2>
+      <div style="margin-top:8px;color:#333">جرب تسجيل وهمي — اضغط أي زر</div>
+      <div style="margin-top:16px" class="login-row">
+        <button class="login-btn">تسجيل دخول عبر Google</button>
+        <button class="login-btn">تسجيل دخول عبر Apple</button>
+      </div>
+      <div style="margin-top:8px">
+        <button class="login-small" id="show-login-form">أو تسجيل يدوي</button>
+      </div>
+      <div id="manual-login" style="margin-top:12px;display:none">
+        <input id="phone" placeholder="رقم الهاتف" style="width:80%;padding:10px;border-radius:8px;border:1px solid #ddd"><br><br>
+        <input id="password" placeholder="كلمة السر" type="password" style="width:80%;padding:10px;border-radius:8px;border:1px solid #ddd"><br><br>
+        <button id="manual-login-btn" class="login-btn">تسجيل الدخول</button>
+      </div>
     </div>
   </div>
 
-  <!-- المحتوى الرئيسي -->
-  <div id="main-content" class="hidden">
+  <!-- MAIN -->
+  <div id="main-content">
     <div class="menu-dots">
-      <button>☰</button>
-      <ul class="menu-options">
-        <li>التمويل</li>
-        <li>الحسابات</li>
-        <li>البطاقات</li>
-        <li id="payments-item">💳 الدفع والخدمات</li>
-        <li>التأمين والتقاعد</li>
-        <li>المنتجات الاستثمارية</li>
-        <li>الخدمات المصرفية الخاصة</li>
-        <li>المنتجات والخدمات الأخرى</li>
-        <li>الخدمات المخصصة للأجانب</li>
+      <button class="menu-btn" id="menuBtn">☰</button>
+      <ul class="menu-options" id="menuList">
+        <li id="menu-funding">التمويل</li>
+        <li id="menu-accounts">الحسابات</li>
+        <li id="menu-cards">البطاقات</li>
+        <li id="menu-payments">الدفع والخدمات</li>
+        <li id="menu-insurance">التأمين والتقاعد</li>
+        <li id="menu-invest">المنتجات الاستثمارية</li>
+        <li id="menu-gold">المعاملات المصرفية الذهبية</li>
+        <li id="menu-private">الخدمات المصرفية الخاصة</li>
+        <li id="menu-others">المنتجات والخدمات الأخرى</li>
+        <li id="menu-foreign">الخدمات المخصصة للأجانب</li>
       </ul>
     </div>
 
     <header>
-      <div class="logo">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/7/7e/Kuveyt_T%C3%BCrk_logo.svg" alt="Logo">
-      </div>
-      <div class="top-right">
-        <select>
-          <option>العربية</option>
-          <option>Türkçe</option>
-          <option>English</option>
-        </select>
+      <div class="logo"><img src="https://upload.wikimedia.org/wikipedia/commons/7/7e/Kuveyt_T%C3%BCrk_logo.svg" alt="logo" /></div>
+      <div class="site-right">
+        <span class="site-link">www.kuveytbankturk.com</span>
       </div>
     </header>
 
     <div class="hero-slider">
-      <img src="https://images.unsplash.com/photo-1581090700227-1e37b190418e" alt="Banner 1">
+      <img src="https://images.unsplash.com/photo-1581090700227-1e37b190418e" alt="hero" />
     </div>
 
     <section>
       <div class="grid">
-        <div class="card"><h3>تمويل شخصي</h3><p>حلول مالية تناسب احتياجاتك</p><button>تقديم الآن</button></div>
-        <div class="card"><h3>الحسابات</h3><p>جارية، ذهبية، المشاركة</p><button>المزيد</button></div>
-        <div class="card"><h3>التحويلات</h3><p>تحويل العملات بسهولة</p><button>ابدأ التحويل</button></div>
-        <div class="card"><h3>الإعدادات</h3><p>إدارة الحساب والأمان</p><button>فتح الإعدادات</button></div>
+        <div class="card">
+          <h3>تمويل شخصي</h3>
+          <p>حلول ذكية لتمويل احتياجاتك.</p>
+          <button>تقديم الآن</button>
+        </div>
+        <div class="card">
+          <h3>الحسابات</h3>
+          <p>جارية - ذهبية - مشاركة</p>
+          <button id="open-account-panel">عرض الحساب</button>
+        </div>
+        <div class="card">
+          <h3>التحويلات</h3>
+          <p>تحويلات داخلية وخارجية.</p>
+          <button id="open-payments">ابدأ التحويل</button>
+        </div>
+        <div class="card">
+          <h3>الإعدادات</h3>
+          <p>إدارة الأمان والملف الشخصي.</p>
+          <button>فتح الإعدادات</button>
+        </div>
       </div>
     </section>
-
-    <footer>
-      <p>© 2025 Kuveyt Türk | جميع الحقوق محفوظة</p>
-    </footer>
+    <footer><p>© 2025 Kuveyt Bank Turk</p></footer>
   </div>
 
-  <!-- قائمة الدفع والخدمات -->
+  <!-- PAYMENTS Modal (fancy) -->
   <div id="payments-services">
     <h2>الدفع والخدمات</h2>
     <form id="transfer-form">
       <label>💰 المبلغ:</label>
-      <input type="number" placeholder="أدخل المبلغ" required><br>
+      <input id="tf-amount" type="number" placeholder="أدخل المبلغ" required>
 
       <label>🏦 رقم الحساب:</label>
-      <input type="text" placeholder="0123456789" required><br>
+      <input id="tf-account" type="text" placeholder="0123456789" required>
 
       <label>📱 رقم الهوية / الهاتف:</label>
-      <input type="text" placeholder="01227043648" required><br>
+      <input id="tf-id" type="text" placeholder="01227043648" required>
 
       <label>💱 العملة:</label>
-      <select>
-        <option value="USD">دولار</option>
-        <option value="EUR">يورو</option>
-        <option value="TRY">ليرة تركية</option>
-        <option value="SAR">ريال سعودي</option>
-        <option value="KWD">دينار كويتي</option>
-      </select><br>
+      <select id="tf-currency">
+        <option value="USD">دولار (USD)</option>
+        <option value="EUR">يورو (EUR)</option>
+        <option value="TRY">ليرة تركية (TRY)</option>
+        <option value="SAR">ريال سعودي (SAR)</option>
+        <option value="KWD">دينار كويتي (KWD)</option>
+      </select>
 
       <label>🌍 البلد / البنك:</label>
-      <select>
+      <select id="tf-country">
         <option>تركيا</option>
         <option>السعودية</option>
         <option>الكويت</option>
         <option>الإمارات</option>
         <option>باقي الدول</option>
-      </select><br>
+      </select>
 
-      <button type="submit">تنفيذ التحويل 💸</button>
+      <button class="submit" type="submit">تنفيذ التحويل</button>
     </form>
   </div>
 
-  <script>
-    // إخفاء شاشة الدخول عند الضغط على أي زر تسجيل دخول
-    const loginBtns = document.querySelectorAll('.login-btn');
-    const loginScreen = document.getElementById('login-screen');
-    const mainContent = document.getElementById('main-content');
-    loginBtns.forEach(btn => {
-      btn.addEventListener('click', () => {
-        loginScreen.classList.add('hidden');
-        setTimeout(() => {
-          loginScreen.style.display = 'none';
-          mainContent.classList.remove('hidden');
-        }, 1000);
-      });
-    });
+  <!-- ACCOUNT PANEL -->
+  <div id="account-panel" aria-hidden="true">
+    <div class="profile">
+      <div class="avatar" id="avatar">M</div>
+      <div>
+        <h3 id="acc-name">Mostafa</h3>
+        <p id="acc-email">mostafa@example.com</p>
+      </div>
+    </div>
 
-    // فتح قائمة الدفع والخدمات
-    const paymentsItem = document.getElementById('payments-item');
-    const paymentsDropdown = document.getElementById('payments-services');
-    paymentsItem.addEventListener('click', () => {
-      paymentsDropdown.style.display = paymentsDropdown.style.display === 'block' ? 'none' : 'block';
-    });
+    <div class="balance">
+      <div>
+        <div style="font-size:12px;color:#666">رصيد الحساب</div>
+        <div class="amount" id="balance-amount">$3000.00</div>
+      </div>
+      <div class="currency">USD</div>
+    </div>
 
-    // تنفيذ التحويل
-    document.getElementById('transfer-form').addEventListener('submit', (e) => {
-      e.preventDefault();
-      alert('✅ تم تنفيذ التحويل بنجاح!');
-      paymentsDropdown.style.display = 'none';
-    });
-  </script>
+    <div class="acct-actions">
+      <button class="btn-profile" id="btn-edit">الملف</button>
+      <button class="btn-transfer" id="btn-transfer">تحويل الآن</button>
+    </div>
+
+    <div class="transfer-area">
+      <div class="ticker" id="transfer-ticker">جارٍ تنفيذ التحويل...</div>
+      <div class="flying" id="flying-coin"></div>
+      <div class="success-badge" id="success-badge">✔</div>
+    </div>
+  </div>
+
+<script>
+/* ---------------------- LOGIN BEHAVIOR ---------------------- */
+const loginBtns = document.querySelectorAll('.login-btn');
+const loginScreen = document.getElementById('login-screen');
+const mainContent = document.getElementById('main-content');
+const manualToggle = document.getElementById('show-login-form');
+const manualForm = document.getElementById('manual-login');
+const manualBtn = document.getElementById('manual-login-btn');
+
+manualToggle.addEventListener('click', ()=> manualForm.style.display = manualForm.style.display === 'none' ? 'block' : 'none');
+
+// any social login button acts as demo login
+loginBtns.forEach(b=>{
+  b.addEventListener('click', ()=>{
+    // play simple animation then show content
+    loginScreen.style.opacity = '0';
+    setTimeout(()=>{ loginScreen.style.display = 'none'; mainContent.style.display = 'block'; }, 600);
+  });
+});
+
+// manual login check (local dummy)
+manualBtn.addEventListener('click', ()=>{
+  const phone = document.getElementById('phone').value.trim();
+  const pass = document.getElementById('password').value.trim();
+  if(phone === '' || pass === ''){
+    alert('أدخل رقم الهاتف وكلمة السر');
+    return;
+  }
+  // demo credentials optional: accept anything for demo
+  loginScreen.style.opacity = '0';
+  setTimeout(()=>{ loginScreen.style.display = 'none'; mainContent.style.display = 'block'; }, 600);
+});
+
+/* ---------------------- MENU BEHAVIOR ---------------------- */
+const menuBtn = document.getElementById('menuBtn');
+const menuList = document.getElementById('menuList');
+menuBtn.addEventListener('click', (e)=>{
+  menuList.style.display = menuList.style.display === 'block' ? 'none' : 'block';
+});
+
+/* Close menu on outside click */
+document.addEventListener('click', (e)=>{
+  if(!menuBtn.contains(e.target) && !menuList.contains(e.target)){
+    menuList.style.display = 'none';
+  }
+});
+
+/* ---------------------- PAYMENTS MODAL ---------------------- */
+const paymentsModal = document.getElementById('payments-services');
+const paymentsItem = document.getElementById('menu-payments');
+const openPaymentsBtn = document.getElementById('open-payments');
+
+function togglePayments(show){
+  paymentsModal.style.display = show ? 'block' : 'none';
+}
+paymentsItem.addEventListener('click', ()=> togglePayments(paymentsModal.style.display !== 'block'));
+openPaymentsBtn.addEventListener('click', ()=> togglePayments(true));
+
+document.getElementById('transfer-form').addEventListener('submit', (e)=>{
+  e.preventDefault();
+  // trigger animation from account panel if open, otherwise do a global fly
+  const amount = parseFloat(document.getElementById('tf-amount').value) || 0;
+  if(amount <= 0){ alert('أدخل مبلغ صحيح'); return; }
+  // call generic animate transfer function
+  animateTransfer(amount, ()=>{
+    alert('✅ تم تنفيذ التحويل بنجاح!');
+    togglePayments(false);
+  });
+});
+
+/* ---------------------- ACCOUNT PANEL & TRANSFER ANIMATION ---------------------- */
+const accountPanel = document.getElementById('account-panel');
+const openAccountBtn = document.getElementById('open-account-panel');
+const btnTransfer = document.getElementById('btn-transfer');
+const successBadge = document.getElementById('success-badge');
+const ticker = document.getElementById('transfer-ticker');
+const flyingCoin = document.getElementById('flying-coin');
+let balance = 3000.00; // initial balance
+
+function showAccount(show){
+  accountPanel.style.display = show ? 'block' : 'none';
+  accountPanel.setAttribute('aria-hidden', show ? 'false' : 'true');
+}
+openAccountBtn.addEventListener('click', ()=> showAccount(true));
+document.getElementById('menu-accounts').addEventListener('click', ()=> showAccount(true));
+
+btnTransfer.addEventListener('click', ()=>{
+  // open small inline transfer prompt (simplified): ask amount via prompt (demo)
+  const amtStr = prompt('كم المبلغ التحويل؟ (بالدولار)');
+  const amount = parseFloat(amtStr);
+  if(!amount || amount <= 0){ alert('مبلغ غير صالح'); return; }
+  if(amount > balance){ alert('الرصيد غير كافي'); return; }
+  // animate transfer and update balance after success
+  animateTransfer(amount, ()=>{
+    balance = +(balance - amount).toFixed(2);
+    document.getElementById('balance-amount').textContent = '$' + balance.toLocaleString('en-US', {minimumFractionDigits:2});
+  });
+});
+
+/* animateTransfer: visual flying coin + ticker + success badge
+   callback executed after animation finished */
+function animateTransfer(amount, callback){
+  // show ticker
+  ticker.style.display = 'block';
+  ticker.textContent = 'جارٍ تنفيذ التحويل...';
+
+  // show flying coin from account panel center to top-left (simulate)
+  const rect = accountPanel.getBoundingClientRect();
+  const startX = rect.left + rect.width/2;
+  const startY = rect.top + rect.height/2;
+
+  flyingCoin.style.left = startX + 'px';
+  flyingCoin.style.top = startY + 'px';
+  flyingCoin.style.display = 'block';
+
+  // target (hero image area center)
+  const hero = document.querySelector('.hero-slider img').getBoundingClientRect();
+  const targetX = hero.left + hero.width/2 - 18; // center minus half coin
+  const targetY = hero.top + 40; // near top of hero
+
+  // animate position (using JS for better control)
+  const frames = 40;
+  let i = 0;
+  const startTime = Date.now();
+  const origLeft = startX;
+  const origTop = startY;
+
+  const anim = setInterval(()=>{
+    i++;
+    const t = i / frames; // 0..1
+    // ease out cubic
+    const ease = 1 - Math.pow(1 - t, 3);
+    const curX = origLeft + (targetX - origLeft) * ease;
+    const curY = origTop + (targetY - origTop) * ease - Math.sin(ease * Math.PI) * 120; // arc
+    flyingCoin.style.left = curX + 'px';
+    flyingCoin.style.top = curY + 'px';
+    // scale a bit
+    flyingCoin.style.transform = `scale(${1 - 0.35*ease})`;
+    if(i >= frames){
+      clearInterval(anim);
+      // hide flying coin
+      flyingCoin.style.display = 'none';
+      // show success badge and update ticker
+      ticker.textContent = `تم تحويل $${amount.toFixed(2)}`;
+      successBadge.style.display = 'block';
+      // flash success badge then hide after short delay
+      setTimeout(()=>{
+        successBadge.style.display = 'none';
+        ticker.style.display = 'none';
+        if(typeof callback === 'function') callback();
+      }, 1100);
+    }
+  }, 16);
+}
+
+/* close account panel by clicking outside */
+document.addEventListener('click', (e)=>{
+  if(accountPanel.style.display === 'block'){
+    if(!accountPanel.contains(e.target) && !document.getElementById('menuList').contains(e.target) && !document.getElementById('open-account-panel')){
+      // keep open only when clicking on specific triggers; otherwise close
+      // don't auto-close for demo to ease testing
+    }
+  }
+});
+</script>
 </body>
 </html>
