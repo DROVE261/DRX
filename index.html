@@ -384,6 +384,29 @@
     box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
     z-index: 100;
   }
+  .nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: #999;
+      font-size: 10px;
+      font-weight: 700;
+      cursor: pointer;
+      padding: 4px 0;
+      flex-grow: 1;
+  }
+  .nav-item-active {
+      color: var(--kuveyt-deep);
+  }
+  .nav-icon-wrapper {
+      margin-bottom: 2px;
+  }
+  .nav-item .icon-svg {
+      width: 20px;
+      height: 20px;
+  }
+
 
 </style>
 </head>
@@ -575,6 +598,14 @@
             </div>
             <span class="tx-amount" style="color: #cc0000;">-₺50,000.00</span>
         </div>
+        
+        <div class="transaction-item">
+            <div class="tx-details-group">
+                <div class="tx-title">تحويل خارجي (دولار أمريكي)</div>
+                <div class="tx-details">مرجع: **112576960** | حساب المستلم: 8875988-1</div>
+            </div>
+            <span class="tx-amount" style="color: #cc0000;">-₺69,820.50</span> </div>
+
         <div class="transaction-item">
             <div class="tx-details-group">
                 <div class="tx-title">تحويل داخلي (راتب)</div>
@@ -582,6 +613,7 @@
             </div>
             <span class="tx-amount" style="color: var(--kuveyt-mid);">+₺165,000.00</span>
         </div>
+        
         <div class="transaction-item">
             <div class="tx-details-group">
                 <div class="tx-title">دفع رسوم الجامعة</div>
