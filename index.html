@@ -61,7 +61,6 @@
     z-index: 100;
     font-size: 16px;
     font-weight: 700;
-    /* Removed box-shadow for cleaner look */
   }
   .header-icon{
     background:none; border:none; color:#555; font-size:22px; cursor:pointer; padding: 4px; line-height: 1;
@@ -234,6 +233,62 @@
   .item-icon .icon-svg {
       width: 18px; height: 18px; fill: currentColor;
   }
+  
+  /* --- EXCLUSIVE FOR YOU SECTION --- (New Addition) */
+  .exclusive-section {
+      padding: 15px 18px;
+      border-top: 8px solid var(--kuveyt-gray);
+  }
+  .exclusive-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+      font-size: 16px;
+      font-weight: 700;
+  }
+  .exclusive-card {
+      background: #fdfdfd;
+      border: 1px solid #eee;
+      border-radius: 12px;
+      padding: 15px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  }
+  .card-promo-content {
+      display: flex;
+      gap: 15px;
+      align-items: center;
+  }
+  .promo-text {
+      flex-grow: 1;
+      font-size: 14px;
+      color: #444;
+  }
+  .promo-text span {
+      font-weight: 700;
+      color: var(--kuveyt-deep);
+  }
+  .promo-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 15px;
+      justify-content: flex-end;
+  }
+  .btn-join {
+      background: var(--kuveyt-mid);
+      color: #fff;
+      padding: 8px 15px;
+      border-radius: 8px;
+      font-weight: 700;
+  }
+  .btn-skip {
+      background: #fff;
+      color: #999;
+      border: 1px solid #ddd;
+      padding: 8px 15px;
+      border-radius: 8px;
+      font-weight: 700;
+  }
 
   /* Card Section (Miles & Smiles Card - Hidden in a section) */
   .card-section-wrapper{
@@ -263,51 +318,15 @@
     font-family: 'Consolas', 'Menlo', 'Monaco', monospace; 
     border: 1px solid #444;
   }
-  .miles-smiles-card .card-header, .miles-smiles-card .card-meta{ z-index: 2; position: relative; }
-
-  /* Turkish Airlines and Kuveyt Turk logos */
-  .card-header{ display: flex; justify-content: space-between; align-items: flex-start; }
-  .logo-right { font-size: 14px; font-weight: 800; text-align: right; line-height: 1.2; }
-  .logo-right div { font-size: 10px; }
+  /* Card details CSS... (kept the same as last time) */
   .miles-smiles-title{ font-size: 20px; font-weight: 900; letter-spacing: 0.5px; }
-
-  /* Chip */
-  .miles-smiles-card .chip { 
-    width: 40px; 
-    height: 30px; 
-    border-radius: 4px; 
-    background: silver; 
-    box-shadow: 0 1px 4px rgba(0,0,0,0.2); 
-    border: 1px solid #aaa;
-    margin-top: 5px;
-  }
-
-  /* Card Number and Text Styles */
-  .miles-smiles-card .card-number{ 
-      font-size: 20px; 
-      letter-spacing: 1px; 
-      font-weight: 700; 
-      text-align: right; 
-      direction: ltr; 
-      margin-top: 10px; 
-  } 
+  .miles-smiles-card .chip { width: 40px; height: 30px; border-radius: 4px; background: silver; box-shadow: 0 1px 4px rgba(0,0,0,0.2); border: 1px solid #aaa; margin-top: 5px; }
+  .miles-smiles-card .card-number{ font-size: 20px; letter-spacing: 1px; font-weight: 700; text-align: right; direction: ltr; margin-top: 10px; } 
   .miles-smiles-card .card-holder-name { font-size: 14px; font-weight: 700; margin-top: 5px; }
   .miles-smiles-card .card-exp-date { font-size: 14px; font-weight: 700; }
-  .miles-smiles-card .card-meta{ 
-      display:flex; 
-      justify-content: space-between; 
-      align-items: flex-end; 
-      font-size: 12px; 
-      opacity:.95; 
-      direction: rtl; 
-  }
-  .card-meta-left {
-      direction: ltr; 
-      text-align: left;
-      display: flex; 
-      align-items: center;
-  }
-  
+  .miles-smiles-card .card-meta{ display:flex; justify-content: space-between; align-items: flex-end; font-size: 12px; opacity:.95; direction: rtl; }
+  .card-meta-left { direction: ltr; text-align: left; display: flex; align-items: center; }
+
   /* Transaction Section (Adjusted padding) */
   .transactions-section{
     background: #fff;
@@ -342,6 +361,35 @@
   .tx-details{
     font-size: 13px;
     color: #666;
+  }
+  
+  /* --- PRIVATE BANKING CONTACT --- (New Addition) */
+  .private-banking-section {
+    padding: 15px 18px;
+    border-top: 8px solid var(--kuveyt-gray);
+  }
+  .private-banking-section h3 {
+      font-size: 14px;
+      font-weight: 700;
+      color: #444;
+      margin-bottom: 10px;
+  }
+  .contact-buttons {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      padding: 10px 0;
+  }
+  .contact-btn {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: var(--kuveyt-light);
+      border: 1px solid var(--kuveyt-mid);
+      color: var(--kuveyt-mid);
+      display: flex;
+      align-items: center;
+      justify-content: center;
   }
   
   /* --- Bottom Navigation Bar --- */
@@ -462,6 +510,25 @@
         
         <a href="#" class="view-all-link">عرض كل حساباتي</a>
       </div>
+      
+      <div class="exclusive-section">
+        <div class="exclusive-header">
+            <span>حصري لك</span>
+            <a href="#" style="font-size: 14px; font-weight: 400; color: var(--kuveyt-mid);">عرض الكل</a>
+        </div>
+        <div class="exclusive-card">
+            <div class="card-promo-content">
+                <svg class="icon-svg" viewBox="0 0 24 24" style="fill: #FFC000; width: 40px; height: 40px;"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                <div class="promo-text">
+                    اكسب **2500 ميل** إضافي عند إنفاقك أكثر من **₺50,000** هذا الشهر باستخدام بطاقة Miles & Smiles.
+                </div>
+            </div>
+            <div class="promo-actions">
+                <button class="btn-skip" onclick="alert('تم إخفاء العرض مؤقتاً.')">ليس مهتماً</button>
+                <button class="btn-join" onclick="alert('تم تفعيل العرض بنجاح.')">انضم الآن</button>
+            </div>
+        </div>
+      </div>
 
       <div class="fast-transactions-section">
         <div class="fast-transactions-header">
@@ -563,6 +630,21 @@
         
         <a href="#" class="view-all-link" style="margin-top: 15px;">عرض كل العمليات</a>
       </div>
+      
+      <div class="private-banking-section">
+          <h3>للتواصل مع ممثل البنك الخاص بك</h3>
+          <div class="contact-buttons">
+              <button class="contact-btn" onclick="alert('اتصال هاتفي')">
+                  <svg class="icon-svg" viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.34 1.02-.17 1.12.56 2.33.88 3.57.88.5 0 .9.4 1 .9V20c0 .5-.4.9-1 .9C10.74 20.9 3 13.16 3 3.5c0-.5.4-.9 1-.9h3.5c.4 0 .8.3 1 .8.1.9.3 1.9.8 2.8l-2.2 2.2z" fill="currentColor"/></svg>
+              </button>
+              <button class="contact-btn" onclick="alert('مكالمة فيديو')">
+                   <svg class="icon-svg" viewBox="0 0 24 24"><path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z" fill="currentColor"/></svg>
+              </button>
+              <button class="contact-btn" onclick="alert('رسالة نصية')">
+                  <svg class="icon-svg" viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z" fill="currentColor"/></svg>
+              </button>
+          </div>
+      </div>
     </div>
     
   </main>
@@ -624,7 +706,6 @@ function switchTab(tabName) {
         document.querySelector('.tab-item:nth-child(1)').classList.add('active');
         accountSummary.style.display = 'flex';
         cardDetails.style.display = 'none';
-        document.querySelector('.secondary-balance-text').innerHTML = 'ما يعادل: **$163,000.00**';
     } else if (tabName === 'My Card') {
         document.querySelector('.tab-item:nth-child(2)').classList.add('active');
         accountSummary.style.display = 'none';
@@ -656,6 +737,8 @@ window.addEventListener('load', () => {
         const overlay = document.getElementById('bank-overlay');
         overlay.style.opacity = '0';
         overlay.style.pointerEvents = 'none';
+        // Ensure the correct tab is active on load
+        switchTab('My Account'); 
     }, 1600);
 });
 
