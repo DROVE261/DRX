@@ -4,42 +4,84 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Kuveyt Türk Clone</title>
-  <link rel="stylesheet" href="style.css">
   <style>
-    /* شاشة تسجيل الدخول */
-    #login-screen {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
       background: #0b8b3e;
-      color: white;
+      color: #fff;
+    }
+    #login-screen {
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      z-index: 2000;
+      height: 100vh;
+    }
+    #login-screen input {
+      padding: 10px;
+      margin: 5px 0;
+      width: 250px;
+      border-radius: 5px;
+      border: none;
     }
     #login-screen button {
-      margin: 5px;
       padding: 10px 20px;
+      background: #fff;
+      color: #0b8b3e;
       border: none;
       border-radius: 5px;
       cursor: pointer;
+      margin-top: 10px;
     }
-
-    /* المحتوى الرئيسي */
-    #main-content.hidden { display: none; }
-    body { font-family: Arial, sans-serif; background: #eaf5ed; }
-
-    header { display: flex; justify-content: space-between; padding: 10px 20px; background: #0b8b3e; color: white; }
-    .hero-slider { position: relative; margin: 20px; }
-    .hero-slider img { width: 100%; max-height: 400px; object-fit: cover; border-radius: 10px; }
-    .slide-text { position: absolute; bottom: 20px; left: 20px; color: white; background: rgba(0,0,0,0.3); padding: 10px; border-radius: 5px; }
-
-    .grid { display: flex; flex-wrap: wrap; gap: 20px; padding: 20px; }
-    .card { background: white; padding: 20px; border-radius: 10px; flex: 1 1 200px; box-shadow: 0 0 10px rgba(0,0,0,0.2); }
-
-    footer { text-align: center; padding: 10px; background: #0b8b3e; color: white; margin-top: 20px; }
+    #main-content.hidden {
+      display: none;
+    }
+    header, footer {
+      padding: 10px 20px;
+      background: rgba(0,0,0,0.2);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .grid {
+      display: flex;
+      gap: 20px;
+      padding: 20px;
+      flex-wrap: wrap;
+    }
+    .card {
+      background: rgba(255,255,255,0.1);
+      padding: 20px;
+      border-radius: 10px;
+      flex: 1 1 200px;
+    }
+    .menu-dots {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+    }
+    .menu-options {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: none;
+      background: rgba(255,255,255,0.9);
+      color: #0b8b3e;
+      border-radius: 5px;
+      position: absolute;
+      top: 30px;
+      left: 0;
+      z-index: 1000;
+    }
+    .menu-options li {
+      padding: 10px 20px;
+      cursor: pointer;
+    }
+    .menu-options li:hover {
+      background: #06662c;
+      color: white;
+    }
 
     /* Fancy Dropdown */
     .fancy-dropdown {
@@ -84,66 +126,55 @@
   <!-- شاشة تسجيل الدخول -->
   <div id="login-screen">
     <div class="logo">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/7/7e/Kuveyt_T%C3%BCrk_logo.svg" alt="Logo" width="200">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/7/7e/Kuveyt_T%C3%BCrk_logo.svg" alt="Logo" width="150">
     </div>
     <h2>مرحباً بك في Kuveyt Türk</h2>
-    <div class="login-form">
-      <input type="text" id="phone" placeholder="رقم الهاتف" value="01227043648"><br><br>
-      <input type="password" id="password" placeholder="كلمة السر" value="120120"><br><br>
-      <button id="login-btn">تسجيل الدخول</button>
-    </div>
+    <input type="text" id="phone" placeholder="رقم الهاتف">
+    <input type="password" id="password" placeholder="كلمة السر">
+    <button id="login-btn">تسجيل الدخول</button>
   </div>
 
   <!-- المحتوى الرئيسي -->
   <div id="main-content" class="hidden">
-
     <!-- قائمة الثلاث نقاط -->
     <div class="menu-dots">
-      <button>☰</button>
+      <button id="menu-btn">☰</button>
       <ul class="menu-options">
-        <li>• التمويل</li>
-        <li>• الحسابات</li>
-        <li>• البطاقات</li>
-        <li>٣ الدفع والخدمات</li>
-        <li>+ التأمين والتقاعد</li>
+        <li>التمويل</li>
+        <li>الحسابات</li>
+        <li>البطاقات</li>
+        <li>الدفع والخدمات</li>
+        <li>التأمين والتقاعد</li>
         <li>المنتجات الاستثمارية</li>
         <li>المعاملات المصرفية الذهبية</li>
         <li>الخدمات المصرفية الخاصة</li>
-        <li>٦ المنتجات والخدمات الأخرى</li>
-        <li>الخدمات المصيفة للأحانب</li>
+        <li>المنتجات والخدمات الأخرى</li>
+        <li>الخدمات المخصصة للأجانب</li>
       </ul>
     </div>
 
     <header>
       <div class="logo">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/7/7e/Kuveyt_T%C3%BCrk_logo.svg" alt="Logo">
-      </div>
-      <div class="top-right">
-        <input type="text" placeholder="بحث...">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/7/7e/Kuveyt_T%C3%BCrk_logo.svg" alt="Logo" width="100">
       </div>
     </header>
 
     <div class="hero-slider">
       <div class="slide active">
-        <img src="https://images.unsplash.com/photo-1581090700227-1e37b190418e" alt="Banner 1">
-        <div class="slide-text"><h2>تمويل بيت أحلامك</h2><button>اعرف المزيد</button></div>
-      </div>
-      <div class="slide">
-        <img src="https://images.unsplash.com/photo-1507679799987-c73779587ccf" alt="Banner 2">
-        <div class="slide-text"><h2>تحويل سريع وآمن</h2><button>المزيد</button></div>
+        <img src="https://images.unsplash.com/photo-1581090700227-1e37b190418e" alt="Banner 1" width="100%">
       </div>
     </div>
 
     <section>
       <div class="grid">
-        <div class="card"><h3>تمويل شخصي</h3><p>حلول مالية تناسب احتياجاتك</p><button>تقديم الآن</button></div>
-        <div class="card"><h3>الحسابات</h3><p>جارية، ذهبية، المشاركة</p><button>المزيد</button></div>
-        <div class="card"><h3>التحويلات</h3><p>تحويل العملات بسهولة</p><button>ابدأ التحويل</button></div>
-        <div class="card"><h3>الإعدادات</h3><p>إدارة الحساب والأمان</p><button>فتح الإعدادات</button></div>
+        <div class="card"><h3>تمويل شخصي</h3></div>
+        <div class="card"><h3>الحسابات</h3></div>
+        <div class="card"><h3>التحويلات</h3></div>
+        <div class="card"><h3>الإعدادات</h3></div>
       </div>
     </section>
 
-    <!-- Fancy Dropdown -->
+    <!-- الدفع والخدمات -->
     <div id="payments-services" class="fancy-dropdown">
       <h2>الدفع والخدمات</h2>
       <form id="transfer-form">
@@ -184,10 +215,31 @@
   </div>
 
   <script>
-    // تسجيل الدخول (رقم الهاتف + كلمة السر)
+    // تسجيل الدخول
     const loginBtn = document.getElementById('login-btn');
     loginBtn.addEventListener('click', () => {
       const phone = document.getElementById('phone').value;
       const password = document.getElementById('password').value;
+
       if(phone === '01227043648' && password === '120120') {
-        document.getElementById('login-screen').style
+        document.getElementById('login-screen').style.display = 'none';
+        document.getElementById('main-content').classList.remove('hidden');
+        alert('مرحبا بك في بنك Kuveyt Türk!');
+      } else {
+        alert('رقم الهاتف أو كلمة السر خاطئة!');
+      }
+    });
+
+    // القائمة الجانبية
+    const menuBtn = document.getElementById('menu-btn');
+    const menuOptions = document.querySelector('.menu-options');
+    menuBtn.addEventListener('click', () => {
+      menuOptions.style.display = menuOptions.style.display === 'block' ? 'none' : 'block';
+    });
+
+    // فتح Fancy Dropdown عند الضغط على "الدفع والخدمات"
+    const paymentsDropdown = document.getElementById('payments-services');
+    const allOptions = document.querySelectorAll('.menu-options li');
+    allOptions.forEach(option => {
+      option.addEventListener('click', (e) => {
+        if(e.target.innerText.includes('الد
