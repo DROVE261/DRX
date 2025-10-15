@@ -515,26 +515,72 @@
       width: 20px;
       height: 20px;
   }
+  
+  /* --- NEW: Splash Screen Styles (Palm Tree) --- */
+  #splash-screen {
+      position: fixed;
+      inset: 0;
+      display: none; /* مخفية في البداية */
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: #fff; /* خلفية بيضاء */
+      z-index: 1000; /* يجب أن تكون أعلى من شاشة تسجيل الدخول */
+      transition: opacity 0.5s ease-out; /* انتقال لكي تختفي الشاشة تدريجياً */
+      opacity: 1;
+  }
+  .splash-logo {
+      text-align: center;
+      margin-bottom: 20px;
+  }
+  .splash-logo img {
+      width: 140px; 
+      height: 140px;
+  }
+  .splash-text {
+      color: var(--kuveyt-mid); /* لون أخضر للنص */
+      font-size: 16px;
+      font-weight: 700;
+      margin-top: 10px;
+  }
 
 
 </style>
 </head>
 <body>
 
+<div id="bank-overlay" aria-hidden="true">
+    </div>
+
+<div id="splash-screen">
+    <div class="splash-logo">
+        <img alt="Kuveyt Türk Logo" src="data:image/svg+xml;utf8,
+            <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 160'>
+                <rect width='160' height='160' fill='none'/>
+                <g transform='translate(10, 10)'>
+                    <circle cx='70' cy='70' r='68' fill='none' stroke='%2347c699' stroke-width='4'/>
+                    <circle cx='70' cy='70' r='68' fill='rgba(71, 198, 153, 0.2)'/>
+                    <path fill='%2300994B' d='M88.7,35.4c-1.8-0.9-3.7-1.4-5.6-1.4c-2.8,0-5.4,1.1-7.4,3.1c-1.9,1.9-2.9,4.4-2.9,7v39.5c0,1.3,0.3,2.5,0.9,3.6
+                        c0.6,1.1,1.5,2,2.6,2.6c1.1,0.6,2.4,0.9,3.7,0.9c1.3,0,2.5-0.3,3.6-0.9c1.1-0.6,2-1.5,2.6-2.6c0.6-1.1,0.9-2.3,0.9-3.6V44.1
+                        c0-0.7,0.1-1.3,0.3-1.8c0.2-0.5,0.5-0.9,0.9-1.3l17.4-17.4C90.2,23.3,89.5,23.3,88.7,35.4z'/>
+                    <path fill='%2300994B' d='M111.4,49.1L94,66.5c-0.8,0.8-1.7,1.1-2.6,1.1c-1.8,0-3.5-0.7-4.8-2.1c-1.3-1.4-2-3.1-2-5.1
+                        c0-2.8,1.1-5.4,3.1-7.4c1.9-1.9,4.4-2.9,7-2.9c1.9,0,3.8,0.4,5.4,1.2l22.4,11.2C118.8,61.9,112.9,55.1,111.4,49.1z'/>
+                    <path fill='%2300994B' d='M50,89.7L32.6,72.3c-0.8-0.8-1.7-1.1-2.6-1.1c-1.8,0-3.5,0.7-4.8,2.1c-1.3,1.4-2,3.1-2,5.1
+                        c0,2.8,1.1,5.4,3.1,7.4c1.9,1.9,4.4,2.9,7,2.9c1.9,0,3.8-0.4,5.4-1.2l22.4-11.2C57.4,76.9,51.5,83.7,50,89.7z'/>
+                    <path fill='%2300994B' d='M70,140V82.7c0-2.8,1.1-5.4,3.1-7.4c1.9-1.9,4.4-2.9,7-2.9c1.9,0,3.8,0.4,5.4,1.2l-22.4,11.2C52.1,83.7,58,90.5,70,140z'/>
+                    <path fill='%2300994B' d='M85.7,140V82.7c0-2.8,1.1-5.4,3.1-7.4c1.9-1.9,4.4-2.9,7-2.9c1.9,0,3.8,0.4,5.4,1.2l-22.4,11.2C82.1,83.7,88,90.5,85.7,140z'/>
+                    <rect x="75" y="70" width="10" height="70" fill="none" stroke="#007A3E" stroke-width="1.5" stroke-dasharray="8, 4"/>
+                </g>
+            </svg>
+        ">
+    </div>
+    <div class="splash-text">
+        Kuveyt Türk Mobil
+    </div>
+</div>
+
 <div id="app-container">
-
-  <div id="bank-overlay" aria-hidden="true">
-    <img alt="Kuveyt Türk Logo" src="data:image/svg+xml;utf8,
-      <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 640 220'>
-        <rect width='640' height='220' fill='%23007A3E'/>
-        <g transform='translate(28,28)'>
-          <circle cx='64' cy='64' r='56' fill='%23fff'/>
-          <text x='150' y='110' font-family='Tajawal, Arial, sans-serif' font-size='34' fill='%23fff'>Kuveyt Türk</text>
-        </g>
-      </svg>">
-  </div>
-
-  <div id="login-screen" aria-hidden="false">
+<div id="login-screen" aria-hidden="false">
     
     <div style="text-align: center; margin-bottom: 30px;">
         <img alt="logo" src="data:image/svg+xml;utf8,
@@ -836,7 +882,8 @@
     </div>
   </div>
 
-</div> <script>
+</div> 
+<script>
 const CORRECT_PHONE = '01227043648';
 const CORRECT_PASSWORD = '120120';
 const PIN_LENGTH = 6;
@@ -850,6 +897,7 @@ const navItems = document.querySelectorAll('.app-navbar .nav-item');
 const loginForm = document.getElementById('login-form');
 const pinPadView = document.getElementById('pin-pad-view');
 const pinDotsContainer = document.getElementById('pin-dots');
+const splashScreen = document.getElementById('splash-screen'); // تم إضافة متغير لشاشة البداية
 
 function updatePinDots() {
     const dots = pinDotsContainer.querySelectorAll('.pin-dot');
@@ -875,8 +923,8 @@ function handlePinInput(event) {
     if (pinAttempt.length === PIN_LENGTH) {
         // Check PIN/Password
         if (pinAttempt === CORRECT_PASSWORD) {
-            // Successful Login
-            setTimeout(showMainAfterLogin, 300);
+            // Successful Login: Show Splash Screen before main content
+            showSplashBeforeMain();
         } else {
             // Failed Login
             alert('كلمة السر غير صحيحة. يرجى المحاولة مرة أخرى.');
@@ -945,10 +993,27 @@ function navigate(page) {
     }
 }
 
-function showMainAfterLogin(){
+// **الدالة الجديدة لعرض شاشة البداية بعد تسجيل الدخول**
+function showSplashBeforeMain(){
   document.getElementById('login-screen').style.display = 'none';
-  document.getElementById('main-content').style.display = 'block';
-  navigate('Home'); 
+  pinPadView.style.display = 'none';
+  
+  // 1. عرض شاشة النخلة (Splash)
+  splashScreen.style.display = 'flex';
+  splashScreen.style.opacity = '1';
+  
+  // 2. إخفاء شاشة النخلة بعد 1.5 ثانية (1500ms)
+  setTimeout(() => {
+    splashScreen.style.opacity = '0'; // بدء التلاشي
+    
+    // 3. عرض المحتوى الرئيسي بعد اكتمال التلاشي (0.5 ثانية)
+    setTimeout(() => {
+      splashScreen.style.display = 'none';
+      document.getElementById('main-content').style.display = 'block';
+      navigate('Home'); 
+    }, 500); 
+    
+  }, 1500); // مدة ظهور شاشة النخلة
 }
 
 document.getElementById("manual-login-btn").onclick = () => {
@@ -965,19 +1030,19 @@ document.getElementById("manual-login-btn").onclick = () => {
 
 // Set initial active nav item and view on load
 window.addEventListener('load', () => {
-    // Hide splash screen after a short delay
-    setTimeout(() => {
-        const overlay = document.getElementById('bank-overlay');
-        overlay.style.opacity = '0';
-        overlay.style.pointerEvents = 'none';
-        // Ensure the correct tab is active on load
-        switchTab('My Account'); 
-        
-        // Ensure initial view state is correct
-        loginForm.style.display = 'block';
-        pinPadView.style.display = 'none';
-
-    }, 1600);
+    // Hide old bank overlay if present
+    const overlay = document.getElementById('bank-overlay');
+    if (overlay) {
+      overlay.style.opacity = '0';
+      overlay.style.pointerEvents = 'none';
+    }
+    
+    // Ensure the correct tab is active on load
+    switchTab('My Account'); 
+    
+    // Ensure initial view state is correct
+    loginForm.style.display = 'block';
+    pinPadView.style.display = 'none';
 });
 </script>
 </body>
