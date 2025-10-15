@@ -2,7 +2,7 @@
 <html lang="ar">
 <head>
 <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" /> 
 <title>Kuveyt Türk — واجهة مُحسّنة</title>
 <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;800;900&display=swap" rel="stylesheet">
 <style>
@@ -24,6 +24,8 @@
     color:var(--kuveyt-text);
     -webkit-font-smoothing:antialiased;
     box-sizing: border-box;
+    /* منع التكبير التلقائي 2/3 */
+    touch-action: manipulation;
   }
   *,*::before,*::after {
     box-sizing: inherit;
@@ -46,6 +48,11 @@
     box-shadow: 0 0 20px rgba(0,0,0,0.1);
     position: relative;
     overflow: hidden;
+  }
+  
+  /* منع التكبير التلقائي 3/3 */
+  input, select, textarea {
+      font-size: 16px !important;
   }
 
   /* Fixed App Header/Top Bar */
@@ -520,22 +527,26 @@
   #splash-screen {
       position: fixed;
       inset: 0;
-      display: none; /* مخفية في البداية */
+      display: none; 
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      background: #fff; /* خلفية بيضاء */
-      z-index: 1000; /* يجب أن تكون أعلى من شاشة تسجيل الدخول */
-      transition: opacity 0.5s ease-out; /* انتقال لكي تختفي الشاشة تدريجياً */
+      background: #fff; 
+      z-index: 1000; 
+      transition: opacity 0.5s ease-out; 
       opacity: 1;
   }
   .splash-logo {
       text-align: center;
       margin-bottom: 20px;
-  }
-  .splash-logo img {
+      /* تعديل: تحديد أبعاد الشعار */
       width: 140px; 
       height: 140px;
+      /* تعديل: استخدام SVG كصورة خلفية بدلاً من وسم img */
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 160 160\'><rect width=\'160\' height=\'160\' fill=\'none\'/><g transform=\'translate(10, 10)\'><circle cx=\'70\' cy=\'70\' r=\'68\' fill=\'none\' stroke=\'%2347c699\' stroke-width=\'4\'/><circle cx=\'70\' cy=\'70\' r=\'68\' fill=\'rgba(71, 198, 153, 0.2)\'/><path fill=\'%2300994B\' d=\'M88.7,35.4c-1.8-0.9-3.7-1.4-5.6-1.4c-2.8,0-5.4,1.1-7.4,3.1c-1.9,1.9-2.9,4.4-2.9,7v39.5c0,1.3,0.3,2.5,0.9,3.6c0.6,1.1,1.5,2,2.6,2.6c1.1,0.6,2.4,0.9,3.7,0.9c1.3,0,2.5-0.3,3.6-0.9c1.1-0.6,2-1.5,2.6-2.6c0.6-1.1,0.9-2.3,0.9-3.6V44.1c0-0.7,0.1-1.3,0.3-1.8c0.2-0.5,0.5-0.9,0.9-1.3l17.4-17.4C90.2,23.3,89.5,23.3,88.7,35.4z\'/><path fill=\'%2300994B\' d=\'M111.4,49.1L94,66.5c-0.8,0.8-1.7,1.1-2.6,1.1c-1.8,0-3.5-0.7-4.8-2.1c-1.3-1.4-2-3.1-2-5.1c0-2.8,1.1-5.4,3.1-7.4c1.9-1.9,4.4-2.9,7-2.9c1.9,0,3.8,0.4,5.4,1.2l22.4,11.2C118.8,61.9,112.9,55.1,111.4,49.1z\'/><path fill=\'%2300994B\' d=\'M50,89.7L32.6,72.3c-0.8-0.8-1.7-1.1-2.6-1.1c-1.8,0-3.5,0.7-4.8,2.1c-1.3,1.4-2-3.1-2-5.1c0,2.8,1.1,5.4,3.1,7.4c1.9,1.9,4.4,2.9,7,2.9c1.9,0,3.8-0.4,5.4-1.2l22.4-11.2C57.4,76.9,51.5,83.7,50,89.7z\'/><path fill=\'%2300994B\' d=\'M70,140V82.7c0-2.8,1.1-5.4,3.1-7.4c1.9-1.9,4.4-2.9,7-2.9c1.9,0,3.8,0.4,5.4,1.2l-22.4,11.2C52.1,83.7,58,90.5,70,140z\'/><path fill=\'%2300994B\' d=\'M85.7,140V82.7c0-2.8,1.1-5.4,3.1-7.4c1.9-1.9,4.4-2.9,7-2.9c1.9,0,3.8,0.4,5.4,1.2l-22.4,11.2C82.1,83.7,88,90.5,85.7,140z\'/><rect x=\'75\' y=\'70\' width=\'10\' height=\'70\' fill=\'none\' stroke=\'%23007A3E\' stroke-width=\'1.5\' stroke-dasharray=\'8, 4\'/></g></svg>');
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: contain;
   }
   .splash-text {
       color: var(--kuveyt-mid); /* لون أخضر للنص */
@@ -543,111 +554,301 @@
       font-weight: 700;
       margin-top: 10px;
   }
+  
+  /* --- WELCOME SCREEN (New Initial Screen) --- */
+  #welcome-screen {
+      position: fixed;
+      inset: 0;
+      display: none; 
+      flex-direction: column;
+      align-items: center;
+      background: #fff;
+      z-index: 950; /* أقل من شاشة البداية، وأعلى من شاشة تسجيل الدخول القديمة */
+      padding: 50px 25px;
+      justify-content: flex-start;
+  }
+  .welcome-content {
+      width: 100%;
+      text-align: right;
+  }
+  .welcome-logo {
+      width: 50px;
+      height: 50px;
+      margin-bottom: 20px;
+      /* تعديل: استخدام نفس طريقة عرض الشعار الموثوقة */
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 160 160\'><rect width=\'160\' height=\'160\' fill=\'none\'/><g transform=\'translate(10, 10)\'><circle cx=\'70\' cy=\'70\' r=\'68\' fill=\'none\' stroke=\'%2347c699\' stroke-width=\'4\'/><circle cx=\'70\' cy=\'70\' r=\'68\' fill=\'rgba(71, 198, 153, 0.2)\'/><path fill=\'%2300994B\' d=\'M88.7,35.4c-1.8-0.9-3.7-1.4-5.6-1.4c-2.8,0-5.4,1.1-7.4,3.1c-1.9,1.9-2.9,4.4-2.9,7v39.5c0,1.3,0.3,2.5,0.9,3.6c0.6,1.1,1.5,2,2.6,2.6c1.1,0.6,2.4,0.9,3.7,0.9c1.3,0,2.5-0.3,3.6-0.9c1.1-0.6,2-1.5,2.6-2.6c0.6-1.1,0.9-2.3,0.9-3.6V44.1c0-0.7,0.1-1.3,0.3-1.8c0.2-0.5,0.5-0.9,0.9-1.3l17.4-17.4C90.2,23.3,89.5,23.3,88.7,35.4z\'/><path fill=\'%2300994B\' d=\'M111.4,49.1L94,66.5c-0.8,0.8-1.7,1.1-2.6,1.1c-1.8,0-3.5-0.7-4.8-2.1c-1.3-1.4-2-3.1-2-5.1c0-2.8,1.1-5.4,3.1-7.4c1.9-1.9,4.4-2.9,7-2.9c1.9,0,3.8,0.4,5.4,1.2l22.4,11.2C118.8,61.9,112.9,55.1,111.4,49.1z\'/><path fill=\'%2300994B\' d=\'M50,89.7L32.6,72.3c-0.8-0.8-1.7-1.1-2.6-1.1c-1.8,0-3.5,0.7-4.8,2.1c-1.3,1.4-2-3.1-2-5.1c0,2.8,1.1-5.4,3.1,7.4c1.9,1.9,4.4,2.9,7,2.9c1.9,0,3.8-0.4,5.4-1.2l22.4-11.2C57.4,76.9,51.5,83.7,50,89.7z\'/><path fill=\'%2300994B\' d=\'M70,140V82.7c0-2.8,1.1-5.4,3.1-7.4c1.9-1.9,4.4-2.9,7-2.9c1.9,0,3.8,0.4,5.4,1.2l-22.4,11.2C52.1,83.7,58,90.5,70,140z\'/><path fill=\'%2300994B\' d=\'M85.7,140V82.7c0-2.8,1.1-5.4,3.1-7.4c1.9-1.9,4.4-2.9,7-2.9c1.9,0,3.8,0.4,5.4,1.2l-22.4,11.2C82.1,83.7,88,90.5,85.7,140z\'/><rect x=\'75\' y=\'70\' width=\'10\' height=\'70\' fill=\'none\' stroke=\'%23007A3E\' stroke-width=\'1.5\' stroke-dasharray=\'8, 4\'/></g></svg>');
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: contain;
+  }
+  .welcome-title {
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--kuveyt-deep);
+      margin-bottom: 40px;
+      text-align: left; 
+      direction: ltr;
+  }
+  .welcome-button {
+      width: 100%;
+      padding: 16px;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 15px;
+      text-align: center;
+  }
+  .btn-giris {
+      background: var(--kuveyt-mid);
+      color: #fff;
+  }
+  .btn-musteri {
+      background: #fff;
+      color: #FF7043; 
+      border: 1px solid #FF7043;
+  }
+  .welcome-actions-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      padding: 20px 0 0;
+      margin-top: 50px;
+      position: absolute; 
+      bottom: 60px; 
+      width: calc(100% - 50px); 
+      max-width: 370px;
+  }
+  .action-box {
+      background: #fdfdfd;
+      border: 1px solid #eee;
+      padding: 10px;
+      border-radius: 8px;
+      text-align: center;
+      font-size: 11px;
+      color: #444;
+      height: 90px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+  }
+  .action-box .icon-svg {
+      width: 25px; height: 25px; fill: var(--kuveyt-mid);
+  }
+  
+  /* --- LOGIN TABS SCREEN (Bireysel/Kurumsal) --- */
+  #login-tabs-screen {
+      position: fixed;
+      inset: 0;
+      display: none; 
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding-top: 50px;
+      background: #fff;
+      z-index: 960;
+  }
+  .login-tabs-header {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 18px 20px;
+      
+  }
+  .login-tabs-header h2 {
+      font-size: 18px;
+      font-weight: 700;
+      color: #333;
+      margin: 0;
+  }
+  .login-tabs-container {
+      display: flex;
+      width: calc(100% - 36px);
+      margin: 0 18px;
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 25px;
+      background: #f0f0f0;
+  }
+  .login-tab {
+      flex: 1;
+      text-align: center;
+      padding: 10px 0;
+      font-weight: 700;
+      color: #777;
+      background: transparent;
+      transition: background-color 0.3s;
+      cursor: pointer;
+  }
+  .login-tab.active {
+      background: #fff;
+      color: var(--kuveyt-deep);
+      box-shadow: 0 0 10px rgba(0,0,0,0.05);
+  }
+  .login-input-field {
+      width: calc(100% - 36px);
+      margin: 0 18px 15px;
+      padding: 12px 15px;
+      border: 1px solid #eee;
+      border-radius: 8px;
+      font-size: 14px;
+      color: #333;
+      background: #fff;
+  }
+  .login-input-container {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 15px;
+      border-bottom: 1px solid #eee;
+  }
+  .login-input-label {
+      flex: 1;
+      color: #999;
+      font-size: 14px;
+      text-align: left;
+      direction: ltr;
+  }
+  .login-input-placeholder {
+      flex: 2;
+      text-align: right;
+      color: #333;
+      font-size: 14px;
+      font-weight: 700;
+      padding: 12px 0;
+      border: none;
+      background: transparent;
+  }
+  .login-input-group {
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      width: calc(100% - 36px);
+      margin: 0 18px 25px;
+      background: #fff;
+      overflow: hidden;
+  }
 
-
+  .login-tabs-btn-green {
+      width: calc(100% - 36px);
+      margin: 0 18px 15px;
+      padding: 16px;
+      border-radius: 10px;
+      background: var(--kuveyt-mid);
+      color: #fff;
+      font-size: 16px;
+      font-weight: 700;
+  }
+  .login-tabs-btn-secondary {
+      width: calc(100% - 36px);
+      margin: 0 18px 15px;
+      padding: 16px;
+      border-radius: 10px;
+      background: #f7f7f7;
+      color: #FF7043;
+      font-size: 16px;
+      font-weight: 700;
+      border: 1px solid #eee;
+  }
 </style>
 </head>
 <body>
 
-<div id="bank-overlay" aria-hidden="true">
-    </div>
+<div id="login-screen" aria-hidden="true" style="display: none;"></div>
+
 
 <div id="splash-screen">
     <div class="splash-logo">
-        <img alt="Kuveyt Türk Logo" src="data:image/svg+xml;utf8,
-            <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 160'>
-                <rect width='160' height='160' fill='none'/>
-                <g transform='translate(10, 10)'>
-                    <circle cx='70' cy='70' r='68' fill='none' stroke='%2347c699' stroke-width='4'/>
-                    <circle cx='70' cy='70' r='68' fill='rgba(71, 198, 153, 0.2)'/>
-                    <path fill='%2300994B' d='M88.7,35.4c-1.8-0.9-3.7-1.4-5.6-1.4c-2.8,0-5.4,1.1-7.4,3.1c-1.9,1.9-2.9,4.4-2.9,7v39.5c0,1.3,0.3,2.5,0.9,3.6
-                        c0.6,1.1,1.5,2,2.6,2.6c1.1,0.6,2.4,0.9,3.7,0.9c1.3,0,2.5-0.3,3.6-0.9c1.1-0.6,2-1.5,2.6-2.6c0.6-1.1,0.9-2.3,0.9-3.6V44.1
-                        c0-0.7,0.1-1.3,0.3-1.8c0.2-0.5,0.5-0.9,0.9-1.3l17.4-17.4C90.2,23.3,89.5,23.3,88.7,35.4z'/>
-                    <path fill='%2300994B' d='M111.4,49.1L94,66.5c-0.8,0.8-1.7,1.1-2.6,1.1c-1.8,0-3.5-0.7-4.8-2.1c-1.3-1.4-2-3.1-2-5.1
-                        c0-2.8,1.1-5.4,3.1-7.4c1.9-1.9,4.4-2.9,7-2.9c1.9,0,3.8,0.4,5.4,1.2l22.4,11.2C118.8,61.9,112.9,55.1,111.4,49.1z'/>
-                    <path fill='%2300994B' d='M50,89.7L32.6,72.3c-0.8-0.8-1.7-1.1-2.6-1.1c-1.8,0-3.5,0.7-4.8,2.1c-1.3,1.4-2,3.1-2,5.1
-                        c0,2.8,1.1,5.4,3.1,7.4c1.9,1.9,4.4,2.9,7,2.9c1.9,0,3.8-0.4,5.4-1.2l22.4-11.2C57.4,76.9,51.5,83.7,50,89.7z'/>
-                    <path fill='%2300994B' d='M70,140V82.7c0-2.8,1.1-5.4,3.1-7.4c1.9-1.9,4.4-2.9,7-2.9c1.9,0,3.8,0.4,5.4,1.2l-22.4,11.2C52.1,83.7,58,90.5,70,140z'/>
-                    <path fill='%2300994B' d='M85.7,140V82.7c0-2.8,1.1-5.4,3.1-7.4c1.9-1.9,4.4-2.9,7-2.9c1.9,0,3.8,0.4,5.4,1.2l-22.4,11.2C82.1,83.7,88,90.5,85.7,140z'/>
-                    <rect x="75" y="70" width="10" height="70" fill="none" stroke="#007A3E" stroke-width="1.5" stroke-dasharray="8, 4"/>
-                </g>
-            </svg>
-        ">
-    </div>
+        </div>
     <div class="splash-text">
         Kuveyt Türk Mobil
     </div>
 </div>
 
-<div id="app-container">
-<div id="login-screen" aria-hidden="false">
-    
-    <div style="text-align: center; margin-bottom: 30px;">
-        <img alt="logo" src="data:image/svg+xml;utf8,
-            <svg xmlns='http://www.w3.org/2000/svg' width='150' height='50' viewBox='0 0 360 120'>
-              <g transform='translate(-100, -20)'>
-                <circle cx='156' cy='48' r='36' fill='%23fff'/>
-                <text x='210' y='68' font-family='Tajawal, Arial, sans-serif' font-size='28' fill='%23fff'>Kuveyt Türk</text>
-              </g>
-            </svg>"/>
-    </div>
-
-
-    <div class="login-box" id="login-form">
-      <h2 style="color: var(--kuveyt-deep);">تسجيل الدخول</h2>
-      <div style="font-size: 12px; color: #555; margin-bottom: 10px;">للتجربة: 01227043648 | 120120</div>
-      <input id="user-phone" type="tel" placeholder="رقم الهاتف" class="login-input" value="01227043648">
-      <input id="user-password-initial" type="password" placeholder="كلمة السر" class="login-input" value="120120">
-      <button id="manual-login-btn" class="login-btn">تسجيل الدخول</button>
-      <div style="font-size: 12px; color: #000; margin-top: 15px; opacity: 0.6; cursor: pointer;">
-          <a href="#" style="color: inherit; text-decoration: none;">نسيت كلمة السر؟</a>
-      </div>
-    </div>
-    
-    <div class="pin-pad-container" id="pin-pad-view">
-        <div class="pin-header">أهلاً بعودتك، مصطفى</div>
-        <div class="pin-welcome">
-            أدخل كلمة السر الخاصة بك
-        </div>
-
-        <div class="pin-dots" id="pin-dots">
-            <div class="pin-dot"></div>
-            <div class="pin-dot"></div>
-            <div class="pin-dot"></div>
-            <div class="pin-dot"></div>
-            <div class="pin-dot"></div>
-            <div class="pin-dot"></div>
-        </div>
-
-        <div class="pin-keypad" onclick="handlePinInput(event)">
-            <button class="pin-key" data-key="1">1</button>
-            <button class="pin-key" data-key="2">2</button>
-            <button class="pin-key" data-key="3">3</button>
-
-            <button class="pin-key" data-key="4">4</button>
-            <button class="pin-key" data-key="5">5</button>
-            <button class="pin-key" data-key="6">6</button>
-
-            <button class="pin-key" data-key="7">7</button>
-            <button class="pin-key" data-key="8">8</button>
-            <button class="pin-key" data-key="9">9</button>
-
-            <div class="pin-key empty"></div> 
-            <button class="pin-key" data-key="0">0</button>
-            <button class="pin-key backspace" data-key="backspace">
-                 <svg class="icon-svg" viewBox="0 0 24 24" style="width: 20px; height: 20px;"><path d="M22 3.41L20.59 2 15 7.59 9.41 2 8 3.41l5.59 5.59L8 14.59 9.41 16l5.59-5.59 5.59 5.59L22 14.59 16.41 9z" fill="currentColor"/></svg>
-            </button>
+<div id="welcome-screen">
+    <div class="welcome-content">
+        <div style="height: 20px;"></div> 
+        
+        <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+            <div class="welcome-logo">
+                </div>
+            <div style="padding: 5px 10px; border: 1px solid #ddd; border-radius: 8px; font-size: 12px; color: #555;">TR</div>
         </div>
         
-        <div style="color: rgba(255, 255, 255, 0.8); font-size: 14px; margin-top: 40px; cursor: pointer;">
-             <a href="#" onclick="showLoginForm(event)" style="color: inherit; text-decoration: none;">تغيير المستخدم / تسجيل الخروج</a>
+        <div class="welcome-title">
+             Kuveyt Türk Mobil'e<br>Hoş Geldiniz
+        </div>
+
+        <button id="btn-show-login-tabs" class="welcome-button btn-giris">
+            Giriş (تسجيل الدخول)
+        </button>
+        <button class="welcome-button btn-musteri">
+            Müşteri Olmak İstiyorum
+        </button>
+        
+        <div class="welcome-actions-grid">
+            <div class="action-box">
+                 <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+                 Hesapla (حساب)
+            </div>
+            <div class="action-box">
+                <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 8V4l-8 8 8 8v-4h8V8z" fill="currentColor"/></svg>
+                 fast <br> İşlemleri
+            </div>
+            <div class="action-box">
+                 <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+                 ATM / E-Dekont
+            </div>
         </div>
     </div>
-    
+</div>
 
-  </div>
+<div id="login-tabs-screen">
+    <div class="login-tabs-header">
+        <button onclick="showScreen('welcome-screen')" class="header-icon" style="color: #333;">
+            <svg class="icon-svg" viewBox="0 0 24 24"><path d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6 1.41-1.41z" fill="currentColor"/></svg>
+        </button>
+        <h2>Giriş Yap (تسجيل الدخول)</h2>
+        <div></div>
+    </div>
+
+    <div class="login-tabs-container">
+        <span id="tab-bireysel" class="login-tab active" data-target="bireysel">Bireysel (فردي)</span>
+        <span id="tab-kurumsal" class="login-tab" data-target="kurumsal">Kurumsal (شركات)</span>
+    </div>
+
+    <div id="bireysel-content" style="width: 100%;">
+        <div class="login-input-group">
+            <div class="login-input-container">
+                <div class="login-input-label">Müşteri No</div>
+                <input id="musteri-no" type="tel" class="login-input-placeholder" value="01227043648" placeholder="Giriniz">
+            </div>
+            <div class="login-input-container">
+                <div class="login-input-label">Şifre</div>
+                <input id="sifre" type="password" class="login-input-placeholder" value="120120" placeholder="Giriniz">
+            </div>
+            <div class="login-input-container" style="border-bottom: none;">
+                <div class="login-input-label">Kullanıcı Adı (اختياري)</div>
+                <input id="kullanici-adi" type="text" class="login-input-placeholder" placeholder="Giriniz">
+            </div>
+        </div>
+        
+        <button id="manual-login-btn-tabs" class="login-tabs-btn-green">Giriş (تسجيل الدخول)</button>
+        <button class="login-tabs-btn-secondary">Şifremi Unuttum / Anında Şifre</button>
+        <button class="login-tabs-btn-secondary">SIM Bloke Kaldır</button>
+        <button class="login-tabs-btn-secondary" onclick="showScreen('welcome-screen')">Müşteri Olmak İstiyorum</button>
+    </div>
+
+    <div id="kurumsal-content" style="display: none; width: 100%; text-align: center;">
+        <h3 style="color: #007A3E; margin-top: 50px;">واجهة تسجيل دخول الشركات (Kurumsal)</h3>
+        <p style="color: #555;">يرجى التبديل إلى "Bireysel" لتسجيل الدخول التجريبي.</p>
+    </div>
+
+</div>
 
 
+<div id="app-container">
   <main id="main-content" aria-hidden="true" style="display:none;">
 
     <div id="home-view" class="panel-view panel-active">
@@ -884,78 +1085,96 @@
 
 </div> 
 <script>
-const CORRECT_PHONE = '01227043648';
-const CORRECT_PASSWORD = '120120';
-const PIN_LENGTH = 6;
-let pinAttempt = "";
+const CORRECT_MUSTERI_NO = '01227043648'; // استخدمت رقم العميل هنا
+const CORRECT_SIFRE = '120120'; // استخدمت كلمة السر هنا
+
+// Element Selectors
+const screens = {
+    'splash-screen': document.getElementById('splash-screen'),
+    'welcome-screen': document.getElementById('welcome-screen'),
+    'login-tabs-screen': document.getElementById('login-tabs-screen'),
+};
+const mainContent = document.getElementById('main-content');
+const loginTabs = document.querySelectorAll('.login-tab');
+const bireyselContent = document.getElementById('bireysel-content');
+const kurumsalContent = document.getElementById('kurumsal-content');
+const manualLoginBtnTabs = document.getElementById('manual-login-btn-tabs');
+const btnShowLoginTabs = document.getElementById('btn-show-login-tabs');
+
+
+// --- SCREEN NAVIGATION ---
+
+function showScreen(screenId) {
+    // إخفاء جميع الشاشات أولاً
+    Object.values(screens).forEach(screen => screen.style.display = 'none');
+    mainContent.style.display = 'none';
+
+    // عرض الشاشة المطلوبة
+    if (screens[screenId]) {
+        screens[screenId].style.display = 'flex';
+        // إعادة تعيين الشفافية لشاشة البداية للتأكد من أنها تظهر بشكل صحيح
+        if (screenId === 'splash-screen') {
+             screens[screenId].style.opacity = '1';
+        }
+    } else if (screenId === 'main') {
+        mainContent.style.display = 'block';
+        navigate('Home'); 
+    }
+}
+
+function showSplashBeforeMain() {
+    showScreen('splash-screen');
+    
+    // 1. إخفاء شاشة النخلة بعد 1.5 ثانية (1500ms)
+    setTimeout(() => {
+        screens['splash-screen'].style.opacity = '0'; // بدء التلاشي
+        
+        // 2. عرض المحتوى الرئيسي بعد اكتمال التلاشي (0.5 ثانية)
+        setTimeout(() => {
+            showScreen('main'); // عرض المحتوى الرئيسي
+        }, 500); 
+        
+    }, 1500); // مدة ظهور شاشة النخلة
+}
+
+// --- LOGIN LOGIC ---
+
+function handleTabSwitch(event) {
+    const target = event.target.dataset.target;
+
+    loginTabs.forEach(tab => tab.classList.remove('active'));
+    event.target.classList.add('active');
+
+    bireyselContent.style.display = 'none';
+    kurumsalContent.style.display = 'none';
+
+    if (target === 'bireysel') {
+        bireyselContent.style.display = 'block';
+    } else if (target === 'kurumsal') {
+        kurumsalContent.style.display = 'block';
+    }
+}
+
+function handleLoginAttempt() {
+    const musteriNo = document.getElementById('musteri-no').value.trim();
+    const sifre = document.getElementById('sifre').value.trim();
+
+    if (musteriNo === CORRECT_MUSTERI_NO && sifre === CORRECT_SIFRE) {
+        // Successful Login: Show Splash Screen
+        showSplashBeforeMain();
+    } else {
+        alert('بيانات الدخول غير صحيحة. يرجى التأكد من رقم العميل وكلمة السر.\nللتجربة: 01227043648 | 120120');
+    }
+}
+
+
+// --- NAVIGATION FOR MAIN CONTENT (Kept from previous code) ---
 
 const views = {
     'Home': document.getElementById('home-view'),
 };
 
 const navItems = document.querySelectorAll('.app-navbar .nav-item');
-const loginForm = document.getElementById('login-form');
-const pinPadView = document.getElementById('pin-pad-view');
-const pinDotsContainer = document.getElementById('pin-dots');
-const splashScreen = document.getElementById('splash-screen'); // تم إضافة متغير لشاشة البداية
-
-function updatePinDots() {
-    const dots = pinDotsContainer.querySelectorAll('.pin-dot');
-    dots.forEach((dot, index) => {
-        dot.classList.toggle('filled', index < pinAttempt.length);
-    });
-}
-
-function handlePinInput(event) {
-    const keyElement = event.target.closest('.pin-key');
-    if (!keyElement) return;
-
-    const key = keyElement.dataset.key;
-
-    if (key === 'backspace') {
-        pinAttempt = pinAttempt.slice(0, -1);
-    } else if (key && key.match(/^\d$/) && pinAttempt.length < PIN_LENGTH) {
-        pinAttempt += key;
-    }
-
-    updatePinDots();
-
-    if (pinAttempt.length === PIN_LENGTH) {
-        // Check PIN/Password
-        if (pinAttempt === CORRECT_PASSWORD) {
-            // Successful Login: Show Splash Screen before main content
-            showSplashBeforeMain();
-        } else {
-            // Failed Login
-            alert('كلمة السر غير صحيحة. يرجى المحاولة مرة أخرى.');
-            pinAttempt = "";
-            updatePinDots();
-        }
-    }
-}
-
-function showPinPad() {
-    loginForm.style.opacity = '0';
-    setTimeout(() => {
-        loginForm.style.display = 'none';
-        pinPadView.style.display = 'block';
-        pinPadView.style.opacity = '1';
-        pinAttempt = ""; // Reset PIN attempt
-        updatePinDots();
-    }, 300); 
-}
-
-function showLoginForm(event) {
-    if(event) event.preventDefault(); // Prevent default link action
-    pinPadView.style.opacity = '0';
-    setTimeout(() => {
-        pinPadView.style.display = 'none';
-        loginForm.style.display = 'block';
-        loginForm.style.opacity = '1';
-        pinAttempt = "";
-        updatePinDots();
-    }, 300);
-}
 
 function switchTab(tabName) {
     const tabs = document.querySelectorAll('.tab-item');
@@ -964,7 +1183,6 @@ function switchTab(tabName) {
     const accountSummary = document.querySelector('.account-summary');
     const cardDetails = document.getElementById('card-view-details');
     
-    // Simple logic to switch display based on tab
     if (tabName === 'My Account') {
         document.querySelector('.tab-item:nth-child(1)').classList.add('active');
         accountSummary.style.display = 'flex';
@@ -984,7 +1202,6 @@ function navigate(page) {
 
         // Update active navigation icon
         navItems.forEach((item, index) => {
-            // Simply set Home as active
             item.classList.toggle('nav-item-active', index === 0); 
         });
 
@@ -993,56 +1210,34 @@ function navigate(page) {
     }
 }
 
-// **الدالة الجديدة لعرض شاشة البداية بعد تسجيل الدخول**
-function showSplashBeforeMain(){
-  document.getElementById('login-screen').style.display = 'none';
-  pinPadView.style.display = 'none';
-  
-  // 1. عرض شاشة النخلة (Splash)
-  splashScreen.style.display = 'flex';
-  splashScreen.style.opacity = '1';
-  
-  // 2. إخفاء شاشة النخلة بعد 1.5 ثانية (1500ms)
-  setTimeout(() => {
-    splashScreen.style.opacity = '0'; // بدء التلاشي
-    
-    // 3. عرض المحتوى الرئيسي بعد اكتمال التلاشي (0.5 ثانية)
-    setTimeout(() => {
-      splashScreen.style.display = 'none';
-      document.getElementById('main-content').style.display = 'block';
-      navigate('Home'); 
-    }, 500); 
-    
-  }, 1500); // مدة ظهور شاشة النخلة
-}
 
-document.getElementById("manual-login-btn").onclick = () => {
-    const phoneInput = document.getElementById('user-phone').value.trim();
-    const passwordInput = document.getElementById('user-password-initial').value.trim();
+// --- EVENT LISTENERS AND INITIALIZATION ---
 
-    if (phoneInput === CORRECT_PHONE && passwordInput === CORRECT_PASSWORD) {
-        // Successful check, now go to PIN pad view
-        showPinPad();
-    } else {
-        alert('بيانات الدخول غير صحيحة. يرجى التأكد من رقم الهاتف وكلمة السر.');
-    }
-};
+// 1. Initial Screen Button: From Welcome Screen -> Login Tabs Screen
+btnShowLoginTabs.onclick = () => showScreen('login-tabs-screen');
 
-// Set initial active nav item and view on load
+// 2. Tab Switcher (Bireysel/Kurumsal)
+loginTabs.forEach(tab => {
+    tab.onclick = handleTabSwitch;
+});
+
+// 3. Final Login Button on Tabs Screen
+manualLoginBtnTabs.onclick = handleLoginAttempt;
+
+
+// --- INITIALIZATION ON LOAD ---
+
 window.addEventListener('load', () => {
-    // Hide old bank overlay if present
-    const overlay = document.getElementById('bank-overlay');
-    if (overlay) {
-      overlay.style.opacity = '0';
-      overlay.style.pointerEvents = 'none';
-    }
+    // إخفاء أي شاشة قديمة
+    const oldLoginScreen = document.getElementById('login-screen');
+    if (oldLoginScreen) oldLoginScreen.style.display = 'none';
+
+    // البدء بعرض شاشة الترحيب الجديدة
+    showScreen('welcome-screen');
     
-    // Ensure the correct tab is active on load
-    switchTab('My Account'); 
-    
-    // Ensure initial view state is correct
-    loginForm.style.display = 'block';
-    pinPadView.style.display = 'none';
+    // التأكد من أن تبويب "Bireysel" هو النشط في البداية
+    bireyselContent.style.display = 'block';
+    kurumsalContent.style.display = 'none';
 });
 </script>
 </body>
