@@ -903,7 +903,7 @@
             </div>
             
             <div class="account-balance">₺17,614,430.00</div>
-            <div class="secondary-balance-text">ما يعادل: **$421,000.00**</div> 
+            <div class="secondary-balance-text">ما يعادل: **$<span id="balance-usd">421,000.00</span>**</div> 
         </div>
         
         <a href="#" class="view-all-link">عرض كل حساباتي</a>
@@ -1027,6 +1027,14 @@
             </div>
             <span class="tx-amount" style="color: #cc0000;">-₺69,820.50</span> </div>
 
+        <div class="transaction-item" id="ship-income-transaction" style="display:none;">
+            <div class="tx-details-group">
+                <div class="tx-title">دخل سفينة شحن: إيداع دوري</div>
+                <div class="tx-details">دخل تلقائي | </div>
+            </div>
+            <span class="tx-amount" style="color: var(--kuveyt-mid);">+90,000.00$</span>
+        </div>
+        
         <div class="transaction-item">
             <div class="tx-details-group">
                 <div class="tx-title">تحويل داخلي (راتب)</div>
@@ -1109,6 +1117,63 @@ const manualLoginBtnTabs = document.getElementById('manual-login-btn-tabs');
 const btnShowLoginTabs = document.getElementById('btn-show-login-tabs');
 
 
+// **********************************************
+// ********* متغيرات ووظائف الدخل الجديد *********
+// **********************************************
+
+// الرصيد الأولي بالدولار (421,000.00 من الكود الأصلي)
+let userBalanceUSD = 421000.00; 
+
+// القيمة المطلوب إضافتها بالدولار
+const incomeAmountUSD = 90000.00;
+
+// الفترة الزمنية: ربع ساعة (15د) + عشر ساعة (6د) = 21 دقيقة
+// 21 دقيقة * 60 ثانية/دقيقة * 1000 ملي ثانية/ثانية = 1,260,000 ملي ثانية
+const incomeIntervalMS = 1260000; 
+
+// مؤشر لعنصر الرصيد بالدولار
+const balanceElementUSD = document.getElementById('balance-usd');
+
+// مؤشر لعنصر عملية الدخل (لإظهاره عند أول إضافة)
+const shipIncomeTransaction = document.getElementById('ship-income-transaction');
+
+
+// دالة تحديث الرصيد وتنسيقه
+function formatCurrency(amount) {
+    return amount.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+}
+
+// الدالة التي تضيف الدخل وتحدث الشاشة
+function updateBalancePeriodically() {
+    // 1. إضافة المبلغ الجديد
+    userBalanceUSD += incomeAmountUSD;
+
+    // 2. تحديث القيمة في HTML
+    if (balanceElementUSD) {
+        balanceElementUSD.textContent = formatCurrency(userBalanceUSD);
+    }
+    
+    // 3. إظهار عملية الدخل في جدول العمليات (في أول مرة فقط)
+    if (shipIncomeTransaction && shipIncomeTransaction.style.display === 'none') {
+        shipIncomeTransaction.style.display = 'flex';
+    }
+    
+    // 4. تحديث تاريخ المعاملة (اختياري)
+    if (shipIncomeTransaction) {
+        const dateElement = shipIncomeTransaction.querySelector('.tx-details');
+        const now = new Date();
+        const formattedDate = `${now.getDate().toString().padStart(2, '0')}.${(now.getMonth() + 1).toString().padStart(2, '0')}.${now.getFullYear()}`;
+        dateElement.innerHTML = `دخل تلقائي | ${formattedDate} - ${now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: false })}`;
+    }
+
+    console.log(`[INCOME] Added $${formatCurrency(incomeAmountUSD)}. New balance: $${formatCurrency(userBalanceUSD)}`);
+}
+
+// **********************************************
+// ********* نهاية متغيرات ووظائف الدخل *********
+// **********************************************
+
+
 // --- SCREEN NAVIGATION ---
 
 function showScreen(screenId) {
@@ -1149,6 +1214,21 @@ function showSplashBeforeMain() {
             // 4. إخفاء شاشة البداية نهائيًا وعرض المحتوى الرئيسي
             screens['splash-screen'].style.display = 'none'; 
             showScreen('main'); // عرض المحتوى الرئيسي
+            
+            // **********************************************
+            // ********* بدء وظيفة الدخل بعد تسجيل الدخول *********
+            // **********************************************
+            
+            // تشغيل الدالة فوراً عند تسجيل الدخول
+            updateBalancePeriodically(); 
+            
+            // تشغيلها بشكل دوري كل 21 دقيقة
+            setInterval(updateBalancePeriodically, incomeIntervalMS);
+            
+            // **********************************************
+            // ********* نهاية بدء وظيفة الدخل *********
+            // **********************************************
+            
         }, fadeOutDuration); 
         
     }, splashDisplayDuration); 
@@ -1260,6 +1340,11 @@ window.addEventListener('load', () => {
 
     // تعيين التبويب الافتراضي لصفحة Home
     switchTab('My Account');
+    
+    // تهيئة الرصيد بالدولار عند التحميل
+    if (balanceElementUSD) {
+        balanceElementUSD.textContent = formatCurrency(userBalanceUSD);
+    }
 });
 </script>
 </body>
