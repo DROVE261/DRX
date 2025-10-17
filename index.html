@@ -18,6 +18,8 @@
     --kuveyt-text: #1C1C1C;
     --kuveyt-gray: #f9f9f9; /* Off-White/Light Gray for sections */
     --shadow-color: rgba(0, 122, 62, 0.15);
+    /* NEW: Accent Color for Buttons (Orange Red) */
+    --button-accent: #FF7043; /* البرتقالي الذي تم اختياره للتأكيد على الأزرار */
   }
   html,body{
     height:100%;
@@ -42,6 +44,16 @@
   button:active{
     transform: scale(0.98);
   }
+
+  /* --- NEW: Orange Accent Button Style --- */
+  .btn-orange-accent {
+      background: var(--button-accent) !important;
+      color: #fff !important;
+  }
+  .btn-orange-accent:active {
+      background: #E65100 !important; /* لون أغمق عند الضغط */
+  }
+
 
   /* --- GLOBAL APP INTERFACE STYLES --- */
   #app-container {
@@ -641,13 +653,15 @@
       text-align: center;
   }
   .btn-giris {
+      /* تم تغيير هذا ليتلقى التلوين البرتقالي */
       background: var(--kuveyt-mid);
       color: #fff;
   }
   .btn-musteri {
+      /* تم إضافة اللون البرتقالي لهنا */
       background: #fff;
-      color: #FF7043; 
-      border: 1px solid #FF7043;
+      color: var(--button-accent); 
+      border: 1px solid var(--button-accent);
   }
   .welcome-actions-grid {
       display: grid;
@@ -661,6 +675,7 @@
       max-width: 370px;
   }
   .action-box {
+      /* تم إضافة التأكيد البرتقالي لكبسات الخدمات السريعة */
       background: #fdfdfd;
       border: 1px solid #eee;
       padding: 10px;
@@ -673,6 +688,10 @@
       flex-direction: column;
       justify-content: space-between;
       align-items: center;
+      transition: border-color 0.2s;
+  }
+  .action-box:active {
+      border: 1px solid var(--button-accent);
   }
   .action-box .icon-svg {
       width: 25px; height: 25px; fill: var(--kuveyt-mid);
@@ -773,26 +792,33 @@
   }
 
   .login-tabs-btn-green {
+      /* تم تغيير اللون الأساسي ليتطابق مع الأخضر الثابت */
       width: calc(100% - 36px);
       margin: 0 18px 15px;
       padding: 16px;
       border-radius: 10px;
-      background: var(--kuveyt-mid);
+      background: var(--kuveyt-mid); 
       color: #fff;
       font-size: 16px;
       font-weight: 700;
   }
   .login-tabs-btn-secondary {
+      /* تم إضافة اللون البرتقالي لهنا */
       width: calc(100% - 36px);
       margin: 0 18px 15px;
       padding: 16px;
       border-radius: 10px;
       background: #f7f7f7;
-      color: #FF7043;
+      color: var(--button-accent); /* استخدام المتغير الجديد */
       font-size: 16px;
       font-weight: 700;
       border: 1px solid #eee;
   }
+  .login-tabs-btn-secondary:active {
+      transform: scale(0.98);
+      background-color: #eee;
+  }
+
 
   /* --- NEW: Transfer View Styles --- */
   #transfer-view {
@@ -812,6 +838,7 @@
       text-align: right;
   }
   .transfer-button-green {
+      /* تم إضافة اللون البرتقالي لهنا */
       width: 100%;
       padding: 15px;
       background-color: var(--kuveyt-mid);
@@ -867,26 +894,25 @@
         <div class="welcome-title">
              Kuveyt Türk Mobil'e<br>Hoş Geldiniz
         </div>
-
-        <button id="btn-show-login-tabs" class="welcome-button btn-giris">
+        <button id="btn-show-login-tabs" class="welcome-button btn-giris btn-orange-accent">
             Giriş (تسجيل الدخول) </button>
         <button class="welcome-button btn-musteri">
             Müşteri Olmak İstiyorum
         </button>
         
         <div class="welcome-actions-grid">
-            <div class="action-box">
+            <button class="action-box">
                  <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
                  Hesapla (حساب)
-            </div>
-            <div class="action-box">
+            </button>
+            <button class="action-box">
                 <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 8V4l-8 8 8 8v-4h8V8z" fill="currentColor"/></svg>
                  fast <br> İşlemleri
-            </div>
-            <div class="action-box">
+            </button>
+            <button class="action-box">
                  <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
                  ATM / E-Dekont
-            </div>
+            </button>
         </div>
     </div>
 </div>
@@ -921,7 +947,7 @@
             </div>
         </div>
         
-        <button id="manual-login-btn-tabs" class="login-tabs-btn-green">Giriş (تسجيل الدخول)</button>
+        <button id="manual-login-btn-tabs" class="login-tabs-btn-green btn-orange-accent">Giriş (تسجيل الدخول)</button>
         <button class="login-tabs-btn-secondary">Şifremi Unuttum / Anında Şifre</button>
         <button class="login-tabs-btn-secondary">SIM Bloke Kaldır</button>
         <button class="login-tabs-btn-secondary" onclick="showScreen('welcome-screen')">Müşteri Olmak İstiyorum</button>
@@ -966,8 +992,8 @@
 
       <div class="primary-account-box">
         <div class="tab-bar">
-            <span class="tab-item active" onclick="switchTab('My Account')">حساباتي</span>
-            <span class="tab-item" onclick="switchTab('My Card')">بطاقتي</span>
+            <button class="tab-item active" onclick="switchTab('My Account')">حساباتي</button>
+            <button class="tab-item" onclick="switchTab('My Card')">بطاقتي</button>
         </div>
         
         <div id="my-account-tab-content">
@@ -1054,33 +1080,33 @@
         </div>
         <div class="fast-transactions-grid">
             
-            <div class="fast-transaction-item" onclick="navigate('Investment_Funds')">
+            <button class="fast-transaction-item" onclick="navigate('Investment_Funds')">
                 <div class="item-icon" style="background: #5D4037;">
                     <svg class="icon-svg" viewBox="0 0 24 24"><path d="M16 6l2.29 2.29-4.88 4.88-3.29-3.29-7.29 7.29L3 19l5.5-5.5 3.29 3.29 4.88-4.88L20 10V6z"/></svg>
                 </div>
                 <span>الاستثمار</span>
-            </div>
+            </button>
             
-            <div class="fast-transaction-item" onclick="navigate('School_Payments')">
+            <button class="fast-transaction-item" onclick="navigate('School_Payments')">
                 <div class="item-icon" style="background: #1976D2;">
                      <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
                 </div>
                 <span>دفع فواتير/رسوم</span>
-            </div>
+            </button>
             
-            <div class="fast-transaction-item" onclick="navigate('Saving_Accounts')">
+            <button class="fast-transaction-item" onclick="navigate('Saving_Accounts')">
                 <div class="item-icon" style="background: #FFC000;">
                     <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 8-3.59 8-8s-3.59-8-8-8zm1 15h-2v-6h-2V9h4v8z"/></svg>
                 </div>
                 <span>الادخار والتوفير</span>
-            </div>
+            </button>
             
-            <div class="fast-transaction-item" onclick="navigate('MoneyTransfer')">
+            <button class="fast-transaction-item" onclick="navigate('MoneyTransfer')">
                 <div class="item-icon" style="background: var(--kuveyt-mid);">
                      <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 8V4l-8 8 8 8v-4h8V8z" fill="currentColor"/></svg>
                 </div>
                 <span>تحويل الأموال</span>
-            </div>
+            </button>
         </div>
       </div>
       
@@ -1171,7 +1197,7 @@
             
             <input type="text" class="transfer-input-field" placeholder="Açıklama (الوصف)">
             
-            <button class="transfer-button-green" onclick="handleTransfer()">Devam Et (استمرار)</button>
+            <button class="transfer-button-green btn-orange-accent" onclick="handleTransfer()">Devam Et (استمرار)</button>
         </div>
 
     </div>
@@ -1180,36 +1206,36 @@
 
 
   <div class="app-navbar">
-    <div class="nav-item nav-item-active" id="nav-home" onclick="navigate('Home')">
+    <button class="nav-item nav-item-active" id="nav-home" onclick="navigate('Home')">
       <span class="nav-icon-wrapper">
           <svg class="icon-svg" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" fill="currentColor"/></svg>
       </span>
       <span>الرئيسية</span>
-    </div>
-    <div class="nav-item" id="nav-fx" onclick="navigate('FX')">
+    </button>
+    <button class="nav-item" id="nav-fx" onclick="navigate('FX')">
       <span class="nav-icon-wrapper">
           <svg class="icon-svg" viewBox="0 0 24 24"><path d="M11.9 2C6.4 2 2 6.4 2 11.9s4.4 9.9 9.9 9.9 9.9-4.4 9.9-9.9S17.4 2 11.9 2zm0 18.2c-4.6 0-8.3-3.7-8.3-8.3s3.7-8.3 8.3-8.3 8.3 3.7 8.3 8.3-3.7 8.3-8.3 8.3zM13 7h-2v4H7v2h4v4h2v-4h4v-2h-4V7z" fill="currentColor"/></svg>
       </span>
       <span>صرف/استثمار</span>
-    </div>
-    <div class="nav-item" id="nav-status" onclick="navigate('MyStatus')">
+    </button>
+    <button class="nav-item" id="nav-status" onclick="navigate('MyStatus')">
       <span class="nav-icon-wrapper">
           <svg class="icon-svg" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z" fill="currentColor"/></svg>
       </span>
       <span>وضعي المالي</span>
-    </div>
-    <div class="nav-item" id="nav-transfer" onclick="navigate('MoneyTransfer')">
+    </button>
+    <button class="nav-item" id="nav-transfer" onclick="navigate('MoneyTransfer')">
       <span class="nav-icon-wrapper">
           <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 8V4l-8 8 8 8v-4h8V8z" fill="currentColor"/></svg>
       </span>
       <span>تحويل الأموال</span>
-    </div>
-    <div class="nav-item" id="nav-menu" onclick="navigate('Menu')">
+    </button>
+    <button class="nav-item" id="nav-menu" onclick="navigate('Menu')">
       <span class="nav-icon-wrapper">
           <svg class="icon-svg" viewBox="0 0 24 24"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z" fill="currentColor"/></svg>
       </span>
       <span>القائمة</span>
-    </div>
+    </button>
   </div>
 
 </div> 
