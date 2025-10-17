@@ -20,6 +20,9 @@
     --shadow-color: rgba(0, 122, 62, 0.15);
     /* NEW: Accent Color for Buttons (Orange Red) */
     --button-accent: #FF7043; /* البرتقالي الذي تم اختياره للتأكيد على الأزرار */
+    
+    /* NEW COLOR: اللون الفيروزي الغامق (من الخلفية التي أرسلتها) */
+    --kuveyt-teal-dark: #008080; 
   }
   html,body{
     height:100%;
@@ -53,7 +56,6 @@
   .btn-orange-accent:active {
       background: #E65100 !important; /* لون أغمق عند الضغط */
   }
-
 
   /* --- GLOBAL APP INTERFACE STYLES --- */
   #app-container {
@@ -131,7 +133,9 @@
     flex-direction: column;
     align-items:center; 
     justify-content:center;
-    background: linear-gradient(180deg, var(--kuveyt-mid) 0%, var(--kuveyt-deep) 100%);
+    /* ************* التعديل هنا: استخدام اللون الفيروزي الثابت ************* */
+    background: var(--kuveyt-teal-dark);
+    /* ******************************************************************* */
     z-index:900;
     padding-top: 50px; /* Space for the logo/title */
   }
@@ -819,6 +823,53 @@
       background-color: #eee;
   }
 
+  /* --- NEW: Language Selector Styles --- */
+  #language-select-btn {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: #f0f0f0;
+      border: 1px solid #ddd;
+      color: #444;
+      font-size: 14px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+  }
+  #language-menu {
+      position: absolute;
+      top: 100px;
+      right: 25px; /* يظهر على اليمين بناءً على تصميم RTL */
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      z-index: 970;
+      display: none;
+      width: 150px;
+      overflow: hidden;
+      text-align: right;
+  }
+  .language-item {
+      padding: 12px 15px;
+      cursor: pointer;
+      font-size: 14px;
+      color: #444;
+      border-bottom: 1px solid #eee;
+      transition: background-color 0.2s;
+  }
+  .language-item:last-child {
+      border-bottom: none;
+  }
+  .language-item:hover {
+      background: #f5f5f5;
+  }
+  .language-item.active {
+      font-weight: 700;
+      color: var(--kuveyt-deep);
+  }
+
 
   /* --- NEW: Transfer View Styles --- */
   #transfer-view {
@@ -881,6 +932,12 @@
         Kuveyt Türk Mobil
     </div>
 </div>
+
+<div id="language-menu">
+    <div class="language-item active" data-lang="ar">العربية (Arabic)</div>
+    <div class="language-item" data-lang="tr">Türkçe (Turkish)</div>
+</div>
+
 <div id="welcome-screen">
     <div class="welcome-content">
         <div style="height: 20px;"></div> 
@@ -888,7 +945,7 @@
         <div style="display: flex; justify-content: space-between; align-items: flex-start;">
             <div class="welcome-logo">
                 </div>
-            <div style="padding: 5px 10px; border: 1px solid #ddd; border-radius: 8px; font-size: 12px; color: #555;">TR</div>
+            <button id="language-select-btn">AR</button>
         </div>
         
         <div class="welcome-title">
@@ -1255,6 +1312,9 @@ const bireyselContent = document.getElementById('bireysel-content');
 const kurumsalContent = document.getElementById('kurumsal-content');
 const manualLoginBtnTabs = document.getElementById('manual-login-btn-tabs');
 const btnShowLoginTabs = document.getElementById('btn-show-login-tabs');
+const languageSelectBtn = document.getElementById('language-select-btn');
+const languageMenu = document.getElementById('language-menu');
+const languageItems = document.querySelectorAll('.language-item');
 
 
 // **********************************************
@@ -1402,6 +1462,7 @@ function showScreen(screenId) {
     // إخفاء جميع الشاشات أولاً
     Object.values(screens).forEach(screen => screen.style.display = 'none');
     mainContent.style.display = 'none';
+    languageMenu.style.display = 'none'; // إخفاء قائمة اللغة دائماً عند التنقل بين الشاشات الرئيسية
 
     // عرض الشاشة المطلوبة
     if (screens[screenId]) {
@@ -1477,6 +1538,44 @@ function handleLoginAttempt() {
 }
 
 
+// --- LANGUAGE SELECTOR LOGIC (NEW) ---
+
+function toggleLanguageMenu() {
+    if (languageMenu.style.display === 'block') {
+        languageMenu.style.display = 'none';
+    } else {
+        languageMenu.style.display = 'block';
+    }
+}
+
+function selectLanguage(event) {
+    const lang = event.target.dataset.lang;
+    
+    languageItems.forEach(item => item.classList.remove('active'));
+    event.target.classList.add('active');
+    
+    // ** هذا الكود وهمي لتغيير الواجهة **
+    if (lang === 'ar') {
+        // تغيير محتوى الواجهة الترحيبية للعربية (للتوضيح فقط)
+        document.querySelector('.welcome-title').innerHTML = "مرحباً بك في<br>Kuveyt Türk موبايل";
+        document.getElementById('btn-show-login-tabs').innerHTML = "تسجيل الدخول (Giriş)";
+        languageSelectBtn.textContent = 'ع'; // تغيير النص على الزر
+        document.documentElement.setAttribute('lang', 'ar');
+        document.documentElement.style.direction = 'rtl';
+    } else if (lang === 'tr') {
+        // تغيير محتوى الواجهة الترحيبية للتركية (للتوضيح فقط)
+        document.querySelector('.welcome-title').innerHTML = "Kuveyt Türk Mobil'e<br>Hoş Geldiniz";
+        document.getElementById('btn-show-login-tabs').innerHTML = "Giriş (تسجيل الدخول)";
+        languageSelectBtn.textContent = 'TR'; // تغيير النص على الزر
+        document.documentElement.setAttribute('lang', 'tr');
+        document.documentElement.style.direction = 'ltr';
+    }
+    
+    // إخفاء القائمة
+    languageMenu.style.display = 'none';
+}
+
+
 // --- NAVIGATION FOR MAIN CONTENT (Kept from previous code) ---
 
 // إضافة واجهة التحويل إلى قائمة العرض
@@ -1545,6 +1644,10 @@ loginTabs.forEach(tab => {
     tab.onclick = handleTabSwitch;
 });
 manualLoginBtnTabs.onclick = handleLoginAttempt;
+languageSelectBtn.onclick = toggleLanguageMenu;
+languageItems.forEach(item => {
+    item.onclick = selectLanguage;
+});
 
 
 // --- INITIALIZATION ON LOAD ---
