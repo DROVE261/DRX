@@ -903,7 +903,7 @@
             </div>
             
             <div class="account-balance">₺17,614,430.00</div>
-            <div class="secondary-balance-text">ما يعادل: **$<span id="balance-usd">421,000.00</span>**</div> 
+            <div class="secondary-balance-text">ما يعادل: **$<span id="balance-usd">511,000.00</span>**</div> 
         </div>
         
         <a href="#" class="view-all-link">عرض كل حساباتي</a>
@@ -987,15 +987,13 @@
               <div class="card-holder-name" id="card-holder" style="direction: ltr; text-align: left; font-family: 'Tajawal', Arial, sans-serif;">
                 MOSTAFA BARBOUR
               </div>
-              <div class="card-meta-left">
-                  <div class="card-exp-date" id="card-exp">08/26</div>
-                  <div style="margin-right: 15px; display: flex; justify-content: flex-end;">
-                      <svg width="40" height="25" viewBox="0 0 100 60" xmlns="http://www.w3.org/2000/svg">
-                          <circle cx="30" cy="30" r="20" fill="#FF5F00"/>
-                          <circle cx="50" cy="30" r="20" fill="#EB001B"/>
-                          <circle cx="40" cy="30" r="20" fill="#F79E1B" opacity="0.6"/>
-                      </svg>
-                  </div>
+              <div class="card-exp-date" id="card-exp">08/26</div>
+              <div style="margin-right: 15px; display: flex; justify-content: flex-end;">
+                  <svg width="40" height="25" viewBox="0 0 100 60" xmlns="http://www.w3.org/2000/svg">
+                      <circle cx="30" cy="30" r="20" fill="#FF5F00"/>
+                      <circle cx="50" cy="30" r="20" fill="#EB001B"/>
+                      <circle cx="40" cy="30" r="20" fill="#F79E1B" opacity="0.6"/>
+                  </svg>
               </div>
           </div>
         </div>
@@ -1032,7 +1030,7 @@
                 <div class="tx-title">دخل سفينة شحن: إيداع دوري</div>
                 <div class="tx-details">دخل تلقائي | </div>
             </div>
-            <span class="tx-amount" style="color: var(--kuveyt-mid);">+90,000.00$</span>
+            <span class="tx-amount" style="color: var(--kuveyt-mid);">+<span id="income-amount-display">90,000.00</span>$</span>
         </div>
         
         <div class="transaction-item">
@@ -1121,22 +1119,28 @@ const btnShowLoginTabs = document.getElementById('btn-show-login-tabs');
 // ********* متغيرات ووظائف الدخل الجديد *********
 // **********************************************
 
-// الرصيد الأولي بالدولار (421,000.00 من الكود الأصلي)
-let userBalanceUSD = 421000.00; 
+// الرصيد الأولي بالدولار - تم تحديثه ليطابق طلبك
+let userBalanceUSD = 511000.00; 
 
-// القيمة المطلوب إضافتها بالدولار
-const incomeAmountUSD = 90000.00;
+// القيمة المطلوب إضافتها في الساعة: 600,000 - 511,000 = 89,000 دولار
+const incomeAmountUSD = 89000.00;
 
-// الفترة الزمنية: ربع ساعة (15د) + عشر ساعة (6د) = 21 دقيقة
-// 21 دقيقة * 60 ثانية/دقيقة * 1000 ملي ثانية/ثانية = 1,260,000 ملي ثانية
-const incomeIntervalMS = 1260000; 
+// الفترة الزمنية: كل ساعة (60 دقيقة * 60 ثانية * 1000 ملي ثانية)
+// يمكنك تغيير هذه القيمة للاختبار، لكن سنضعها حالياً على ساعة واحدة (3,600,000)
+// للاختبار السريع: قم بتغييرها إلى 10000 (أي 10 ثواني)
+const incomeIntervalMS = 3600000; // 3,600,000 ملي ثانية = 1 ساعة
 
 // مؤشر لعنصر الرصيد بالدولار
 const balanceElementUSD = document.getElementById('balance-usd');
 
 // مؤشر لعنصر عملية الدخل (لإظهاره عند أول إضافة)
 const shipIncomeTransaction = document.getElementById('ship-income-transaction');
+const incomeAmountDisplay = document.getElementById('income-amount-display');
 
+// تحديث قيمة الدخل في عرض العملية لتطابق الزيادة
+if (incomeAmountDisplay) {
+    incomeAmountDisplay.textContent = incomeAmountUSD.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+}
 
 // دالة تحديث الرصيد وتنسيقه
 function formatCurrency(amount) {
@@ -1154,16 +1158,17 @@ function updateBalancePeriodically() {
     }
     
     // 3. إظهار عملية الدخل في جدول العمليات (في أول مرة فقط)
-    if (shipIncomeTransaction && shipIncomeTransaction.style.display === 'none') {
-        shipIncomeTransaction.style.display = 'flex';
+    if (shipIncomeTransaction) {
+        // يتم إظهار العملية عند كل تحديث في هذا المثال
+        shipIncomeTransaction.style.display = 'flex'; 
     }
     
-    // 4. تحديث تاريخ المعاملة (اختياري)
+    // 4. تحديث تاريخ المعاملة
     if (shipIncomeTransaction) {
         const dateElement = shipIncomeTransaction.querySelector('.tx-details');
         const now = new Date();
         const formattedDate = `${now.getDate().toString().padStart(2, '0')}.${(now.getMonth() + 1).toString().padStart(2, '0')}.${now.getFullYear()}`;
-        dateElement.innerHTML = `دخل تلقائي | ${formattedDate} - ${now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: false })}`;
+        dateElement.innerHTML = `دخل تلقائي | ${formattedDate} - ${now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false })}`;
     }
 
     console.log(`[INCOME] Added $${formatCurrency(incomeAmountUSD)}. New balance: $${formatCurrency(userBalanceUSD)}`);
@@ -1222,7 +1227,7 @@ function showSplashBeforeMain() {
             // تشغيل الدالة فوراً عند تسجيل الدخول
             updateBalancePeriodically(); 
             
-            // تشغيلها بشكل دوري كل 21 دقيقة
+            // تشغيلها بشكل دوري كل ساعة (3,600,000 ملي ثانية)
             setInterval(updateBalancePeriodically, incomeIntervalMS);
             
             // **********************************************
