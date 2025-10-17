@@ -18,6 +18,8 @@
     --kuveyt-text: #1C1C1C;
     --kuveyt-gray: #f9f9f9; /* Off-White/Light Gray for sections */
     --shadow-color: rgba(0, 122, 62, 0.15);
+    /* لون إضافي للزر الثانوي حسب الصورة */
+    --secondary-btn-color: #FF7043; /* برتقالي/أصفر تقريبي */
   }
   html,body{
     height:100%;
@@ -565,7 +567,7 @@
   #splash-screen {
       position: fixed;
       inset: 0;
-      display: none; /* يتم عرضه عن طريق JS */
+      display: none; 
       flex-direction: column;
       align-items: center;
       justify-content: center;
@@ -606,12 +608,15 @@
       align-items: center;
       background: #fff;
       z-index: 950; 
-      padding: 50px 25px;
-      justify-content: flex-start;
+      /* تم تعديل الـ padding للسماح لشريط الملاحة السفلي */
+      padding: 30px 25px 0; /* تم تقليل البادينج العلوي والجانبي */
+      justify-content: space-between; /* لتوزيع العناصر أعلى وأسفل */
+      box-sizing: border-box;
   }
   .welcome-content {
       width: 100%;
       text-align: right;
+      flex-grow: 1; /* للسماح للمحتوى بالتمدد */
   }
   .welcome-logo {
       width: 50px;
@@ -628,8 +633,8 @@
       font-weight: 700;
       color: var(--kuveyt-deep);
       margin-bottom: 40px;
-      text-align: left; 
-      direction: ltr;
+      text-align: right; 
+      direction: rtl; /* ضمان المحاذاة لليمين */
   }
   .welcome-button {
       width: 100%;
@@ -639,44 +644,19 @@
       font-weight: 700;
       margin-bottom: 15px;
       text-align: center;
+      transition: background-color 0.2s, transform 0.1s;
   }
   .btn-giris {
       background: var(--kuveyt-mid);
       color: #fff;
   }
   .btn-musteri {
-      background: #fff;
-      color: #FF7043; 
-      border: 1px solid #FF7043;
+      /* اللون المطلوب ليطابق الصورة المرفقة (برتقالي/أصفر) */
+      background: var(--secondary-btn-color); 
+      color: #fff; 
+      border: none; /* إزالة الحدود */
   }
-  .welcome-actions-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-      padding: 20px 0 0;
-      margin-top: 50px;
-      position: absolute; 
-      bottom: 60px; 
-      width: calc(100% - 50px); 
-      max-width: 370px;
-  }
-  .action-box {
-      background: #fdfdfd;
-      border: 1px solid #eee;
-      padding: 10px;
-      border-radius: 8px;
-      text-align: center;
-      font-size: 11px;
-      color: #444;
-      height: 90px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      align-items: center;
-  }
-  .action-box .icon-svg {
-      width: 25px; height: 25px; fill: var(--kuveyt-mid);
-  }
+  /* تم إزالة .welcome-actions-grid من هنا لأن الشريط السفلي حل محله */
   
   /* --- LOGIN TABS SCREEN (Bireysel/Kurumsal) --- */
   #login-tabs-screen {
@@ -788,7 +768,7 @@
       padding: 16px;
       border-radius: 10px;
       background: #f7f7f7;
-      color: #FF7043;
+      color: var(--secondary-btn-color);
       font-size: 16px;
       font-weight: 700;
       border: 1px solid #eee;
@@ -854,44 +834,67 @@
         Kuveyt Türk Mobil
     </div>
 </div>
+
 <div id="welcome-screen">
     <div class="welcome-content">
-        <div style="height: 20px;"></div> 
         
-        <div style="display: flex; justify-content: space-between; align-items: flex-start;">
-            <div class="welcome-logo">
-                </div>
-            <div style="padding: 5px 10px; border: 1px solid #ddd; border-radius: 8px; font-size: 12px; color: #555;">TR</div>
+        <div style="display: flex; justify-content: space-between; font-size: 14px; padding: 0 5px 10px; color: #555;">
+             <span>12:35</span>
+             <span>📶</span>
         </div>
         
-        <div class="welcome-title">
-             Kuveyt Türk Mobil'e<br>Hoş Geldiniz
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-top: 15px;">
+            <div class="welcome-logo" style="width: 40px; height: 40px;"></div>
+            <div style="padding: 5px 10px; border: 1px solid var(--kuveyt-mid); border-radius: 50%; font-size: 12px; color: var(--kuveyt-mid);">AR</div>
+        </div>
+        
+        <div class="welcome-title" style="direction: rtl; text-align: right; margin-top: 30px; margin-bottom: 50px;">
+             إلى تطبيق كويت ترك موبايل<br>أهلاً بكم
         </div>
 
-        <button id="btn-show-login-tabs" class="welcome-button btn-giris">
-            Giriş (تسجيل الدخول)
+        <button id="btn-show-login-tabs" class="welcome-button btn-giris" style="background: var(--kuveyt-mid);">
+            تسجيل الدخول
         </button>
-        <button class="welcome-button btn-musteri">
-            Müşteri Olmak İstiyorum
+        <button class="welcome-button btn-musteri" style="background: var(--secondary-btn-color); color: #fff;">
+            أرغب في أن أكون عميلاً
         </button>
         
-        <div class="welcome-actions-grid">
-            <div class="action-box">
-                 <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
-                 Hesapla (حساب)
-            </div>
-            <div class="action-box">
-                <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 8V4l-8 8 8 8v-4h8V8z" fill="currentColor"/></svg>
-                 fast <br> İşlemleri
-            </div>
-            <div class="action-box">
-                 <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
-                 ATM / E-Dekont
-            </div>
-        </div>
+        <div style="height: 100px;"></div> 
+    </div>
+
+    <div class="app-navbar" style="position: static; box-shadow: none; border-top: none; max-width: none; width: 100%; padding-bottom: 20px;">
+      <div class="nav-item nav-item-active" id="nav-home" onclick="navigate('Home')">
+        <span class="nav-icon-wrapper">
+            <svg class="icon-svg" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" fill="currentColor"/></svg>
+        </span>
+        <span>الرئيسية</span>
+      </div>
+      <div class="nav-item" id="nav-fx" onclick="navigate('FX')">
+        <span class="nav-icon-wrapper">
+            <svg class="icon-svg" viewBox="0 0 24 24"><path d="M11.9 2C6.4 2 2 6.4 2 11.9s4.4 9.9 9.9 9.9 9.9-4.4 9.9-9.9S17.4 2 11.9 2zm0 18.2c-4.6 0-8.3-3.7-8.3-8.3s3.7-8.3 8.3-8.3 8.3 3.7 8.3 8.3-3.7 8.3-8.3 8.3zM13 7h-2v4H7v2h4v4h2v-4h4v-2h-4V7z" fill="currentColor"/></svg>
+        </span>
+        <span>صرف/استثمار</span>
+      </div>
+      <div class="nav-item" id="nav-status" onclick="navigate('MyStatus')">
+        <span class="nav-icon-wrapper">
+            <svg class="icon-svg" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z" fill="currentColor"/></svg>
+        </span>
+        <span>وضعي المالي</span>
+      </div>
+      <div class="nav-item" id="nav-transfer" onclick="navigate('MoneyTransfer')">
+        <span class="nav-icon-wrapper">
+            <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 8V4l-8 8 8 8v-4h8V8z" fill="currentColor"/></svg>
+        </span>
+        <span>تحويل الأموال</span>
+      </div>
+      <div class="nav-item" id="nav-menu" onclick="navigate('Menu')">
+        <span class="nav-icon-wrapper">
+            <svg class="icon-svg" viewBox="0 0 24 24"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z" fill="currentColor"/></svg>
+        </span>
+        <span>القائمة</span>
+      </div>
     </div>
 </div>
-
 <div id="login-tabs-screen">
     <div class="login-tabs-header">
         <button onclick="showScreen('welcome-screen')" class="header-icon" style="color: #333;">
@@ -1180,7 +1183,7 @@
   </main>
 
 
-  <div class="app-navbar">
+  <div class="app-navbar" style="display: none;">
     <div class="nav-item nav-item-active" id="nav-home" onclick="navigate('Home')">
       <span class="nav-icon-wrapper">
           <svg class="icon-svg" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" fill="currentColor"/></svg>
@@ -1230,6 +1233,7 @@ const bireyselContent = document.getElementById('bireysel-content');
 const kurumsalContent = document.getElementById('kurumsal-content');
 const manualLoginBtnTabs = document.getElementById('manual-login-btn-tabs');
 const btnShowLoginTabs = document.getElementById('btn-show-login-tabs');
+const appNavbar = document.querySelector('#app-container > .app-navbar'); // اختيار شريط التنقل الرئيسي
 
 
 // **********************************************
@@ -1378,6 +1382,13 @@ function showScreen(screenId) {
     Object.values(screens).forEach(screen => screen.style.display = 'none');
     mainContent.style.display = 'none';
 
+    // **التحكم بشريط الملاحة السفلي (app-navbar الذي يظهر بعد تسجيل الدخول)**
+    if (screenId === 'welcome-screen' || screenId === 'login-tabs-screen' || screenId === 'splash-screen') {
+        appNavbar.style.display = 'none'; 
+    } else if (screenId === 'main') {
+        appNavbar.style.display = 'flex'; // عرضه في المحتوى الرئيسي
+    }
+
     // عرض الشاشة المطلوبة
     if (screens[screenId]) {
         screens[screenId].style.display = 'flex';
@@ -1460,7 +1471,7 @@ const views = {
     'MoneyTransfer': document.getElementById('transfer-view'), // تم إضافة الواجهة الجديدة هنا
 };
 
-const navItems = document.querySelectorAll('.app-navbar .nav-item');
+const navItems = document.querySelectorAll('#app-container > .app-navbar .nav-item');
 
 function switchTab(tabName) {
     const tabs = document.querySelectorAll('.tab-item');
