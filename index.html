@@ -930,7 +930,7 @@
 
     <div id="kurumsal-content" style="display: none; width: 100%; text-align: center;">
         <h3 style="color: #007A3E; margin-top: 50px;">واجهة تسجيل دخول الشركات (Kurumsal)</h3>
-        <p style="color: #555;">يرجى التبديل إلى "Bireysel" لتسجيل الدخول التجريبي.</p>
+        <p style="color: #555;">يرجى التبديل إلى "Bireysel" لتسجيل الدخول.</p>
     </div>
 
 </div>
@@ -980,8 +980,8 @@
                     </div>
                 </div>
                 
-                <div class="account-balance" id="main-account-tl">₺17,614,430.00</div>
-                <div class="secondary-balance-text">ما يعادل: **$<span id="balance-usd">511,000.00</span>**</div> 
+                <div class="account-balance" id="main-account-tl">₺17,640,000.00</div>
+                <div class="secondary-balance-text">ما يعادل: **$<span id="balance-usd">421,706.91</span>**</div> 
             </div>
             
             <a href="#" class="view-all-link">عرض كل حساباتي</a>
@@ -989,7 +989,7 @@
         
         <div class="card-section-wrapper" style="display:none;" id="my-card-tab-content">
             
-            <h3 class="card-box-header">بطاقاتي المتوفرة (رصيد وهمي)</h3>
+            <h3 class="card-box-header">بطاقاتي المتوفرة</h3>
             
             <div class="card-container">
                 <div class="card-title">بطاقة الائتمان (**** 5555)</div>
@@ -1007,11 +1007,11 @@
                 <div class="card-title" style="color: var(--kuveyt-mid);">بطاقة التوفير الممتازة (**** 4545)</div>
                 <div class="card-details-row">
                     <div class="card-info-label">الرصيد المتاح (ل.ت)</div>
-                    <div class="card-balance-tl" id="card-balance-1trillion">1,761,443,000,000.00 TL</div>
+                    <div class="card-balance-tl" id="card-balance-1trillion">17,640,000.00 TL</div>
                 </div>
                 <div class="card-details-row">
                     <div class="card-info-label">القيمة التقريبية (دولار)</div>
-                    <div class="card-balance-usd">$42,106,666,666.67</div>
+                    <div class="card-balance-usd">$421,706.91</div>
                 </div>
             </div>
 
@@ -1027,10 +1027,6 @@
                 </div>
             </div>
             
-            <div class="card-note" style="text-align: center; font-size: 12px; color: #999; margin-top: 10px;">
-                *العمليات على البطاقة الممتازة سيتم خصمها من رصيدها الوهمي.
-            </div>
-
         </div> </div>
       
       <div class="exclusive-section">
@@ -1240,9 +1236,11 @@ const btnShowLoginTabs = document.getElementById('btn-show-login-tabs');
 // ********* متغيرات ووظائف الرصيد الوهمي *********
 // **********************************************
 
-// الرصيد الأولي لـ TL القابل للخصم (البطاقة الثانية)
-// 1,761,443,000,000.00 TL
-let cardBalanceTrillionTL = 1761443000000.00; 
+// **التعديل هنا ليعكس 17,640,000 ل.ت**
+let cardBalanceTrillionTL = 17640000.00; 
+
+// سعر الصرف الحالي (تم استخدامه في الحسابات)
+const EXCHANGE_RATE_TL_USD = 41.83; 
 
 // مؤشر لعنصر رصيد البطاقة الثانية (القابلة للخصم)
 const cardBalanceElementTrillion = document.getElementById('card-balance-1trillion');
@@ -1255,7 +1253,9 @@ const incomeIntervalMS = 3600000;
 const balanceElementUSD = document.getElementById('balance-usd');
 const shipIncomeTransaction = document.getElementById('ship-income-transaction');
 const incomeAmountDisplay = document.getElementById('income-amount-display');
-let userBalanceUSD = 511000.00; 
+
+// حساب الرصيد الابتدائي بالدولار بناءً على القيمة الجديدة بالليرة التركية
+let userBalanceUSD = cardBalanceTrillionTL / EXCHANGE_RATE_TL_USD;
 
 if (incomeAmountDisplay) {
     incomeAmountDisplay.textContent = incomeAmountUSD.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
@@ -1276,12 +1276,23 @@ function formatTL(amount) {
 
 // الدالة التي تضيف الدخل وتحدث الشاشة (للحساب الرئيسي)
 function updateBalancePeriodically() {
+    // تحديث رصيد الليرة التركية
+    const incomeAmountTL = incomeAmountUSD * EXCHANGE_RATE_TL_USD;
+    cardBalanceTrillionTL += incomeAmountTL; 
+    
+    // تحديث رصيد الدولار
     userBalanceUSD += incomeAmountUSD;
 
     if (balanceElementUSD) {
         balanceElementUSD.textContent = formatCurrency(userBalanceUSD);
     }
     
+    // تحديث رصيد الحسابات المعروض
+    if (cardBalanceElementTrillion) {
+        cardBalanceElementTrillion.textContent = formatTL(cardBalanceTrillionTL);
+        document.getElementById('main-account-tl').textContent = formatTL(cardBalanceTrillionTL);
+    }
+
     if (shipIncomeTransaction) {
         shipIncomeTransaction.style.display = 'flex'; 
     }
@@ -1310,42 +1321,47 @@ function handleTransfer() {
 
     // 2. التحقق من أن الحساب هو القابل للخصم (البطاقة الممتازة)
     if (selectedAccountID !== 'card-balance-1trillion') {
-        alert("هذا نموذج تجريبي. يرجى اختيار 'بطاقة التوفير الممتازة' لتتمكن من خصم الرصيد الوهمي.");
+        alert("هذا نموذج. يرجى اختيار 'بطاقة التوفير الممتازة' لتتمكن من خصم الرصيد.");
         return;
     }
     
-    const balanceElement = document.getElementById(selectedAccountID);
     
-    // إزالة الفواصل والنص وتحويلها إلى رقم عشري
-    let currentBalance = parseFloat(balanceElement.textContent.replace(/[^0-9.]/g, '').replace(/,/g, ''));
-    
-    // 3. الخصم الوهمي
-    if (currentBalance < amount) {
-        alert("الرصيد غير كافٍ لإجراء هذا التحويل الوهمي.");
+    // 3. الخصم الوهمي من المتغير الرئيسي
+    if (cardBalanceTrillionTL < amount) {
+        alert("الرصيد غير كافٍ لإجراء هذا التحويل.");
         return;
     }
 
-    const newBalance = currentBalance - amount;
+    cardBalanceTrillionTL -= amount;
+    
+    // تحديث رصيد الدولار المقابل
+    userBalanceUSD = cardBalanceTrillionTL / EXCHANGE_RATE_TL_USD;
     
     // 4. تحديث الرصيد المعروض
-    balanceElement.textContent = formatTL(newBalance);
-    
-    // 5. تحديث رصيد الحساب الرئيسي المعروض أيضاً (وهمي)
-    // نعتبر أن الحساب الرئيسي هو نفسه حساب البطاقة الممتازة للتجربة
-    document.getElementById('main-account-tl').textContent = formatTL(newBalance);
+    document.getElementById(selectedAccountID).textContent = formatTL(cardBalanceTrillionTL);
+    document.getElementById('main-account-tl').textContent = formatTL(cardBalanceTrillionTL);
+    document.getElementById('balance-usd').textContent = formatCurrency(userBalanceUSD);
+
+    // تحديث قيمة الدولار المقابلة للبطاقة الممتازة
+    const cardBalanceUSDElement = document.querySelector('#my-card-tab-content .card-container[style*="border: 2px solid var(--kuveyt-mid)"] .card-balance-usd');
+    if (cardBalanceUSDElement) {
+        cardBalanceUSDElement.textContent = '$' + formatCurrency(userBalanceUSD);
+    }
 
     
-    // 6. إظهار رسالة النجاح الخضراء
+    // 5. إظهار رسالة النجاح الخضراء
     successMessage.style.display = 'block';
 
-    // 7. إخفاء رسالة النجاح والعودة لصفحة البطاقات بعد 3 ثوانٍ
+    // 6. إخفاء رسالة النجاح والعودة لصفحة البطاقات بعد 3 ثوانٍ
     setTimeout(() => {
         successMessage.style.display = 'none';
         navigate('Home'); 
-        // إعادة تفعيل الأيقونة النشطة على "تحويل الأموال" 
+        // التأكد من تفعيل أيقونة الصفحة الرئيسية
         document.getElementById('nav-home').classList.add('nav-item-active');
         document.getElementById('nav-transfer').classList.remove('nav-item-active');
         
+        // ** الرسالة التي يمكن استخدامها في السكرين شوت **
+        console.log(`\n\nإشعار التحويل:\n------------------\nالعملية: تحويل بنكي ناجح\nالمبلغ المحول: -₺${formatCurrency(amount)}\nالرصيد الجديد: ₺${formatCurrency(cardBalanceTrillionTL)}\n------------------\n\n`);
     }, 3000);
 }
 
