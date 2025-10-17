@@ -272,6 +272,40 @@
       color: var(--kuveyt-deep);
       border-color: var(--kuveyt-deep);
   }
+  
+  /* --- NEW CARDS SECTION STYLES --- */
+  .card-section-wrapper .card-container {
+      background: var(--kuveyt-gray);
+      border-radius: 10px;
+      padding: 15px;
+      margin-bottom: 15px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  }
+  .card-section-wrapper .card-details-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 5px 0;
+  }
+  .card-section-wrapper .card-info-label {
+      font-size: 0.9em;
+      color: #777;
+  }
+  .card-section-wrapper .card-balance-tl {
+      font-size: 1.2em;
+      font-weight: 800;
+      color: var(--kuveyt-deep);
+      direction: ltr;
+      text-align: left;
+  }
+  .card-section-wrapper .card-balance-usd {
+      font-size: 1em;
+      font-weight: 700;
+      color: #4CAF50; /* لون مختلف للدولار هنا */
+      direction: ltr;
+      text-align: left;
+  }
+
 
   .account-summary {
       background: var(--kuveyt-gray);
@@ -759,6 +793,53 @@
       font-weight: 700;
       border: 1px solid #eee;
   }
+
+  /* --- NEW: Transfer View Styles --- */
+  #transfer-view {
+    padding-bottom: 70px; /* لتجنب التداخل مع شريط التنقل */
+  }
+  .transfer-form-group {
+      padding: 15px 18px;
+  }
+  .transfer-input-field {
+      width: 100%;
+      padding: 15px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      margin-bottom: 15px;
+      box-sizing: border-box;
+      font-size: 1em;
+      text-align: right;
+  }
+  .transfer-button-green {
+      width: 100%;
+      padding: 15px;
+      background-color: var(--kuveyt-mid);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1.1em;
+      cursor: pointer;
+      margin-top: 10px;
+  }
+  /* رسالة النجاح الخضراء */
+  .success-message {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: #4CAF50; /* أخضر ساطع */
+      color: white;
+      padding: 25px 45px;
+      border-radius: 15px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+      z-index: 1000;
+      display: none; /* مخفي افتراضياً */
+      text-align: center;
+      font-size: 1.5em;
+      font-weight: bold;
+      transition: opacity 0.3s;
+  }
 </style>
 </head>
 <body>
@@ -855,6 +936,10 @@
 </div>
 
 
+<div id="success-message" class="success-message">
+    ✅ İşlem Başarılı! <br> (تم التحويل بنجاح)
+</div>
+
 <div id="app-container">
   <main id="main-content" aria-hidden="true" style="display:none;">
 
@@ -886,28 +971,67 @@
             <span class="tab-item" onclick="switchTab('My Card')">بطاقتي</span>
         </div>
         
-        <div class="account-summary">
-            <div class="account-header">
-                <div class="icon-text">
-                    <svg class="icon-svg" viewBox="0 0 24 24" style="fill: var(--kuveyt-mid);"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zM4 6h16v2H4V6zm0 12v-6h16v6H4z"/></svg>
-                    <span>حساب - ليرة تركية</span>
+        <div id="my-account-tab-content">
+            <div class="account-summary">
+                <div class="account-header">
+                    <div class="icon-text">
+                        <svg class="icon-svg" viewBox="0 0 24 24" style="fill: var(--kuveyt-mid);"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zM4 6h16v2H4V6zm0 12v-6h16v6H4z"/></svg>
+                        <span>حساب - ليرة تركية</span>
+                    </div>
                 </div>
-                <div class="actions">
-                    <button>
-                        <svg class="icon-svg" viewBox="0 0 24 24"><path d="M10 16h4c0-2-2-2-2-4s2-2 2-4h-4V6h4c2 0 4 2 4 4s-2 4-4 4h4v2h-4v2h4v2h-4c-2 0-4-2-4-4zM6 6h2v12H6V6z" fill="currentColor"/></svg>
-                    </button>
-                    <button>
-                        <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 4c-4.41 0-8 3.59-8 8s3.59 8 8 8 8-3.59 8-8-3.59-8-8-8zm0 14c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6z" fill="currentColor"/></svg>
-                    </button>
+                
+                <div class="account-balance" id="main-account-tl">₺17,614,430.00</div>
+                <div class="secondary-balance-text">ما يعادل: **$<span id="balance-usd">511,000.00</span>**</div> 
+            </div>
+            
+            <a href="#" class="view-all-link">عرض كل حساباتي</a>
+        </div>
+        
+        <div class="card-section-wrapper" style="display:none;" id="my-card-tab-content">
+            
+            <h3 class="card-box-header">بطاقاتي المتوفرة (رصيد وهمي)</h3>
+            
+            <div class="card-container">
+                <div class="card-title">بطاقة الائتمان (**** 5555)</div>
+                <div class="card-details-row">
+                    <div class="card-info-label">الحد المتاح (ل.ت)</div>
+                    <div class="card-balance-tl" id="card-limit-4m">4,300,000.00 TL</div>
+                </div>
+                <div class="card-details-row">
+                    <div class="card-info-label">القيمة التقريبية (دولار)</div>
+                    <div class="card-balance-usd">$102,787.23</div>
+                </div>
+            </div>
+
+            <div class="card-container" style="border: 2px solid var(--kuveyt-mid);">
+                <div class="card-title" style="color: var(--kuveyt-mid);">بطاقة التوفير الممتازة (**** 4545)</div>
+                <div class="card-details-row">
+                    <div class="card-info-label">الرصيد المتاح (ل.ت)</div>
+                    <div class="card-balance-tl" id="card-balance-1trillion">1,761,443,000,000.00 TL</div>
+                </div>
+                <div class="card-details-row">
+                    <div class="card-info-label">القيمة التقريبية (دولار)</div>
+                    <div class="card-balance-usd">$42,106,666,666.67</div>
+                </div>
+            </div>
+
+            <div class="card-container">
+                <div class="card-title">بطاقة Miles & Smiles (**** 4444)</div>
+                <div class="card-details-row">
+                    <div class="card-info-label">الحد المتاح (ل.ت)</div>
+                    <div class="card-balance-tl" id="card-limit-5m">5,320,000.00 TL</div>
+                </div>
+                <div class="card-details-row">
+                    <div class="card-info-label">القيمة التقريبية (دولار)</div>
+                    <div class="card-balance-usd">$127,175.71</div>
                 </div>
             </div>
             
-            <div class="account-balance">₺17,614,430.00</div>
-            <div class="secondary-balance-text">ما يعادل: **$<span id="balance-usd">511,000.00</span>**</div> 
-        </div>
-        
-        <a href="#" class="view-all-link">عرض كل حساباتي</a>
-      </div>
+            <div class="card-note" style="text-align: center; font-size: 12px; color: #999; margin-top: 10px;">
+                *العمليات على البطاقة الممتازة سيتم خصمها من رصيدها الوهمي.
+            </div>
+
+        </div> </div>
       
       <div class="exclusive-section">
         <div class="exclusive-header">
@@ -951,51 +1075,17 @@
             
             <div class="fast-transaction-item" onclick="navigate('Saving_Accounts')">
                 <div class="item-icon" style="background: #FFC000;">
-                    <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h-2V9h4v8z"/></svg>
+                    <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 8-3.59 8-8s-3.59-8-8-8zm1 15h-2v-6h-2V9h4v8z"/></svg>
                 </div>
                 <span>الادخار والتوفير</span>
             </div>
             
-            <div class="fast-transaction-item" onclick="navigate('Money_Transfer')">
+            <div class="fast-transaction-item" onclick="navigate('MoneyTransfer')">
                 <div class="item-icon" style="background: var(--kuveyt-mid);">
                      <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 8V4l-8 8 8 8v-4h8V8z" fill="currentColor"/></svg>
                 </div>
                 <span>تحويل الأموال</span>
             </div>
-        </div>
-      </div>
-      
-      <div class="card-section-wrapper" style="display:none;" id="card-view-details">
-        <h3 class="card-box-header">بطاقة Miles & Smiles</h3>
-        
-        <div class="miles-smiles-card" aria-hidden="false">
-          <div class="card-header">
-            <div class="chip" aria-hidden="true"></div>
-            <div class="logo-right">
-              KUVEYTTÜRK
-              <div>Private Platinum</div>
-            </div>
-          </div>
-          
-          <div class="miles-smiles-title" style="text-align: left; margin-top: -10px;">Miles & Smiles</div>
-
-          <div class="card-number" id="card-number" style="direction: ltr;">
-             5201 80 &bull;&bull;&bull;&bull; &bull;&bull;&bull;&bull; 7890
-          </div>
-          
-          <div class="card-meta">
-              <div class="card-holder-name" id="card-holder" style="direction: ltr; text-align: left; font-family: 'Tajawal', Arial, sans-serif;">
-                MOSTAFA BARBOUR
-              </div>
-              <div class="card-exp-date" id="card-exp">08/26</div>
-              <div style="margin-right: 15px; display: flex; justify-content: flex-end;">
-                  <svg width="40" height="25" viewBox="0 0 100 60" xmlns="http://www.w3.org/2000/svg">
-                      <circle cx="30" cy="30" r="20" fill="#FF5F00"/>
-                      <circle cx="50" cy="30" r="20" fill="#EB001B"/>
-                      <circle cx="40" cy="30" r="20" fill="#F79E1B" opacity="0.6"/>
-                  </svg>
-              </div>
-          </div>
         </div>
       </div>
       
@@ -1030,7 +1120,7 @@
                 <div class="tx-title">دخل سفينة شحن: إيداع دوري</div>
                 <div class="tx-details">دخل تلقائي | </div>
             </div>
-            <span class="tx-amount" style="color: var(--kuveyt-mid);">+<span id="income-amount-display">90,000.00</span>$</span>
+            <span class="tx-amount" style="color: var(--kuveyt-mid);">+<span id="income-amount-display">89,000.00</span>$</span>
         </div>
         
         <div class="transaction-item">
@@ -1060,35 +1150,66 @@
       </div>
     </div>
     
+    <div id="transfer-view" class="panel-view">
+        <div class="app-header">
+            <button onclick="navigate('Home')" class="header-icon" style="color: #333;">
+                <svg class="icon-svg" viewBox="0 0 24 24"><path d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6 1.41-1.41z" fill="currentColor"/></svg>
+            </button>
+            <h2>Para Transferi (تحويل الأموال)</h2>
+            <div></div>
+        </div>
+
+        <div class="info-bar">
+            تحويل الأموال بين الحسابات المحلية أو الدولية.
+        </div>
+        
+        <div class="transfer-form-group">
+            <select class="transfer-input-field" id="transfer-account-select">
+                <option value="" disabled selected>Hesap Seç (اختر حساب)</option>
+                <option value="card-balance-1trillion">بطاقة التوفير الممتازة (الرصيد القابل للخصم)</option>
+                <option value="card-limit-4m">بطاقة الائتمان (4,300,000.00 TL)</option>
+            </select>
+            
+            <input type="text" class="transfer-input-field" placeholder="IBAN">
+            
+            <input type="number" class="transfer-input-field" id="transfer-amount-input" placeholder="Tutar (المبلغ) - بالليرة التركية">
+            
+            <input type="text" class="transfer-input-field" placeholder="Açıklama (الوصف)">
+            
+            <button class="transfer-button-green" onclick="handleTransfer()">Devam Et (استمرار)</button>
+        </div>
+
+    </div>
+
   </main>
 
 
   <div class="app-navbar">
-    <div class="nav-item nav-item-active" onclick="navigate('Home')">
+    <div class="nav-item nav-item-active" id="nav-home" onclick="navigate('Home')">
       <span class="nav-icon-wrapper">
           <svg class="icon-svg" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" fill="currentColor"/></svg>
       </span>
       <span>الرئيسية</span>
     </div>
-    <div class="nav-item" onclick="navigate('FX')">
+    <div class="nav-item" id="nav-fx" onclick="navigate('FX')">
       <span class="nav-icon-wrapper">
           <svg class="icon-svg" viewBox="0 0 24 24"><path d="M11.9 2C6.4 2 2 6.4 2 11.9s4.4 9.9 9.9 9.9 9.9-4.4 9.9-9.9S17.4 2 11.9 2zm0 18.2c-4.6 0-8.3-3.7-8.3-8.3s3.7-8.3 8.3-8.3 8.3 3.7 8.3 8.3-3.7 8.3-8.3 8.3zM13 7h-2v4H7v2h4v4h2v-4h4v-2h-4V7z" fill="currentColor"/></svg>
       </span>
       <span>صرف/استثمار</span>
     </div>
-    <div class="nav-item" onclick="navigate('MyStatus')">
+    <div class="nav-item" id="nav-status" onclick="navigate('MyStatus')">
       <span class="nav-icon-wrapper">
           <svg class="icon-svg" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z" fill="currentColor"/></svg>
       </span>
       <span>وضعي المالي</span>
     </div>
-    <div class="nav-item" onclick="navigate('MoneyTransfer')">
+    <div class="nav-item" id="nav-transfer" onclick="navigate('MoneyTransfer')">
       <span class="nav-icon-wrapper">
           <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 8V4l-8 8 8 8v-4h8V8z" fill="currentColor"/></svg>
       </span>
       <span>تحويل الأموال</span>
     </div>
-    <div class="nav-item" onclick="navigate('Menu')">
+    <div class="nav-item" id="nav-menu" onclick="navigate('Menu')">
       <span class="nav-icon-wrapper">
           <svg class="icon-svg" viewBox="0 0 24 24"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z" fill="currentColor"/></svg>
       </span>
@@ -1116,54 +1237,55 @@ const btnShowLoginTabs = document.getElementById('btn-show-login-tabs');
 
 
 // **********************************************
-// ********* متغيرات ووظائف الدخل الجديد *********
+// ********* متغيرات ووظائف الرصيد الوهمي *********
 // **********************************************
 
-// الرصيد الأولي بالدولار - تم تحديثه ليطابق طلبك
-let userBalanceUSD = 511000.00; 
+// الرصيد الأولي لـ TL القابل للخصم (البطاقة الثانية)
+// 1,761,443,000,000.00 TL
+let cardBalanceTrillionTL = 1761443000000.00; 
 
-// القيمة المطلوب إضافتها في الساعة: 600,000 - 511,000 = 89,000 دولار
-const incomeAmountUSD = 89000.00;
-
-// الفترة الزمنية: كل ساعة (60 دقيقة * 60 ثانية * 1000 ملي ثانية)
-// يمكنك تغيير هذه القيمة للاختبار، لكن سنضعها حالياً على ساعة واحدة (3,600,000)
-// للاختبار السريع: قم بتغييرها إلى 10000 (أي 10 ثواني)
-const incomeIntervalMS = 3600000; // 3,600,000 ملي ثانية = 1 ساعة
-
-// مؤشر لعنصر الرصيد بالدولار
-const balanceElementUSD = document.getElementById('balance-usd');
-
-// مؤشر لعنصر عملية الدخل (لإظهاره عند أول إضافة)
-const shipIncomeTransaction = document.getElementById('ship-income-transaction');
-const incomeAmountDisplay = document.getElementById('income-amount-display');
+// مؤشر لعنصر رصيد البطاقة الثانية (القابلة للخصم)
+const cardBalanceElementTrillion = document.getElementById('card-balance-1trillion');
+// مؤشر لرسالة النجاح
+const successMessage = document.getElementById('success-message');
 
 // تحديث قيمة الدخل في عرض العملية لتطابق الزيادة
+const incomeAmountUSD = 89000.00; // قيمة وهمية من الكود الأصلي
+const incomeIntervalMS = 3600000;
+const balanceElementUSD = document.getElementById('balance-usd');
+const shipIncomeTransaction = document.getElementById('ship-income-transaction');
+const incomeAmountDisplay = document.getElementById('income-amount-display');
+let userBalanceUSD = 511000.00; 
+
 if (incomeAmountDisplay) {
     incomeAmountDisplay.textContent = incomeAmountUSD.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 }
 
-// دالة تحديث الرصيد وتنسيقه
+// دالة لتنسيق الأرقام بفاصلة الآلاف
 function formatCurrency(amount) {
+    if (isNaN(amount)) return '0.00';
+    // التأكد من أن الرقم ليس صفراً لكي يتم عرضه
+    if (amount <= 0) return '0.00'; 
     return amount.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 }
 
-// الدالة التي تضيف الدخل وتحدث الشاشة
+// دالة لتنسيق الليرة التركية
+function formatTL(amount) {
+    return formatCurrency(amount) + ' TL';
+}
+
+// الدالة التي تضيف الدخل وتحدث الشاشة (للحساب الرئيسي)
 function updateBalancePeriodically() {
-    // 1. إضافة المبلغ الجديد
     userBalanceUSD += incomeAmountUSD;
 
-    // 2. تحديث القيمة في HTML
     if (balanceElementUSD) {
         balanceElementUSD.textContent = formatCurrency(userBalanceUSD);
     }
     
-    // 3. إظهار عملية الدخل في جدول العمليات (في أول مرة فقط)
     if (shipIncomeTransaction) {
-        // يتم إظهار العملية عند كل تحديث في هذا المثال
         shipIncomeTransaction.style.display = 'flex'; 
     }
     
-    // 4. تحديث تاريخ المعاملة
     if (shipIncomeTransaction) {
         const dateElement = shipIncomeTransaction.querySelector('.tx-details');
         const now = new Date();
@@ -1174,8 +1296,62 @@ function updateBalancePeriodically() {
     console.log(`[INCOME] Added $${formatCurrency(incomeAmountUSD)}. New balance: $${formatCurrency(userBalanceUSD)}`);
 }
 
+// دالة التحويل الوهمية (المطلوبة)
+function handleTransfer() {
+    const selectedAccountID = document.getElementById('transfer-account-select').value;
+    const amountInput = document.getElementById('transfer-amount-input').value;
+    const amount = parseFloat(amountInput);
+
+    // 1. التحقق من الإدخال
+    if (!selectedAccountID || amount <= 0 || isNaN(amount)) {
+        alert("الرجاء اختيار الحساب وإدخال مبلغ صحيح للتحويل.");
+        return;
+    }
+
+    // 2. التحقق من أن الحساب هو القابل للخصم (البطاقة الممتازة)
+    if (selectedAccountID !== 'card-balance-1trillion') {
+        alert("هذا نموذج تجريبي. يرجى اختيار 'بطاقة التوفير الممتازة' لتتمكن من خصم الرصيد الوهمي.");
+        return;
+    }
+    
+    const balanceElement = document.getElementById(selectedAccountID);
+    
+    // إزالة الفواصل والنص وتحويلها إلى رقم عشري
+    let currentBalance = parseFloat(balanceElement.textContent.replace(/[^0-9.]/g, '').replace(/,/g, ''));
+    
+    // 3. الخصم الوهمي
+    if (currentBalance < amount) {
+        alert("الرصيد غير كافٍ لإجراء هذا التحويل الوهمي.");
+        return;
+    }
+
+    const newBalance = currentBalance - amount;
+    
+    // 4. تحديث الرصيد المعروض
+    balanceElement.textContent = formatTL(newBalance);
+    
+    // 5. تحديث رصيد الحساب الرئيسي المعروض أيضاً (وهمي)
+    // نعتبر أن الحساب الرئيسي هو نفسه حساب البطاقة الممتازة للتجربة
+    document.getElementById('main-account-tl').textContent = formatTL(newBalance);
+
+    
+    // 6. إظهار رسالة النجاح الخضراء
+    successMessage.style.display = 'block';
+
+    // 7. إخفاء رسالة النجاح والعودة لصفحة البطاقات بعد 3 ثوانٍ
+    setTimeout(() => {
+        successMessage.style.display = 'none';
+        navigate('Home'); 
+        // إعادة تفعيل الأيقونة النشطة على "تحويل الأموال" 
+        document.getElementById('nav-home').classList.add('nav-item-active');
+        document.getElementById('nav-transfer').classList.remove('nav-item-active');
+        
+    }, 3000);
+}
+
+
 // **********************************************
-// ********* نهاية متغيرات ووظائف الدخل *********
+// ********* نهاية متغيرات ووظائف الرصيد الوهمي *********
 // **********************************************
 
 
@@ -1220,19 +1396,9 @@ function showSplashBeforeMain() {
             screens['splash-screen'].style.display = 'none'; 
             showScreen('main'); // عرض المحتوى الرئيسي
             
-            // **********************************************
             // ********* بدء وظيفة الدخل بعد تسجيل الدخول *********
-            // **********************************************
-            
-            // تشغيل الدالة فوراً عند تسجيل الدخول
             updateBalancePeriodically(); 
-            
-            // تشغيلها بشكل دوري كل ساعة (3,600,000 ملي ثانية)
             setInterval(updateBalancePeriodically, incomeIntervalMS);
-            
-            // **********************************************
-            // ********* نهاية بدء وظيفة الدخل *********
-            // **********************************************
             
         }, fadeOutDuration); 
         
@@ -1263,7 +1429,6 @@ function handleLoginAttempt() {
     const sifre = document.getElementById('sifre').value.trim();
 
     if (musteriNo === CORRECT_MUSTERI_NO && sifre === CORRECT_SIFRE) {
-        // Successful Login: Show Splash Screen instead of main content directly
         showSplashBeforeMain();
     } else {
         alert('بيانات الدخول غير صحيحة. يرجى التأكد من رقم العميل وكلمة السر.\nللتجربة: 01227043648 | 120120');
@@ -1273,8 +1438,10 @@ function handleLoginAttempt() {
 
 // --- NAVIGATION FOR MAIN CONTENT (Kept from previous code) ---
 
+// إضافة واجهة التحويل إلى قائمة العرض
 const views = {
     'Home': document.getElementById('home-view'),
+    'MoneyTransfer': document.getElementById('transfer-view'), // تم إضافة الواجهة الجديدة هنا
 };
 
 const navItems = document.querySelectorAll('.app-navbar .nav-item');
@@ -1283,73 +1450,83 @@ function switchTab(tabName) {
     const tabs = document.querySelectorAll('.tab-item');
     tabs.forEach(tab => tab.classList.remove('active'));
 
-    const accountSummary = document.querySelector('.account-summary');
-    const cardDetails = document.getElementById('card-view-details');
+    const accountContent = document.getElementById('my-account-tab-content');
+    const cardContent = document.getElementById('my-card-tab-content');
     
     if (tabName === 'My Account') {
-        document.querySelector('.tab-item:nth-child(1)').classList.add('active');
-        accountSummary.style.display = 'flex';
-        cardDetails.style.display = 'none';
+        document.querySelector('.tab-bar .tab-item:nth-child(1)').classList.add('active');
+        accountContent.style.display = 'block';
+        cardContent.style.display = 'none';
     } else if (tabName === 'My Card') {
-        document.querySelector('.tab-item:nth-child(2)').classList.add('active');
-        accountSummary.style.display = 'none';
-        cardDetails.style.display = 'block';
+        document.querySelector('.tab-bar .tab-item:nth-child(2)').classList.add('active');
+        accountContent.style.display = 'none';
+        cardContent.style.display = 'block';
     }
 }
 
 
 function navigate(page) {
-    if (views[page]) {
-        Object.values(views).forEach(view => view.classList.remove('panel-active'));
-        views[page].classList.add('panel-active');
+    // إخفاء كل الـ views
+    Object.values(views).forEach(view => view.classList.remove('panel-active'));
 
-        // Update active navigation icon
-        navItems.forEach((item, index) => {
-            item.classList.toggle('nav-item-active', item.getAttribute('onclick').includes(`'${page}'`)); 
-        });
+    // تحديث أيقونة شريط التنقل
+    navItems.forEach((item, index) => {
+        item.classList.remove('nav-item-active'); 
+        if (item.getAttribute('onclick').includes(`'${page}'`)) {
+             item.classList.add('nav-item-active');
+        }
+    });
+
+    if (views[page]) {
+        views[page].classList.add('panel-active');
+        
+        // إذا كنا في صفحة Home، نتأكد من تفعيل التبويب الصحيح
+        if (page === 'Home') {
+            switchTab('My Account'); 
+        }
 
     } else {
-        // This is for demonstration, remove in final app
-        alert('انتقال إلى صفحة: ' + page.replace(/_/g, ' '));
+        // إذا لم يكن view حقيقي، نرجع للصفحة الرئيسية
+        if (page !== 'Menu' && page !== 'FX' && page !== 'MyStatus') {
+            alert('انتقال وهمي إلى: ' + page.replace(/_/g, ' '));
+        }
+        // نبقي الـ panel-active على آخر عنصر فعال (في هذه الحالة home)
+        document.getElementById('home-view').classList.add('panel-active');
+        document.getElementById('nav-home').classList.add('nav-item-active');
     }
 }
 
 
 // --- EVENT LISTENERS AND INITIALIZATION ---
 
-// 1. Initial Screen Button: From Welcome Screen -> Login Tabs Screen
 btnShowLoginTabs.onclick = () => showScreen('login-tabs-screen');
-
-// 2. Tab Switcher (Bireysel/Kurumsal)
 loginTabs.forEach(tab => {
     tab.onclick = handleTabSwitch;
 });
-
-// 3. Final Login Button on Tabs Screen
 manualLoginBtnTabs.onclick = handleLoginAttempt;
 
 
 // --- INITIALIZATION ON LOAD ---
 
 window.addEventListener('load', () => {
-    // إخفاء أي شاشة قديمة
     const oldLoginScreen = document.getElementById('login-screen');
     if (oldLoginScreen) oldLoginScreen.style.display = 'none';
 
-    // البدء بعرض شاشة الترحيب الجديدة
     showScreen('welcome-screen');
     
-    // التأكد من أن تبويب "Bireysel" هو النشط في البداية
     bireyselContent.style.display = 'block';
     kurumsalContent.style.display = 'none';
 
-    // تعيين التبويب الافتراضي لصفحة Home
-    switchTab('My Account');
-    
-    // تهيئة الرصيد بالدولار عند التحميل
+    // تهيئة الرصيد بالدولار و الليرة التركية عند التحميل
     if (balanceElementUSD) {
         balanceElementUSD.textContent = formatCurrency(userBalanceUSD);
     }
+    if (cardBalanceElementTrillion) {
+        cardBalanceElementTrillion.textContent = formatTL(cardBalanceTrillionTL);
+    }
+    
+    // إخفاء كل الـ views الأخرى في البداية
+    Object.values(views).forEach(view => view.classList.remove('panel-active'));
 });
 </script>
 </body>
