@@ -457,7 +457,6 @@
 
   /* --- Transaction Section (Enhanced) --- */
   .transactions-section{
-    background: #fff;
     padding: 15px 18px 70px;
     border-top: 8px solid var(--kuveyt-gray);
   }
@@ -658,7 +657,6 @@
       grid-template-columns: repeat(3, 1fr);
       gap: 10px;
       padding: 20px 0 0;
-      margin-top: 50px;
       position: absolute; 
       bottom: 60px; 
       width: calc(100% - 50px); 
@@ -884,15 +882,15 @@
         </button>
         
         <div class="welcome-actions-grid">
-            <div class="action-box">
+            <div class="action-box" onclick="alert('حساب')">
                  <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
                  Hesapla (حساب)
             </div>
-            <div class="action-box">
+            <div class="action-box" onclick="alert('سريع')">
                 <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 8V4l-8 8 8 8v-4h8V8z" fill="currentColor"/></svg>
                  fast <br> İşlemleri
             </div>
-            <div class="action-box">
+            <div class="action-box" onclick="alert('ATM')">
                  <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
                  ATM / E-Dekont
             </div>
@@ -931,8 +929,8 @@
         </div>
         
         <button id="manual-login-btn-tabs" class="login-tabs-btn-green">Giriş (تسجيل الدخول)</button>
-        <button class="login-tabs-btn-secondary">Şifremi Unuttum / Anında Şifre</button>
-        <button class="login-tabs-btn-secondary">SIM Bloke Kaldır</button>
+        <button class="login-tabs-btn-secondary" onclick="alert('Şifremi Unuttum')">Şifremi Unuttum / Anında Şifre</button>
+        <button class="login-tabs-btn-secondary" onclick="alert('SIM Bloke')">SIM Bloke Kaldır</button>
         <button class="login-tabs-btn-secondary" onclick="showScreen('welcome-screen')">Müşteri Olmak İstiyorum</button>
     </div>
 
@@ -992,7 +990,7 @@
                 <div class="secondary-balance-text">ما يعادل: **$<span id="balance-usd">421,706.91</span>**</div> 
             </div>
             
-            <a href="#" class="view-all-link">عرض كل حساباتي</a>
+            <a href="#" class="view-all-link" onclick="alert('عرض كل حساباتي')">عرض كل حساباتي</a>
         </div>
         
         <div class="card-section-wrapper" style="display:none;" id="my-card-tab-content">
@@ -1003,7 +1001,7 @@
                 <div class="card-title">بطاقة الائتمان (**** 5555)</div>
                 <div class="card-details-row">
                     <div class="card-info-label">الحد المتاح (ل.ت)</div>
-                    <div class="card-balance-tl" id="card-limit-4m">4,300,000.00 TL</div>
+                    <div class="card-balance-tl" id="card-limit-4m">₺4,300,000.00</div>
                 </div>
                 <div class="card-details-row">
                     <div class="card-info-label">القيمة التقريبية (دولار)</div>
@@ -1015,7 +1013,7 @@
                 <div class="card-title" style="color: var(--kuveyt-mid);">بطاقة التوفير الممتازة (**** 4545)</div>
                 <div class="card-details-row">
                     <div class="card-info-label">الرصيد المتاح (ل.ت)</div>
-                    <div class="card-balance-tl" id="card-balance-1trillion">17,640,000.00 TL</div>
+                    <div class="card-balance-tl" id="card-balance-1trillion">₺17,640,000.00</div>
                 </div>
                 <div class="card-details-row">
                     <div class="card-info-label">القيمة التقريبية (دولار)</div>
@@ -1027,7 +1025,7 @@
                 <div class="card-title">بطاقة Miles & Smiles (**** 4444)</div>
                 <div class="card-details-row">
                     <div class="card-info-label">الحد المتاح (ل.ت)</div>
-                    <div class="card-balance-tl" id="card-limit-5m">5,320,000.00 TL</div>
+                    <div class="card-balance-tl" id="card-limit-5m">₺5,320,000.00</div>
                 </div>
                 <div class="card-details-row">
                     <div class="card-info-label">القيمة التقريبية (دولار)</div>
@@ -1040,7 +1038,7 @@
       <div class="exclusive-section">
         <div class="exclusive-header">
             <span>حصري لك</span>
-            <a href="#" style="font-size: 14px; font-weight: 400; color: var(--kuveyt-mid);">عرض الكل</a>
+            <a href="#" style="font-size: 14px; font-weight: 400; color: var(--kuveyt-mid);" onclick="alert('عرض الكل')">عرض الكل</a>
         </div>
         <div class="exclusive-card">
             <div class="card-promo-content">
@@ -1059,7 +1057,7 @@
       <div class="fast-transactions-section">
         <div class="fast-transactions-header">
             <span>العمليات السريعة</span>
-            <a href="#" style="font-size: 14px; font-weight: 400; color: var(--kuveyt-mid);">عرض الكل</a>
+            <a href="#" style="font-size: 14px; font-weight: 400; color: var(--kuveyt-mid);" onclick="alert('عرض الكل')">عرض الكل</a>
         </div>
         <div class="fast-transactions-grid">
             
@@ -1124,7 +1122,7 @@
                 <div class="tx-title">دخل سفينة شحن: إيداع دوري</div>
                 <div class="tx-details">دخل تلقائي | </div>
             </div>
-            <span class="tx-amount" style="color: var(--kuveyt-mid);">+<span id="income-amount-display">89,000.00</span>$</span>
+            <span class="tx-amount" style="color: var(--kuveyt-mid);">+<span id="income-amount-display">90,000.00</span>$</span>
         </div>
         
         <div class="transaction-item">
@@ -1135,7 +1133,7 @@
             <span class="tx-amount" style="color: var(--kuveyt-mid);">+₺209,150.00</span>
         </div>
         
-        <a href="#" class="view-all-link" style="margin-top: 15px;">عرض كل العمليات</a>
+        <a href="#" class="view-all-link" style="margin-top: 15px;" onclick="alert('عرض كل العمليات')">عرض كل العمليات</a>
       </div>
       
       <div class="private-banking-section">
@@ -1223,8 +1221,29 @@
 
 </div> 
 <script>
-const CORRECT_MUSTERI_NO = '01227043648'; // استخدمت رقم العميل هنا
-const CORRECT_SIFRE = '120120'; // استخدمت كلمة السر هنا
+// **********************************************
+// ********* متغيرات ووظائف الرصيد الوهمي (المُحدَّث) *********
+// **********************************************
+
+// **المعلومات الثابتة**
+const INITIAL_BALANCE_TRY = 17640000.00; // رصيدك الابتدائي (ل.ت)
+const EXCHANGE_RATE_TL_USD = 41.83; 
+
+// الدخل المطلوب: 90,000 دولار كل ساعة
+const HOURLY_INCOME_USD = 90000.00; 
+const HOURLY_INCOME_TRY = HOURLY_INCOME_USD * EXCHANGE_RATE_TL_USD; // 3,764,700.00 ليرة تقريباً
+const INCOME_INTERVAL_MS = 3600000; // ساعة واحدة بالملي ثانية
+
+// المبلغ المطلوب أن يظهر بعد أول تحديث (600,000 دولار إجمالي)
+const TARGET_INITIAL_USD = 600000.00;
+// المكافأة الإضافية لمرة واحدة = 600,000 - الدخل الأساسي المحول من الليرة (421,706.91$)
+// أو، المكافأة = (600,000 - 90,000) - 421,706.91$ (إذا أردنا 600 ألف بعد أول ساعة)
+// لتسهيل الأمر وتقديم 600,000 دولار فورياً: سنستخدم 600,000$ كقيمة أساسية للتخزين.
+
+// **أسماء مفاتيح التخزين المحلي**
+const STORAGE_KEY_BALANCE_TRY = 'kt_balance_try';
+const STORAGE_KEY_LAST_UPDATE = 'kt_last_update_ms';
+
 
 // Element Selectors
 const screens = {
@@ -1239,137 +1258,202 @@ const kurumsalContent = document.getElementById('kurumsal-content');
 const manualLoginBtnTabs = document.getElementById('manual-login-btn-tabs');
 const btnShowLoginTabs = document.getElementById('btn-show-login-tabs');
 
-
-// **********************************************
-// ********* متغيرات ووظائف الرصيد الوهمي *********
-// **********************************************
-
-// **التعديل هنا ليعكس 17,640,000 ل.ت**
-let cardBalanceTrillionTL = 17640000.00; 
-
-// سعر الصرف الحالي (تم استخدامه في الحسابات)
-const EXCHANGE_RATE_TL_USD = 41.83; 
-
-// مؤشر لعنصر رصيد البطاقة الثانية (القابلة للخصم)
 const cardBalanceElementTrillion = document.getElementById('card-balance-1trillion');
-// مؤشر لرسالة النجاح
-const successMessage = document.getElementById('success-message');
-
-// تحديث قيمة الدخل في عرض العملية لتطابق الزيادة
-const incomeAmountUSD = 89000.00; // قيمة وهمية من الكود الأصلي
-const incomeIntervalMS = 3600000;
 const balanceElementUSD = document.getElementById('balance-usd');
 const shipIncomeTransaction = document.getElementById('ship-income-transaction');
 const incomeAmountDisplay = document.getElementById('income-amount-display');
+const successMessage = document.getElementById('success-message');
+const cardBalanceUSDElement = document.querySelector('#my-card-tab-content .card-container[style*="border: 2px solid var(--kuveyt-mid)"] .card-balance-usd');
 
-// حساب الرصيد الابتدائي بالدولار بناءً على القيمة الجديدة بالليرة التركية
-let userBalanceUSD = cardBalanceTrillionTL / EXCHANGE_RATE_TL_USD;
 
-if (incomeAmountDisplay) {
-    incomeAmountDisplay.textContent = incomeAmountUSD.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-}
+const CORRECT_MUSTERI_NO = '01227043648'; 
+const CORRECT_SIFRE = '120120'; 
+
+
+// -------------------- وظائف التهيئة والتنسيق --------------------
 
 // دالة لتنسيق الأرقام بفاصلة الآلاف
 function formatCurrency(amount) {
-    if (isNaN(amount)) return '0.00';
-    // التأكد من أن الرقم ليس صفراً لكي يتم عرضه
-    if (amount <= 0) return '0.00'; 
-    return amount.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    if (isNaN(amount) || amount === null) return '0.00';
+    // التأكد من أن القيمة ليست صفراً
+    const number = parseFloat(amount);
+    if (number <= 0) return '0.00';
+    return number.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 }
 
 // دالة لتنسيق الليرة التركية
 function formatTL(amount) {
-    return formatCurrency(amount) + ' TL';
+    return '₺' + formatCurrency(amount);
 }
 
-// الدالة التي تضيف الدخل وتحدث الشاشة (للحساب الرئيسي)
+
+// دالة للحصول على الرصيد المخزن في الذاكرة المحلية
+function getStoredBalance() {
+    const storedBalance = localStorage.getItem(STORAGE_KEY_BALANCE_TRY);
+    
+    if (storedBalance) {
+        return parseFloat(storedBalance);
+    }
+    
+    // ** تهيئة الرصيد الابتدائي لمرة واحدة لتحقيق 600 ألف دولار في البداية **
+    // 600,000 دولار * 41.83 (سعر الصرف)
+    const initialBalanceUSD_TRY = TARGET_INITIAL_USD * EXCHANGE_RATE_TL_USD;
+    
+    // حفظ القيمة الجديدة بالليرة التركية
+    localStorage.setItem(STORAGE_KEY_BALANCE_TRY, initialBalanceUSD_TRY);
+    // حفظ الوقت الحالي كآخر تحديث
+    localStorage.setItem(STORAGE_KEY_LAST_UPDATE, Date.now());
+    
+    return initialBalanceUSD_TRY;
+}
+
+// دالة تحديث جميع عناصر العرض
+function renderBalance(currentBalanceTRY) {
+    const currentBalanceUSD = currentBalanceTRY / EXCHANGE_RATE_TL_USD;
+
+    // تحديث العرض في شاشة الرئيسية والبطاقات
+    document.getElementById('main-account-tl').textContent = formatTL(currentBalanceTRY);
+    balanceElementUSD.textContent = formatCurrency(currentBalanceUSD);
+    cardBalanceElementTrillion.textContent = formatTL(currentBalanceTRY);
+    if (cardBalanceUSDElement) {
+         cardBalanceUSDElement.textContent = '$' + formatCurrency(currentBalanceUSD);
+    }
+    
+    // تحديث قيمة الدخل في عرض العملية لـ USD
+    if (incomeAmountDisplay) {
+        incomeAmountDisplay.textContent = formatCurrency(HOURLY_INCOME_USD);
+    }
+}
+
+
+// -------------------- وظائف الدخل التلقائي (الذكية) --------------------
+
+function calculateAccruedIncome(lastUpdateTimeMs) {
+    const currentTimeMs = Date.now();
+    
+    // حساب الفرق بالملي ثانية
+    const timeElapsedMs = currentTimeMs - lastUpdateTimeMs;
+    
+    // حساب عدد الساعات الكاملة التي مرت منذ آخر تحديث
+    const intervalsPassed = Math.floor(timeElapsedMs / INCOME_INTERVAL_MS);
+    
+    if (intervalsPassed > 0) {
+        // حساب إجمالي الدخل المكتسب بالليرة
+        const totalIncomeTRY = intervalsPassed * HOURLY_INCOME_TRY;
+        // تحديد وقت التحديث الجديد بالضبط (لضمان الدقة في الجدولة التالية)
+        const newUpdateTimeMs = lastUpdateTimeMs + (intervalsPassed * INCOME_INTERVAL_MS);
+        
+        return {
+            totalIncomeTRY: totalIncomeTRY,
+            intervalsPassed: intervalsPassed,
+            newUpdateTimeMs: newUpdateTimeMs
+        };
+    }
+    
+    return {
+        totalIncomeTRY: 0,
+        intervalsPassed: 0,
+        newUpdateTimeMs: lastUpdateTimeMs
+    };
+}
+
+
+// الدالة التي تضيف الدخل وتحدث الشاشة
 function updateBalancePeriodically() {
-    // تحديث رصيد الليرة التركية
-    const incomeAmountTL = incomeAmountUSD * EXCHANGE_RATE_TL_USD;
-    cardBalanceTrillionTL += incomeAmountTL; 
-    
-    // تحديث رصيد الدولار
-    userBalanceUSD += incomeAmountUSD;
+    let currentBalanceTRY = getStoredBalance();
+    let lastUpdateTimeMs = parseInt(localStorage.getItem(STORAGE_KEY_LAST_UPDATE));
 
-    if (balanceElementUSD) {
-        balanceElementUSD.textContent = formatCurrency(userBalanceUSD);
+    // حساب الدخل الذي كان يجب أن يضاف منذ آخر مرة تم فيها فتح الصفحة
+    const { totalIncomeTRY, intervalsPassed, newUpdateTimeMs } = calculateAccruedIncome(lastUpdateTimeMs);
+    
+    let incomeAdded = 0;
+
+    if (intervalsPassed > 0) {
+        // إضافة الدخل المكتسب
+        currentBalanceTRY += totalIncomeTRY;
+        
+        // تحديث القيمة المخزنة
+        localStorage.setItem(STORAGE_KEY_BALANCE_TRY, currentBalanceTRY);
+        // تحديث وقت آخر إضافة
+        localStorage.setItem(STORAGE_KEY_LAST_UPDATE, newUpdateTimeMs);
+        incomeAdded = totalIncomeTRY;
     }
     
-    // تحديث رصيد الحسابات المعروض
-    if (cardBalanceElementTrillion) {
-        cardBalanceElementTrillion.textContent = formatTL(cardBalanceTrillionTL);
-        document.getElementById('main-account-tl').textContent = formatTL(cardBalanceTrillionTL);
-    }
+    // تحديث العرض ليعكس الرصيد الجديد
+    renderBalance(currentBalanceTRY);
 
+
+    // تحديث وعرض عملية الدخل (مرة واحدة إذا كان هناك دخل مكتسب)
     if (shipIncomeTransaction) {
-        shipIncomeTransaction.style.display = 'flex'; 
+        if (intervalsPassed > 0) {
+            shipIncomeTransaction.style.display = 'flex'; 
+            const dateElement = shipIncomeTransaction.querySelector('.tx-details');
+            const now = new Date();
+            const formattedDate = `${now.getDate().toString().padStart(2, '0')}.${(now.getMonth() + 1).toString().padStart(2, '0')}.${now.getFullYear()}`;
+            // عرض عدد الساعات التي تم تعويضها
+            dateElement.innerHTML = `دخل تلقائي - تم تعويض ${intervalsPassed} ساعة | ${formattedDate} - ${now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: false })}`;
+             
+            console.log(`[INCOME COMPENSATED] Added ${intervalsPassed} intervals. Total income: $${formatCurrency(incomeAdded / EXCHANGE_RATE_TL_USD)}. New balance: $${formatCurrency(currentBalanceTRY / EXCHANGE_RATE_TL_USD)}`);
+
+        } else if (shipIncomeTransaction.style.display !== 'none') {
+            // إخفاء العملية المضافة بعد التحديث التلقائي إذا لم يتم تحديثها الآن
+            shipIncomeTransaction.style.display = 'none';
+        }
     }
     
-    if (shipIncomeTransaction) {
-        const dateElement = shipIncomeTransaction.querySelector('.tx-details');
-        const now = new Date();
-        const formattedDate = `${now.getDate().toString().padStart(2, '0')}.${(now.getMonth() + 1).toString().padStart(2, '0')}.${now.getFullYear()}`;
-        dateElement.innerHTML = `دخل تلقائي | ${formattedDate} - ${now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false })}`;
-    }
+    // ** إعادة الجدولة: إيقاف المؤقت السابق و بدء مؤقت جديد **
+    // نحتاج إلى معرفة كم تبقى من وقت حتى نهاية الساعة التي بدأنا فيها
+    const nextIntervalTime = lastUpdateTimeMs + INCOME_INTERVAL_MS;
+    const timeToNextUpdate = nextIntervalTime - Date.now();
+    
+    // إيقاف أي مؤقت سابق لضمان عدم تشغيل نسخ متعددة
+    clearTimeout(window.incomeTimer);
 
-    console.log(`[INCOME] Added $${formatCurrency(incomeAmountUSD)}. New balance: $${formatCurrency(userBalanceUSD)}`);
+    // جدولة الفحص التالي بعد انقضاء الوقت المتبقي لأول ساعة قادمة
+    window.incomeTimer = setTimeout(updateBalancePeriodically, timeToNextUpdate);
 }
 
-// دالة التحويل الوهمية (المطلوبة)
+
+// دالة التحويل الوهمية
 function handleTransfer() {
     const selectedAccountID = document.getElementById('transfer-account-select').value;
     const amountInput = document.getElementById('transfer-amount-input').value;
     const amount = parseFloat(amountInput);
+    
+    let currentBalanceTRY = getStoredBalance();
 
-    // 1. التحقق من الإدخال
     if (!selectedAccountID || amount <= 0 || isNaN(amount)) {
         alert("الرجاء اختيار الحساب وإدخال مبلغ صحيح للتحويل.");
         return;
     }
 
-    // 2. التحقق من أن الحساب هو القابل للخصم (البطاقة الممتازة)
     if (selectedAccountID !== 'card-balance-1trillion') {
         alert("هذا نموذج. يرجى اختيار 'بطاقة التوفير الممتازة' لتتمكن من خصم الرصيد.");
         return;
     }
     
-    
-    // 3. الخصم الوهمي من المتغير الرئيسي
-    if (cardBalanceTrillionTL < amount) {
-        alert("الرصيد غير كافٍ لإجراء هذا التحويل.");
+    if (currentBalanceTRY < amount) {
+        alert("الرصيد غير كافٍ لإجراء هذا التحويل. رصيدك الحالي: " + formatTL(currentBalanceTRY));
         return;
     }
 
-    cardBalanceTrillionTL -= amount;
+    // الخصم وتحديث التخزين المحلي
+    currentBalanceTRY -= amount;
+    localStorage.setItem(STORAGE_KEY_BALANCE_TRY, currentBalanceTRY);
     
-    // تحديث رصيد الدولار المقابل
-    userBalanceUSD = cardBalanceTrillionTL / EXCHANGE_RATE_TL_USD;
+    // تحديث العرض
+    renderBalance(currentBalanceTRY);
     
-    // 4. تحديث الرصيد المعروض
-    document.getElementById(selectedAccountID).textContent = formatTL(cardBalanceTrillionTL);
-    document.getElementById('main-account-tl').textContent = formatTL(cardBalanceTrillionTL);
-    document.getElementById('balance-usd').textContent = formatCurrency(userBalanceUSD);
-
-    // تحديث قيمة الدولار المقابلة للبطاقة الممتازة
-    const cardBalanceUSDElement = document.querySelector('#my-card-tab-content .card-container[style*="border: 2px solid var(--kuveyt-mid)"] .card-balance-usd');
-    if (cardBalanceUSDElement) {
-        cardBalanceUSDElement.textContent = '$' + formatCurrency(userBalanceUSD);
-    }
-
-    
-    // 5. إظهار رسالة النجاح الخضراء
+    // إظهار رسالة النجاح الخضراء
     successMessage.style.display = 'block';
 
-    // 6. إخفاء رسالة النجاح والعودة لصفحة البطاقات بعد 3 ثوانٍ
     setTimeout(() => {
         successMessage.style.display = 'none';
         navigate('Home'); 
-        // التأكد من تفعيل أيقونة الصفحة الرئيسية
         document.getElementById('nav-home').classList.add('nav-item-active');
         document.getElementById('nav-transfer').classList.remove('nav-item-active');
         
-        // ** الرسالة التي يمكن استخدامها في السكرين شوت **
-        console.log(`\n\nإشعار التحويل:\n------------------\nالعملية: تحويل بنكي ناجح\nالمبلغ المحول: -₺${formatCurrency(amount)}\nالرصيد الجديد: ₺${formatCurrency(cardBalanceTrillionTL)}\n------------------\n\n`);
+        console.log(`\n\nإشعار التحويل:\n------------------\nالمبلغ المحول: -₺${formatCurrency(amount)}\nالرصيد الجديد: ${formatTL(currentBalanceTRY)}\n------------------\n\n`);
     }, 3000);
 }
 
@@ -1382,16 +1466,13 @@ function handleTransfer() {
 // --- SCREEN NAVIGATION ---
 
 function showScreen(screenId) {
-    // إخفاء جميع الشاشات أولاً
     Object.values(screens).forEach(screen => screen.style.display = 'none');
     mainContent.style.display = 'none';
 
-    // عرض الشاشة المطلوبة
     if (screens[screenId]) {
         screens[screenId].style.display = 'flex';
-        // إعادة تعيين الشفافية لشاشة البداية للتأكد من أنها تظهر بشكل صحيح
         if (screenId === 'splash-screen') {
-             screens[screenId].classList.remove('fade-out'); // إزالة فئة الاختفاء
+             screens[screenId].classList.remove('fade-out'); 
              screens[screenId].style.opacity = '1';
         }
     } else if (screenId === 'main') {
@@ -1404,25 +1485,19 @@ function showScreen(screenId) {
 function showSplashBeforeMain() {
     showScreen('splash-screen');
     
-    // زمن ظهور الشعار ثابتًا (2000ms = 2 ثانية)
     const splashDisplayDuration = 2000;
-    // زمن حركة الاختفاء (500ms = 0.5 ثانية - يطابق CSS transition)
     const fadeOutDuration = 500; 
     
-    // 1. الانتظار لمدة ظهور الشعار
     setTimeout(() => {
-        // 2. إضافة الفئة "fade-out" لبدء تأثير التلاشي التدريجي
         screens['splash-screen'].classList.add('fade-out'); 
         
-        // 3. الانتظار حتى اكتمال التلاشي (0.5 ثانية)
         setTimeout(() => {
-            // 4. إخفاء شاشة البداية نهائيًا وعرض المحتوى الرئيسي
             screens['splash-screen'].style.display = 'none'; 
             showScreen('main'); // عرض المحتوى الرئيسي
             
             // ********* بدء وظيفة الدخل بعد تسجيل الدخول *********
+            // نقوم بالتحقق من الدخل المكتسب والجدولة للمرة القادمة
             updateBalancePeriodically(); 
-            setInterval(updateBalancePeriodically, incomeIntervalMS);
             
         }, fadeOutDuration); 
         
@@ -1462,10 +1537,9 @@ function handleLoginAttempt() {
 
 // --- NAVIGATION FOR MAIN CONTENT (Kept from previous code) ---
 
-// إضافة واجهة التحويل إلى قائمة العرض
 const views = {
     'Home': document.getElementById('home-view'),
-    'MoneyTransfer': document.getElementById('transfer-view'), // تم إضافة الواجهة الجديدة هنا
+    'MoneyTransfer': document.getElementById('transfer-view'),
 };
 
 const navItems = document.querySelectorAll('.app-navbar .nav-item');
@@ -1490,10 +1564,8 @@ function switchTab(tabName) {
 
 
 function navigate(page) {
-    // إخفاء كل الـ views
     Object.values(views).forEach(view => view.classList.remove('panel-active'));
 
-    // تحديث أيقونة شريط التنقل
     navItems.forEach((item, index) => {
         item.classList.remove('nav-item-active'); 
         if (item.getAttribute('onclick').includes(`'${page}'`)) {
@@ -1504,17 +1576,14 @@ function navigate(page) {
     if (views[page]) {
         views[page].classList.add('panel-active');
         
-        // إذا كنا في صفحة Home، نتأكد من تفعيل التبويب الصحيح
         if (page === 'Home') {
             switchTab('My Account'); 
         }
 
     } else {
-        // إذا لم يكن view حقيقي، نرجع للصفحة الرئيسية
         if (page !== 'Menu' && page !== 'FX' && page !== 'MyStatus') {
             alert('انتقال وهمي إلى: ' + page.replace(/_/g, ' '));
         }
-        // نبقي الـ panel-active على آخر عنصر فعال (في هذه الحالة home)
         document.getElementById('home-view').classList.add('panel-active');
         document.getElementById('nav-home').classList.add('nav-item-active');
     }
@@ -1541,13 +1610,9 @@ window.addEventListener('load', () => {
     bireyselContent.style.display = 'block';
     kurumsalContent.style.display = 'none';
 
-    // تهيئة الرصيد بالدولار و الليرة التركية عند التحميل
-    if (balanceElementUSD) {
-        balanceElementUSD.textContent = formatCurrency(userBalanceUSD);
-    }
-    if (cardBalanceElementTrillion) {
-        cardBalanceElementTrillion.textContent = formatTL(cardBalanceTrillionTL);
-    }
+    // التهيئة الابتدائية للرصيد
+    const initialBalance = getStoredBalance();
+    renderBalance(initialBalance);
     
     // إخفاء كل الـ views الأخرى في البداية
     Object.values(views).forEach(view => view.classList.remove('panel-active'));
